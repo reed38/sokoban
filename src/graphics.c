@@ -1,6 +1,11 @@
+
+
 #include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 #define MAXSIZE 10
 
@@ -22,24 +27,19 @@ int configureTerminal()
 	return 1;
 }
 
-int litClavier()
+void terminalReset()
 {
-	char r[MAXSIZE];
-	int c;
+	system("clear");
 
-	if ((c=read(0,r,3)) == - 1 ) return 0;
-
-	switch (r[0]) {
-		case 27 :  if ((c==3) && (r[1]==91)) return (r[2]-64); else return 0; break;
-		default: return r[0]; break;
-	}
 }
 
-int main(void)
+
+void terminalRefresh(char *map, int maxHeight)
 {
-	while(1)
+	terminalReset();
+	for (int i=0;i<maxHeight;i++)
 	{
-		printf("%d\n",litClavier());
+		printf("%s\n",map[i]);
 	}
-	return 0;
+
 }
