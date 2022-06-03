@@ -1,6 +1,5 @@
-# Ignorer les dossiers build et lib
+# Ignorer le dossier build
 build/*
-lib/*
 
 # Ignorer les executables
 bin/*
