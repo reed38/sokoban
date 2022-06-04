@@ -11,20 +11,20 @@
 #   2017-04-24 - changed order of linker params
 # ------------------------------------------------
 
-# project name (generate executable with this name)
+# Nom du projet (pour la génération du binaire)
 TARGET   = sokoban
 
 CC       = gcc
-# compiling flags here
-CFLAGS   = -std=c99 -Wall -I. -I$(INCDIR)
+# Options pour la compilation
+CFLAGS   = -std=c99 -Wall -g -fsanitize=address -I. -I$(INCDIR)
 
 LINKER   = gcc
-# linking flags here
+# Options pour l'édition de liens
 LFLAGS   = -Wall -g -fsanitize=address -I. -I$(INCDIR) -lm
 
-# change these to proper directories where each file should be
+# Répertoires du projet
 SRCDIR   = src
-INCDIR 	 = include  
+INCDIR 	 = include
 OBJDIR   = build
 BINDIR   = bin
 
@@ -33,20 +33,23 @@ INCLUDES := $(wildcard $(INCDIR)/*.h)
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 rm       = rm -f
 
-
+# Edition de liens
 $(BINDIR)/$(TARGET): $(OBJECTS)
 	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
 	@echo "Linking complete!"
 
+# Compilation
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiled "$<" successfully!"
 
+# Supprime les fichiers de compilation du projet
 .PHONY: clean
 clean:
 	@$(rm) $(OBJECTS)
 	@echo "Cleanup complete!"
 
+# Supprime le binaire
 .PHONY: remove
 remove: clean
 	@$(rm) $(BINDIR)/$(TARGET)
