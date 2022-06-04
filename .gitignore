@@ -1,6 +1,8 @@
-# Ignorer les dossiers build et lib
+# Ignorer le dossier vscode (config local du projet)
+.vscode
+
+# Ignorer le dossier build
 build/*
-lib/*
 
 # Ignorer les executables
 bin/*
