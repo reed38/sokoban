@@ -15,8 +15,14 @@ int main(void)
     int numberLines=levelsNode->numberLines;
     int playerX=levelsNode->playerX;
     int playerY=levelsNode->playerY;
-    terminalReset();
+    configureTerminal();
     terminalRefresh(mapBuffer,numberLines);
+    
+    while(1)
+    {
+        move(&playerX,&playerY,mapBuffer);
+        terminalRefresh(mapBuffer,numberLines);
+    }
 
 
 
