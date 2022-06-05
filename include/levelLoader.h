@@ -18,7 +18,7 @@ typedef struct Level {
 	unsigned int levelNumber; /**< Numéro du niveau */
 	char *author; /**< Auteur du tableau */
 	char *comment; /**< Commentaire */
-	char sucess; /**< Indicateur de résolution du niveau */
+	char success; /**< Indicateur de résolution du niveau */
 	char **map; /**< Tableau 2D réprésentant le tableau du fichier (map) */
 	unsigned int numberLines; /**< Nombre de ligne du tableau */
 	/*@{*/

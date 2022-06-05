@@ -133,13 +133,17 @@ static void parseLine(char *line)
 		currentLevel = insertLevel(atoi(removeKeyword(line)));
 		//listeAffiche();
 	} 
-	else if(startWith(";AUTHOR", line))
+	else if(startWith(";AUTHOR", line)) // Mot clef AUTHOR
 	{
 		insertInfo(&(currentLevel->author), removeKeyword(line));
 	}
-	else if(startWith(";COMMENT", line))
+	else if(startWith(";COMMENT", line)) // Mot clef COMMENT
 	{
 		insertInfo(&(currentLevel->comment), removeKeyword(line));
+	}
+	else if(startWith(";SUCCESS", line)) // Mot clef SUCCESS
+	{
+		currentLevel->success = atoi(removeKeyword(line));
 	}
 	else // Pas de mot clef : c'est une ligne d'un tableau
 	{
@@ -167,7 +171,7 @@ static Level* insertLevel(unsigned int levelNumber)
 	lv->levelNumber = levelNumber;
 	lv->author = NULL;
 	lv->comment = NULL;
-	lv->sucess = 0;
+	lv->success = 0;
 	lv->map = NULL;
 	lv->numberLines = 0;
 	lv->nextLevel = NULL;
