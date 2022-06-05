@@ -15,8 +15,8 @@ int main(void)
     int numberLines=levelsNode->numberLines;
     int playerX=levelsNode->playerX;
     int playerY=levelsNode->playerY;
-    for(int i = 0; i != numberLines; i++) 
-	    printf("\t\t%s\n", mapBuffer);
+    terminalReset();
+    terminalRefresh(mapBuffer,numberLines);
 
 
 
