@@ -36,6 +36,23 @@ static void freeNode(void)
 	}
 }
 
+// A virer à la fin, sert de débug
+/*static void listeAffiche(void)
+{
+	Level *ptrFollow = levelsNode;
+
+	if (NULL == ptrFollow)
+		printf("Liste vide!");
+	else
+		printf("Contenu de la liste : ");
+	while (NULL != ptrFollow) {
+		printf("%d ", ptrFollow->levelNumber);
+
+		ptrFollow = ptrFollow->nextLevel;
+	}
+	printf("\n");
+}*/
+
 /**
  * @brief Affiche toutes les informations sur la file contenant les niveaux en mémoire.
  */

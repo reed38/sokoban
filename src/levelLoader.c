@@ -34,23 +34,6 @@ static void generateMap(char ***, unsigned int *,  char *);
 	FONCTIONS
 ------------------------------------------------------------------------------*/
 
-// A virer à la fin, sert de débug
-void listeAffiche(void)
-{
-	Level *ptrFollow = levelsNode;
-
-	if (NULL == ptrFollow)
-		printf("Liste vide!");
-	else
-		printf("Contenu de la liste : ");
-	while (NULL != ptrFollow) {
-		printf("%d ", ptrFollow->levelNumber);
-
-		ptrFollow = ptrFollow->nextLevel;
-	}
-	printf("\n");
-}
-
 /**
  * @brief Fonction déterminant si une chaîne débute par un mot clef donné.
  * 
@@ -133,13 +116,13 @@ static void parseLine(char *line)
 		currentLevel = insertLevel(atoi(removeKeyword(line)));
 		//listeAffiche();
 	} 
-	else if(startWith(";AUTHOR", line)) // Mot clef AUTHOR
-	{
-		insertInfo(&(currentLevel->author), removeKeyword(line));
-	}
 	else if(startWith(";COMMENT", line)) // Mot clef COMMENT
 	{
 		insertInfo(&(currentLevel->comment), removeKeyword(line));
+	}
+	else if(startWith(";AUTHOR", line)) // Mot clef AUTHOR
+	{
+		insertInfo(&(currentLevel->author), removeKeyword(line));
 	}
 	else if(startWith(";SUCCESS", line)) // Mot clef SUCCESS
 	{
@@ -169,8 +152,8 @@ static Level* insertLevel(unsigned int levelNumber)
 	}
 
 	lv->levelNumber = levelNumber;
-	lv->author = NULL;
 	lv->comment = NULL;
+	lv->author = NULL;
 	lv->success = 0;
 	lv->map = NULL;
 	lv->numberLines = 0;
