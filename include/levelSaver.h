@@ -18,5 +18,10 @@
  */
 extern void saveLevels(char *);
 
+/**
+ * @brief Fonction de test du levelSaver et levelLoader.
+ */
+extern void testLevelLoadAndSave(void);
+
 
 #endif

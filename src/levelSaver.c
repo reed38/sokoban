@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "levelSaver.h"
 #include "levelLoader.h"
@@ -42,9 +41,9 @@ void saveLevels(char *destination)
         {
            fprintf(saveFile, "%s\n", ptr->map[i]); 
         }
+
+        // TODO : Implémenter l'historique de mouvmeents PATH
         
-
-
 		ptr = ptr->nextLevel;
 	}
 

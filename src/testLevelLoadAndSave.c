@@ -1,7 +1,7 @@
 /**
- * @file testLevelLoader.c
+ * @file testLevelLoadAndSave.c
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
- * @brief Programme testant le chargeant les niveaux en mémoire.
+ * @brief Programme testant le chargement et la sauvegarde de niveaux en mémoire
  * 
  */
 #include <stdio.h>
@@ -9,11 +9,13 @@
 #include <string.h>
 
 #include "levelLoader.h"
+#include "levelSaver.h"
 
 static void freeNode(void);
 static void printLevelsInfo(void);
 
 // Parceque voir aucune fuite de mémoires avec valgrind ça fait plaisir
+
 static void freeNode(void) 
 {
 	Level *ptrFollow = levelsNode;
@@ -83,12 +85,25 @@ static void printLevelsInfo(void)
 	printf("FIN DES INFOS\n");
 }
 
-void testLevelLoader(void) {
+void testLevelLoadAndSave(void) {
 	readLevelsFile("data/level/levels2.lvl");
 	printLevelsInfo();
 
 	determinePlayerCoord(levelsNode); // 1er level
 	printf("Coordonées x et y du joueur du 1er tableau : %d,%d\n", levelsNode->playerX, levelsNode->playerY);
+
+	char *author = "Jean-Dupont de La Clergerie";
+	levelsNode->author = (char *) realloc(levelsNode->author, (strlen(author) + 1) * sizeof(char));
+	if(levelsNode->author == NULL) 
+	{
+  		fprintf(stderr, "Mémoire insuffisante !\n");
+  		exit(1);
+	}
+	strcpy(levelsNode->author, author);
+
+	saveLevels("data/level/levels3.lvl");
+
+	printLevelsInfo();
 
 	freeNode();
 }

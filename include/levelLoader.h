@@ -59,8 +59,8 @@ extern void readLevelsFile(char *);
 extern void determinePlayerCoord(Level *);
 
 /**
- * @brief Fonction de test du levelLoader.
+ * @brief Fonction de test du levelLoader et du  levelSaver.
  */
-extern void testLevelLoader(void);
+extern void testLevelLoadAndSave(void);
 
 #endif

@@ -6,9 +6,7 @@
 
 int main(int argc, char *argv[]) 
 {
-	//testLevelLoader();
-	readLevelsFile("data/level/levels.lvl");
-	saveLevels("data/level/levels3.lvl");
-
+	testLevelLoadAndSave();
+		
 	return(0); 
 }
