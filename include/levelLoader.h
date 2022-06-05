@@ -38,4 +38,9 @@ extern Level *levelsNode;
  */
 extern void readLevelsFile(char *location);
 
+/**
+ * @brief Fonction de test du levelLoader.
+ */
+extern void testLevelLoader(void);
+
 #endif

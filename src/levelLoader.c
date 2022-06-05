@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "levelLoader.h"
 
 /*------------------------------------------------------------------------------
@@ -103,7 +104,6 @@ static void parseLine(char *line)
 			return;
 		
 		generateMap(&(currentLevel->map), &(currentLevel->numberLines), line);
-		//printf("-lvl = %d \t -ln = %d \t l = %s\n", currentLevel->levelNumber, (currentLevel->numberLines) - 1, currentLevel->map[(currentLevel->numberLines) - 1]);
 	}
 }
 
@@ -174,7 +174,13 @@ static void generateMap(char ***map, unsigned int *numberLines, char *line)
 		exit(1);
 	}
 
+	// On supprime les fins de ligne (CR et/ou LF) (évite de nombreux problèmes)
+	if(strchr(line, '\r') != NULL)
+		line[strcspn(line, "\r")] = '\0'; 
+	if(strchr(line, '\n') != NULL)
+		line[strcspn(line, "\n")] = '\0'; 
 	strcpy(newMap[*numberLines], line);
+
 	*map = newMap;
 	*numberLines += 1;
 }
