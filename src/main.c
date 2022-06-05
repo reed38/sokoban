@@ -13,14 +13,14 @@ int main(void)
     readLevelsFile(levelFile);
     char **mapBuffer=levelsNode->map;
     int numberLines=levelsNode->numberLines;
-    int playerX=levelsNode->playerX;
+    levelsNode->playerX;
     int playerY=levelsNode->playerY;
     configureTerminal();
     terminalRefresh(mapBuffer,numberLines);
     
     while(1)
     {
-        move(&playerX,&playerY,mapBuffer);
+        move(&playerY,&playerX,mapBuffer);
         terminalRefresh(mapBuffer,numberLines);
     }
 
