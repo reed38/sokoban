@@ -50,6 +50,7 @@ static void printLevelsInfo(void)
 			printf("\tAUTEUR : %s\n", ptrFollow->author);
 		if(ptrFollow->comment != NULL)
 			printf("\tCOMMENTAIRE : %s\n", ptrFollow->comment);
+		printf("\tNIVEAU RESOLU : %d\n", ptrFollow->success);
 		printf("\tLIGNES TABLEAU : %d\n", ptrFollow->numberLines);
 		if(ptrFollow->nextLevel != NULL)
 			printf("\tLEVEL SUIVANT : %d\n", ptrFollow->nextLevel->levelNumber);
@@ -66,7 +67,7 @@ static void printLevelsInfo(void)
 }
 
 void testLevelLoader(void) {
-	readLevelsFile("data/level/levels.lvl");
+	readLevelsFile("data/level/levels2.lvl");
 	printLevelsInfo();
 
 	determinePlayerCoord(levelsNode); // 1er level
