@@ -167,6 +167,7 @@ static Level* insertLevel(unsigned int levelNumber)
 	lv->levelNumber = levelNumber;
 	lv->author = NULL;
 	lv->comment = NULL;
+	lv->sucess = 0;
 	lv->map = NULL;
 	lv->numberLines = 0;
 	lv->nextLevel = NULL;
