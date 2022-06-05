@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) 
 {
-    testLevelLoader();
+	testLevelLoader();
 
 	return(0); 
 }

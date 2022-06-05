@@ -22,11 +22,12 @@ Level *levelsNode = NULL;
 	PROTOTYPES
 ------------------------------------------------------------------------------*/
 
-static void parseLine(char *);
-static Level* insertLevel(unsigned int); 
-static void generateMap(char ***, unsigned int *,  char *);
 static inline int startWith(char *, char *);
 static inline char* removeKeyword(char *);
+static void parseLine(char *);
+static Level* insertLevel(unsigned int); 
+static void insertInfo(char **, char *);
+static void generateMap(char ***, unsigned int *,  char *);
 
 
 /*------------------------------------------------------------------------------
@@ -50,6 +51,35 @@ void listeAffiche(void)
 	printf("\n");
 }
 
+/**
+ * @brief Fonction déterminant si une chaîne débute par un mot clef donné.
+ * 
+ * @param keyword Mot clef
+ * @param command Commande
+ * @return int 0 si le mot clef est trouvé, 1 sinon
+ */
+static inline int startWith(char *keyword, char *command) 
+{
+	return strncmp(keyword, command, strlen(keyword)) == 0;
+}
+
+/**
+ * @brief Fonction qui supprime un mot clef d'une chaîne.
+ * Chaque commande commence par un mot clef, suivie d'un espace.
+ * La fonction renvoie tout ce qui suit l'espace.
+ * 
+ * @param command Commande
+ * @return char* Pointeur vers le caractère suivant l'espace
+ */
+static inline char* removeKeyword(char *command) 
+{
+	char *args = command;
+	while(*args && *args != ' ') 
+		args++;
+	
+	return ++args;
+} 
+
 void readLevelsFile(char *location) 
 {
 	FILE *levelsFile = NULL;
@@ -66,10 +96,10 @@ void readLevelsFile(char *location)
 		exit(0);
 	}
 	
-    while ((lineLen = getline(&lineBuffer, &lineSize, levelsFile)) != -1) 
+	while ((lineLen = getline(&lineBuffer, &lineSize, levelsFile)) != -1) 
 	{	// getline alloue dynamiquement un buffer pour la ligne
 		parseLine(lineBuffer);
-    }
+	}
 
 	if(lineBuffer != NULL)
 	{
@@ -92,12 +122,25 @@ static void parseLine(char *line)
 {
 	static Level *currentLevel = NULL;
 
+	// On supprime les fins de ligne (CR et/ou LF) (évite de nombreux problèmes)
+	if(strchr(line, '\r') != NULL)
+		line[strcspn(line, "\r")] = '\0'; 
+	if(strchr(line, '\n') != NULL)
+		line[strcspn(line, "\n")] = '\0'; 
+
 	if(startWith(";LEVEL", line)) // Mot clef LEVEL
 	{
-		char *args = removeKeyword(line);
-		currentLevel = insertLevel(atoi(args));
+		currentLevel = insertLevel(atoi(removeKeyword(line)));
 		//listeAffiche();
 	} 
+	else if(startWith(";AUTHOR", line))
+	{
+		insertInfo(&(currentLevel->author), removeKeyword(line));
+	}
+	else if(startWith(";COMMENT", line))
+	{
+		insertInfo(&(currentLevel->comment), removeKeyword(line));
+	}
 	else // Pas de mot clef : c'est une ligne d'un tableau
 	{
 		if(levelsNode == NULL)
@@ -122,6 +165,8 @@ static Level* insertLevel(unsigned int levelNumber)
 	}
 
 	lv->levelNumber = levelNumber;
+	lv->author = NULL;
+	lv->comment = NULL;
 	lv->map = NULL;
 	lv->numberLines = 0;
 	lv->nextLevel = NULL;
@@ -140,6 +185,24 @@ static Level* insertLevel(unsigned int levelNumber)
 	ptrFollow->nextLevel = lv;	// On fait pointer le dernier élément de la liste, à notre nouveau élément
 
 	return lv;
+}
+
+/**
+ * @brief Fonction servant à copier une chaîne de caractères vers un emplacement mémoire.
+ * Utilisée ici afin d'insérer une information dans un membre de la stucture d'un niveau (auteur, commentaire...).
+ * 
+ * @param member Pointeur vers un emplacement de la mémoire (peut être NULL)
+ * @param args Information à placer dans la mémoire
+ */
+static void insertInfo(char **member, char *args) 
+{
+	*member = (char *) malloc((strlen(args) + 1) * sizeof(char));
+	if(*member == NULL) 
+	{
+		fprintf(stderr, "Mémoire insuffisante !\n");
+		exit(1);
+	}
+	strcpy(*member, args);
 }
 
 /**
@@ -174,42 +237,27 @@ static void generateMap(char ***map, unsigned int *numberLines, char *line)
 		exit(1);
 	}
 
-	// On supprime les fins de ligne (CR et/ou LF) (évite de nombreux problèmes)
-	if(strchr(line, '\r') != NULL)
-		line[strcspn(line, "\r")] = '\0'; 
-	if(strchr(line, '\n') != NULL)
-		line[strcspn(line, "\n")] = '\0'; 
 	strcpy(newMap[*numberLines], line);
 
 	*map = newMap;
 	*numberLines += 1;
 }
 
-/**
- * @brief Fonction déterminant si une chaîne débute par un mot clef donné.
- * 
- * @param keyword Mot clef
- * @param command Commande
- * @return int 0 si le mot clef est trouvé, 1 sinon
- */
-static inline int startWith(char *keyword, char *command) 
+// TODO : Remplacer '@' par le membre de l'enum
+void determinePlayerCoord(Level *level)
 {
-	return strncmp(keyword, command, strlen(keyword)) == 0;
+	for(int x = 0; x <= level->numberLines; x++) 
+	{
+		char element = ' '; 
+		for(int y = 0; element != '\0'; y++)
+		{
+			element = level->map[x][y];
+			if(element == '@')
+			{
+				level->playerX = x;
+				level->playerY = y;
+				return;
+			}
+		}
+	}
 }
-
-/**
- * @brief Fonction qui supprime un mot clef d'une chaîne.
- * Chaque commande commence par un mot clef, suivie d'un espace.
- * La fonction renvoie tout ce qui suit l'espace.
- * 
- * @param command Commande
- * @return char* Pointeur vers le caractère suivant l'espace
- */
-static inline char* removeKeyword(char *command) 
-{
-	char *args = command;
-	while(*args && *args != ' ') 
-    	args++;
-	
-	return ++args;
-} 

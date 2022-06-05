@@ -16,11 +16,11 @@ TARGET   = sokoban
 
 CC       = gcc
 # Options pour la compilation
-CFLAGS   = -std=c99 -Wall -g -fsanitize=address -I. -I$(INCDIR)
+CFLAGS   = -std=c99 -Wall  -I. -I$(INCDIR)
 
 LINKER   = gcc
 # Options pour l'édition de liens
-LFLAGS   = -Wall -g -fsanitize=address -I. -I$(INCDIR) -lm
+LFLAGS   = -Wall  -I. -I$(INCDIR) -lm
 
 # Répertoires du projet
 SRCDIR   = src
