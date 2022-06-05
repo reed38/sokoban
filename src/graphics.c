@@ -34,7 +34,7 @@ void terminalReset()
 }
 
 
-void terminalRefresh(char *map, int maxHeight)
+void terminalRefresh(char **map, int maxHeight)
 {
 	terminalReset();
 	for (int i=0;i<maxHeight;i++)
