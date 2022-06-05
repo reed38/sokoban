@@ -1,27 +1,19 @@
-CC := gcc
-SRCDIR := src
-BUILDDIR := build
-TARGET := bin/run
-SRCEXT := c
-SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := 
-LIB := -L lib
-INC := -I include
 
-$(TARGET): $(OBJECTS)
-	@echo " Linking..."
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB) -O3
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@echo " Building..."
-	@mkdir -p $(BUILDDIR)
-	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $< -save-temps -O3
+prog: graphics.o keys.o movements.o levelLoader.o main.o 
+	gcc -Wall -o $@ $^
 
-clean:
-	@echo " Cleaning..."; 
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
+graphics.o: graphics.c
+	gcc -Wall -c $<
+keys.o: keys.c
+	gcc -Wall -c $<
+movements.o: movements.c
+	gcc -Wall -c $<
+main.o: main.c
+	gcc -Wall -c $<
 
-# Tests
-tester:
-	$(CC) $(CFLAGS) test/tester.cpp $(INC) $(LIB) -o bin/tester
+main.o: levelLoader.c
+	gcc -Wall -c $<
+
+
+clean: rm *.o 
