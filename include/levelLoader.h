@@ -61,7 +61,7 @@ extern void readLevelsFile(char *);
  * 
  * @param level Structure du niveau que l'on souhaite initialiser
  */
-extern void initLevel(Level **);
+extern void initLevel(Level *);
 
 /**
  * @brief Fonction de test du levelLoader et du  levelSaver.

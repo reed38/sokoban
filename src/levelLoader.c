@@ -235,35 +235,35 @@ static void generateMap(char ***defaultMap, unsigned int *numberLines, char *lin
 }
 
 // TODO : Remplacer '@' par le membre de l'enum
-void initLevel(Level **level)
+void initLevel(Level *level)
 {
 	char playerFound = 0;
 
-	for(int x = 0; x <= (*level)->numberLines && !playerFound; x++) 
+	for(int x = 0; x <= level->numberLines && !playerFound; x++) 
 	{
 		char element = ' '; 
 		for(int y = 0; element != '\0' && !playerFound; y++)
 		{
-			element = (*level)->defaultMap[x][y];
+			element = level->defaultMap[x][y];
 			if(element == '@')
 			{
-				(*level)->playerX = x;
-				(*level)->playerY = y;
+				level->playerX = x;
+				level->playerY = y;
 				playerFound = 1;
 			}
 		}
 	}
 
-	(*level)->map = malloc(((*level)->numberLines) * sizeof(char*));
-	if((*level)->map == NULL) 
+	level->map = malloc((level->numberLines) * sizeof(char*));
+	if(level->map == NULL) 
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
 	}
 	
-	for(int i = 0; i < (*level)->numberLines; i++)
+	for(int i = 0; i < level->numberLines; i++)
 	{
-  		(*level)->map[i] = malloc(strlen((*level)->defaultMap[i]) + 1);
-  		strcpy((*level)->map[i], (*level)->defaultMap[i]);
+  		level->map[i] = malloc(strlen(level->defaultMap[i]) + 1);
+  		strcpy(level->map[i], level->defaultMap[i]);
 	}
 }
