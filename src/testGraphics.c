@@ -23,8 +23,8 @@ void testGraphics(void)
         return;
     }
 
-    initLevel(&levelsNode);
-    initLevel(&(levelsNode->nextLevel));
+    initLevel(levelsNode);
+    initLevel(levelsNode->nextLevel);
 
     for (;;)
     {
