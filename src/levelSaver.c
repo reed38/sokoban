@@ -39,7 +39,7 @@ void saveLevels(char *destination)
 
         for (int i=0; i<(ptr->numberLines); i++)
         {
-           fprintf(saveFile, "%s\n", ptr->map[i]); 
+           fprintf(saveFile, "%s\n", ptr->defaultMap[i]); 
         }
 
         // TODO : Implémenter l'historique de mouvmeents PATH
@@ -57,15 +57,20 @@ void freeNode(void)
 
 	while (ptrFollow != NULL) 
 	{        
-		for(int i = 0; i != ptrFollow->numberLines; i++) 
-		{
-			free(ptrFollow->map[i]);
-		}
-		free(ptrFollow->map);
+		freeLevel(ptrFollow);
 		free(ptrFollow->author);
 		free(ptrFollow->comment);
 		precPtdr = ptrFollow;
 		ptrFollow = ptrFollow->nextLevel;
 		free(precPtdr);
 	}
+}
+
+void freeLevel(Level *level) 
+{
+	for(int i = 0; i < level->numberLines; i++) 
+	{
+		free(level->map[i]);
+	}
+	free(level->map);
 }

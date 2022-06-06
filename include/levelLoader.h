@@ -19,7 +19,10 @@ typedef struct Level {
 	char *comment; /**< Commentaire */
 	char *author; /**< Auteur du tableau */
 	char success; /**< Indicateur de résolution du niveau */
-	char **map; /**< Tableau 2D réprésentant le tableau du fichier (map) */
+	unsigned int numberMov; /**< Nombre de mouvements effectués */
+	unsigned int numberPush; /**< Nombre de déplacements de caisses effectués */
+	char **defaultMap; /**< Tableau 2D (map) réprésentant le tableau dans le fichier de niveaux. Ne doit pas être modifié. */
+	char **map; /**< Tableau 2D (map) réprésentant le tableau en cours du jeu */
 	unsigned int numberLines; /**< Nombre de ligne du tableau */
 	/*@{*/
 	unsigned int playerX; /**< Abscisse du joueur dans la map */
@@ -51,16 +54,19 @@ extern Level *levelsNode;
 extern void readLevelsFile(char *);
 
 /**
- * @brief Fonction servant à déterminer les coordonées du joueur dans le tableau 2D.
- * Si le joueur existe, elle met à jour les membres playerX et playerY de la structure du niveau.
+ * @brief Fonction servant à initaliser les paramètres temporaires d'un niveau.
+ * Elle détermine les coordonées du joueur dans le tableau 2D en mettant à jour les membres playerX et playerY de la structure du niveau.
+ * Elle copie defaultMap dans map afin de garder une copie de l'originale pour la sauvegarde. 
+ * Ne pas oublier d'appeler freeLevel(Level *) une fois le niveau terminé. 
  * 
- * @param level Structure du niveau duquel on souhaite déterminer la position du joueur
+ * @param level Structure du niveau que l'on souhaite initialiser
  */
-extern void determinePlayerCoord(Level *);
+extern void initLevel(Level **);
 
 /**
  * @brief Fonction de test du levelLoader et du  levelSaver.
  */
 extern void testLevelLoadAndSave(void);
+
 
 #endif

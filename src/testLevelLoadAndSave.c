@@ -51,9 +51,9 @@ static void printLevelsInfo(void)
 		else
 			printf("\tDERNIER LEVEL\n");
 		
-		printf("\tMAP :\r");
+		printf("\tMAP ORIGINALE :\n");
 		for(int i = 0; i != ptrFollow->numberLines; i++) 
-			printf("\t\t%s\n", ptrFollow->map[i]);
+			printf("\t\t%s\n", ptrFollow->defaultMap[i]);
 			
 		ptrFollow = ptrFollow->nextLevel;
 	}
@@ -61,11 +61,25 @@ static void printLevelsInfo(void)
 }
 
 void testLevelLoadAndSave(void) {
+
 	readLevelsFile("data/level/levels2.lvl");
 	printLevelsInfo();
 
-	determinePlayerCoord(levelsNode); // 1er level
+	if(levelsNode == NULL)
+    {
+        fprintf(stderr, "Besoin d'au moins 1 niveau pour effectuer le test des levels loader/saver...\n");
+        return;
+    }
+
+	initLevel(&levelsNode); // initaliser le 1er level
 	printf("Coordonées x et y du joueur du 1er tableau : %d,%d\n", levelsNode->playerX, levelsNode->playerY);
+	printf("Modification du 1er caractère de la 1ère ligne de la map 1\n");
+	levelsNode->map[0][0] = '!';
+	printf("MAP TEMPORAIRE :\n");
+	for(int i = 0; i != levelsNode->numberLines; i++) 
+		printf("\t\t| %s\n", levelsNode->map[i]);
+	freeLevel(levelsNode);
+	printf("Map temporaire supprimée\n");
 
 	//Bloc ajoutant un auteur au 1er niveau
 	char *author = "Jean-Dupont de La Clergerie";
