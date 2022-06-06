@@ -7,11 +7,9 @@
 #include "movements.h"
 
 
-
-
 int main(void)
 {
-    char *levelFile="level.lvl";
+    char *levelFile="data/level/levels.lvl";
     readLevelsFile(levelFile);
     Level *levelPtr=levelsNode;
     char **mapBuffer=levelPtr->map;

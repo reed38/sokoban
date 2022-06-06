@@ -7,7 +7,8 @@
     #define NOTHING ' '
     #define FULLBOX 'Q'
     #define OVERTARGET 'O'
-    void move(int *x, int *y, char **currentMap);
+
+    void move(unsigned int *y, unsigned int *x, unsigned int linesNumber, char **currentMap);
 
 
     #endif

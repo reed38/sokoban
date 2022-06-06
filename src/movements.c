@@ -84,7 +84,14 @@ void move(unsigned int *y, unsigned int *x, unsigned int linesNumber, char **cur
  
 */
 
-    
+/*
+ * - Ligne 100, 161, 227, 287... (droite gauche) tu testes si x < max or max est le nombre de ligne (soit le y_max... non le x_max !)
+ *      (mais vu tes commentaires plus haut je suppose que tu y as déjà réléchi)
+ * - Fusionner les cas perso sur target / pas sur target (tu regardes au départ sur quoi il est, et genre ligne 106, tu mets 
+ *      currentMap[*y][*x]=INITIAL avec INITIAL qui vaut toi NOTHING soit TARGET (initialisé par une condition de départ ligne 97)
+ * - Possiblement d'autres optimisations peuvent être faites... Essaye de faire au mieux ! :)
+ * 
+ */  
 
 static void goRight(unsigned int *y, unsigned int *x,unsigned int max, char **currentMap)
 {
