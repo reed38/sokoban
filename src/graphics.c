@@ -1,3 +1,9 @@
+/**
+ * @file graphics.c
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief Programme de gestion de la configuration et l'affichage sur le terminal.
+ * 
+ */
 #include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -29,9 +35,9 @@ static inline void refreshTerminal(void)
 	printf("\e[1;1H\e[2J"); // Séquence d'échappement permettant d'effacer le terminal
 }
 
+// TODO : Implémenter l'affichage du score
 void printLevel(Level *level)
 {
-	// A modifier avec les bonnes valeurs après les tests
 	refreshTerminal();
 	printHeader(level->levelNumber, level->author, level->comment);
 	printMap(level->map, level->numberLines);

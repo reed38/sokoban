@@ -1,3 +1,9 @@
+/**
+ * @file testLevelLoader.c
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief Programme testant l'affichage sur le terminal.
+ * 
+ */
 #include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -5,7 +11,6 @@
 
 #include "graphics.h"
 #include "levelLoader.h"
-
 
 void testGraphics(void)
 {   
@@ -20,8 +25,17 @@ void testGraphics(void)
 
     for (;;)
     {
-        printLevel(levelsNode);
-        sleep(2);
+        for(int i = 0; i <= 5; i++)
+        {
+            levelsNode->map[0][0] = '#';
+            printLevel(levelsNode);
+            sleep(1);
+
+            levelsNode->map[0][0] = ' ';
+            printLevel(levelsNode);
+            sleep(1);
+        }
+
         
         printLevel(levelsNode->nextLevel);
         sleep(2);

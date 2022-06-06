@@ -1,3 +1,9 @@
+/**
+ * @file graphics.h
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief En-tête du programme de gestion de la configuration et l'affichage sur le terminal.
+ * 
+ */
 #ifndef __GRAPHICS_H__
 #define __GRAPHICS_H__
 
