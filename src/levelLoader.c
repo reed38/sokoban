@@ -34,23 +34,6 @@ static void generateMap(char ***, unsigned int *,  char *);
 	FONCTIONS
 ------------------------------------------------------------------------------*/
 
-// A virer à la fin, sert de débug
-void listeAffiche(void)
-{
-	Level *ptrFollow = levelsNode;
-
-	if (NULL == ptrFollow)
-		printf("Liste vide!");
-	else
-		printf("Contenu de la liste : ");
-	while (NULL != ptrFollow) {
-		printf("%d ", ptrFollow->levelNumber);
-
-		ptrFollow = ptrFollow->nextLevel;
-	}
-	printf("\n");
-}
-
 /**
  * @brief Fonction déterminant si une chaîne débute par un mot clef donné.
  * 
@@ -133,13 +116,13 @@ static void parseLine(char *line)
 		currentLevel = insertLevel(atoi(removeKeyword(line)));
 		//listeAffiche();
 	} 
-	else if(startWith(";AUTHOR", line)) // Mot clef AUTHOR
-	{
-		insertInfo(&(currentLevel->author), removeKeyword(line));
-	}
 	else if(startWith(";COMMENT", line)) // Mot clef COMMENT
 	{
 		insertInfo(&(currentLevel->comment), removeKeyword(line));
+	}
+	else if(startWith(";AUTHOR", line)) // Mot clef AUTHOR
+	{
+		insertInfo(&(currentLevel->author), removeKeyword(line));
 	}
 	else if(startWith(";SUCCESS", line)) // Mot clef SUCCESS
 	{
@@ -150,7 +133,7 @@ static void parseLine(char *line)
 		if(levelsNode == NULL)
 			return;
 		
-		generateMap(&(currentLevel->map), &(currentLevel->numberLines), line);
+		generateMap(&(currentLevel->defaultMap), &(currentLevel->numberLines), line);
 	}
 }
 
@@ -169,9 +152,12 @@ static Level* insertLevel(unsigned int levelNumber)
 	}
 
 	lv->levelNumber = levelNumber;
-	lv->author = NULL;
 	lv->comment = NULL;
+	lv->author = NULL;
 	lv->success = 0;
+	lv->numberMov = 0;
+	lv->numberPush = 0;
+	lv->defaultMap = NULL;
 	lv->map = NULL;
 	lv->numberLines = 0;
 	lv->nextLevel = NULL;
@@ -215,11 +201,11 @@ static void insertInfo(char **member, char *args)
  * La fonction va rajouter la ligne du tableau passée en paramètre à la fin de le map.
  * Chaque ligne du tableau se termine par \0 (chaîne de caractères). 
  * 
- * @param map Pointeur vers la map a qui on veut rajouter une ligne, **map peut être NULL
+ * @param defaultMap Pointeur vers la map a qui on veut rajouter une ligne, **defaultMap peut être NULL
  * @param numberLines Pointeur vers le nombre de lignes de la map
  * @param line Chaîne de caracères à ajouter à la map
  */
-static void generateMap(char ***map, unsigned int *numberLines, char *line)
+static void generateMap(char ***defaultMap, unsigned int *numberLines, char *line)
 {
 	/*
 	 * Cette fonction va créer une map temporaire de la taille de la map originale +1 afin
@@ -228,7 +214,7 @@ static void generateMap(char ***map, unsigned int *numberLines, char *line)
 	 * notre ancienne map sur notre nouvelle 
 	 */
 
-	char **newMap = (char **) realloc(*map, (*numberLines + 1) * sizeof(char*));
+	char **newMap = (char **) realloc(*defaultMap, (*numberLines + 1) * sizeof(char*));
 	if(newMap == NULL) 
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
@@ -244,25 +230,40 @@ static void generateMap(char ***map, unsigned int *numberLines, char *line)
 
 	strcpy(newMap[*numberLines], line);
 
-	*map = newMap;
+	*defaultMap = newMap;
 	*numberLines += 1;
 }
 
 // TODO : Remplacer '@' par le membre de l'enum
-void determinePlayerCoord(Level *level)
+void initLevel(Level **level)
 {
-	for(int x = 0; x <= level->numberLines; x++) 
+	char playerFound = 0;
+
+	for(int x = 0; x <= (*level)->numberLines && !playerFound; x++) 
 	{
 		char element = ' '; 
-		for(int y = 0; element != '\0'; y++)
+		for(int y = 0; element != '\0' && !playerFound; y++)
 		{
-			element = level->map[x][y];
+			element = (*level)->defaultMap[x][y];
 			if(element == '@')
 			{
-				level->playerX = x;
-				level->playerY = y;
-				return;
+				(*level)->playerX = x;
+				(*level)->playerY = y;
+				playerFound = 1;
 			}
 		}
+	}
+
+	(*level)->map = malloc(((*level)->numberLines) * sizeof(char*));
+	if((*level)->map == NULL) 
+	{
+		fprintf(stderr, "Mémoire insuffisante !\n");
+		exit(1);
+	}
+	
+	for(int i = 0; i < (*level)->numberLines; i++)
+	{
+  		(*level)->map[i] = malloc(strlen((*level)->defaultMap[i]) + 1);
+  		strcpy((*level)->map[i], (*level)->defaultMap[i]);
 	}
 }

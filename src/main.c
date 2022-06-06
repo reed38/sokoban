@@ -2,10 +2,11 @@
 #include <stdlib.h>
 
 #include "levelLoader.h"
+#include "levelSaver.h"
 
 int main(int argc, char *argv[]) 
 {
-	testLevelLoader();
-
+	testLevelLoadAndSave();
+		
 	return(0); 
 }
