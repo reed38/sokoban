@@ -17,7 +17,7 @@
 	PROTOTYPES
 ------------------------------------------------------------------------------*/
 
-static int readKeyboard(void)
+static int readKeyboard(void);
 
 
 /**
@@ -71,10 +71,11 @@ void interactionLoop(char *saveFile)
             // steps.c 
             break;
         case 'r': 
-            // steps.c             
+            //freeLevel(currentLevel);
+            //initLevel(currentLevel);          
             break;
         case 't':
-            // levelLoader.c  
+            // steps.c    
             break;
         case 's':
             saveLevels(saveFile);
