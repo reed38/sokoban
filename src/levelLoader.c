@@ -239,6 +239,11 @@ void initLevel(Level *level)
 {
 	char playerFound = 0;
 
+	// Mise des scores à 0
+	level->numberMov = 0;
+	level->numberPush = 0;
+
+	// Détermination de la position du joueur
 	for(int x = 0; x <= level->numberLines && !playerFound; x++) 
 	{
 		char element = ' '; 
@@ -254,6 +259,7 @@ void initLevel(Level *level)
 		}
 	}
 
+	// Copie de defaultMap dans map pour la modification
 	level->map = malloc((level->numberLines) * sizeof(char*));
 	if(level->map == NULL) 
 	{

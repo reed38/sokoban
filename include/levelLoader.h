@@ -54,10 +54,10 @@ extern Level *levelsNode;
 extern void readLevelsFile(char *);
 
 /**
- * @brief Fonction servant à initaliser les paramètres temporaires d'un niveau.
+ * @brief Fonction servant à initaliser / réinitialiser les paramètres temporaires d'un niveau.
  * Elle détermine les coordonées du joueur dans le tableau 2D en mettant à jour les membres playerX et playerY de la structure du niveau.
  * Elle copie defaultMap dans map afin de garder une copie de l'originale pour la sauvegarde. 
- * Ne pas oublier d'appeler freeLevel(Level *) une fois le niveau terminé. 
+ * Ne pas oublier d'appeler freeLevel(Level *) une fois le niveau terminé ou avant la réinitialisation. 
  * 
  * @param level Structure du niveau que l'on souhaite initialiser
  */
