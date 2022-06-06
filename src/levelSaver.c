@@ -49,3 +49,23 @@ void saveLevels(char *destination)
 
     fclose(saveFile);
 }
+
+void freeNode(void) 
+{
+	Level *ptrFollow = levelsNode;
+	Level *precPtdr = NULL;
+
+	while (ptrFollow != NULL) 
+	{        
+		for(int i = 0; i != ptrFollow->numberLines; i++) 
+		{
+			free(ptrFollow->map[i]);
+		}
+		free(ptrFollow->map);
+		free(ptrFollow->author);
+		free(ptrFollow->comment);
+		precPtdr = ptrFollow;
+		ptrFollow = ptrFollow->nextLevel;
+		free(precPtdr);
+	}
+}

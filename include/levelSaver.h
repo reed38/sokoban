@@ -23,5 +23,10 @@ extern void saveLevels(char *);
  */
 extern void testLevelLoadAndSave(void);
 
+/**
+ * @brief Fonction supprimant de la mémoire la liste chainée des niveaux
+ */
+extern void freeNode(void);
+
 
 #endif

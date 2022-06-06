@@ -11,32 +11,7 @@
 #include "levelLoader.h"
 #include "levelSaver.h"
 
-static void freeNode(void);
 static void printLevelsInfo(void);
-
-// Parceque voir aucune fuite de mémoires avec valgrind ça fait plaisir
-
-static void freeNode(void) 
-{
-	Level *ptrFollow = levelsNode;
-	Level *precPtdr = NULL;
-
-	while (ptrFollow != NULL) 
-	{        
-		for(int i = 0; i != ptrFollow->numberLines; i++) 
-		{
-			//printf("Supression map lv %d, ligne %d\n", ptrFollow->levelNumber, i);
-			free(ptrFollow->map[i]);
-		}
-		free(ptrFollow->map);
-		free(ptrFollow->author);
-		free(ptrFollow->comment);
-		precPtdr = ptrFollow;
-		ptrFollow = ptrFollow->nextLevel;
-		free(precPtdr);
-		//printf("Supression du lv terminee !\n");
-	}
-}
 
 // A virer à la fin, sert de débug
 /*static void listeAffiche(void)
@@ -92,6 +67,7 @@ void testLevelLoadAndSave(void) {
 	determinePlayerCoord(levelsNode); // 1er level
 	printf("Coordonées x et y du joueur du 1er tableau : %d,%d\n", levelsNode->playerX, levelsNode->playerY);
 
+	//Bloc ajoutant un auteur au 1er niveau
 	char *author = "Jean-Dupont de La Clergerie";
 	levelsNode->author = (char *) realloc(levelsNode->author, (strlen(author) + 1) * sizeof(char));
 	if(levelsNode->author == NULL) 
@@ -104,6 +80,8 @@ void testLevelLoadAndSave(void) {
 	saveLevels("data/level/levels3.lvl");
 
 	printLevelsInfo();
-
 	freeNode();
+
+	//readLevelsFile("data/level/levels3.lvl");
+	//printLevelsInfo();
 }
