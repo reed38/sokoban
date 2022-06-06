@@ -33,9 +33,9 @@ void printLevel(Level *level)
 {
 	// A modifier avec les bonnes valeurs après les tests
 	refreshTerminal();
-	printHeader(5, "Coucou c'est moi !!!!", "Un petit commentaire");
+	printHeader(level->levelNumber, level->author, level->comment);
 	printMap(level->map, level->numberLines);
-	printFooter(0);
+	printFooter(level->success);
 }
 
 void configureTerminal(void)
@@ -58,7 +58,7 @@ void configureTerminal(void)
 }
 
 /**
- * @brief Fonction servant à afficher la map
+ * @brief Fonction servant à afficher la map avec des couleurs
  *
  * @param map Tableau 2D
  * @param maxHeight Nombre de lignes du tableau
@@ -67,41 +67,84 @@ static void printMap(char **map, int maxHeight)
 {
 	for (int i = 0; i < maxHeight; i++)
 	{
-		printf("%s\n", map[i]);
+		for (int j = 0; j < strlen(map[i]); j++)
+		{
+			//TODO : remplacer les char par les macro (PLAYER etc)
+			switch (map[i][j])
+			{
+			case '@': //PLAYER
+				printf(ANSI_CODE_RED "%c" ANSI_CODE_RESET, map[i][j]);
+				break;
+
+			case '$': //BOX
+				printf(ANSI_CODE_YELLOW "%c" ANSI_CODE_RESET, map[i][j]);
+				break;
+
+			case '.': //TARGET
+				printf(ANSI_CODE_GREEN "%c" ANSI_CODE_RESET, map[i][j]);
+				break;
+
+			case 'Q': //FULLBOX
+				printf(ANSI_CODE_BLUE "%c" ANSI_CODE_RESET, map[i][j]);
+				break;	
+
+			case 'O': //OVERTARGET
+				printf(ANSI_CODE_CYAN "%c" ANSI_CODE_RESET, map[i][j]);
+				break;		
+			
+			default: //WALLS et NOTHING
+				printf("%c", map[i][j]);
+				break;
+			}
+		}
+		printf("\n");
 	}
+
+	printf("\n");
 }
 
 /**
- * @brief 
+ * @brief affiche l'en-tête du jeu (titre, noms, niveau, auteur, commentaire)
  * 
- * @param levelNumber 
- * @param author 
- * @param comment 
+ * @param levelNumber numéro du niveau
+ * @param author auteur du niveau
+ * @param comment commentaire sur le niveau
  */
 static void printHeader(unsigned int levelNumber, char *author, char *comment)
 {
 	printf(ANSI_CODE_BG_BLUE ANSI_CODE_BOLD ANSI_CODE_UNDERLINE "Super Sokoban par Esteban CADIC, Noé MOREAU, Edgar REGNAULT" ANSI_CODE_RESET);
 	printf("\n\n");
-	printf(ANSI_CODE_BOLD ANSI_CODE_GREEN "Niveau numéro %d" ANSI_CODE_RESET, levelNumber);
+	printf(ANSI_CODE_BOLD ANSI_CODE_GREEN "Niveau numéro %d\n" ANSI_CODE_RESET, levelNumber);
 	if(author != NULL)
-		printf("\t\tAuteur : %s", author);
+		printf(ANSI_CODE_CYAN "Auteur : %s" ANSI_CODE_RESET, author);
+	else
+		printf(ANSI_CODE_CYAN "Auteur : inconnu" ANSI_CODE_RESET);
 
 	if(comment != NULL)
 	{
-		printf("\n");
-		printf("%s", comment);
+		printf(ANSI_CODE_CYAN " | Commentaire : %s" ANSI_CODE_RESET, comment);
 	}
 		
 	printf("\n\n");
 }
 
 /**
- * @brief 
+ * @brief affiche les commandes disponibles en bas de terminal selon si le niveau est réussi ou non
  * 
- * @param success 
+ * @param success réussite du niveau
  */
 static void printFooter(char success)
 {
-	// controles et messages qui dit si success : "vous avez compléter ce niveau, appuyer sur p pour voir votre trajet !"
-	// controles différents si succes ou pas !
+	if (success)
+	{
+		printf(ANSI_CODE_YELLOW "Bravo, vous avez réussi ce niveau !\n");
+		printf(ANSI_CODE_MAGENTA "Appuyez sur t pour revoir votre trajet\n" ANSI_CODE_RESET);
+	}
+
+	else
+	{
+		printf(ANSI_CODE_MAGENTA "Deplacer le joueur avec les fleches du clavier\n");
+		printf("z : annuler\tr : recommencer\n" ANSI_CODE_RESET);
+	}
+
 }
