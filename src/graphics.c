@@ -28,6 +28,14 @@ int configureTerminal()
 }
 
 
+
+
+/**
+ * @brief efface le terminal et affiche le niveau
+ * 
+ * @param map niveau
+ * @param maxHeight nombre max de lignes du niveau
+ */
 void terminalRefresh(char **map, int maxHeight)
 {
 	system("clear");
