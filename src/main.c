@@ -16,11 +16,9 @@ int main(void)
     Level *levelPtr=levelsNode;
     char **mapBuffer=levelPtr->map;
     determinePlayerCoord(levelPtr);
-   /* unsigned int playerX=levelPtr->playerY;
-    unsigned int playerY=levelPtr->playerX;*/
-    unsigned int playerX=5;
-    unsigned int playerY=5;
-    //mapBuffer[8][11]='0';
+    unsigned int playerX=levelPtr->playerY;
+    unsigned int playerY=levelPtr->playerX;
+   
     terminalRefresh(mapBuffer,levelPtr->numberLines);
     
    configureTerminal();
