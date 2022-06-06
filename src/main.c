@@ -2,30 +2,44 @@
 #include <stdlib.h>
 #include <string.h>
 #include "keys.h"
-#include "movements.h"
 #include "graphics.h"
 #include "levelLoader.h"
+#include "movements.h"
+
+
 
 
 int main(void)
 {
     char *levelFile="level.lvl";
     readLevelsFile(levelFile);
-    char **mapBuffer=levelsNode->map;
-    int numberLines=levelsNode->numberLines;
-    determinePlayerCoord(mapBuffer);
-    unsigned int playerX=levelsNode->playerX;
-    unsigned int playerY=levelsNode->playerY;
-
-    configureTerminal();
-    terminalRefresh(mapBuffer,numberLines);
+    Level *levelPtr=levelsNode;
+    char **mapBuffer=levelPtr->map;
+    determinePlayerCoord(levelPtr);
+   /* unsigned int playerX=levelPtr->playerY;
+    unsigned int playerY=levelPtr->playerX;*/
+    unsigned int playerX=5;
+    unsigned int playerY=5;
+    //mapBuffer[8][11]='0';
+    terminalRefresh(mapBuffer,levelPtr->numberLines);
     
+   configureTerminal();
     while(1)
     {
-        move(&playerY,&playerX,mapBuffer);
-        terminalRefresh(mapBuffer,numberLines);
+        terminalRefresh(mapBuffer,levelPtr->numberLines);
+        move(&playerX,&playerY,levelPtr->numberLines,mapBuffer);
+        printf(" x:%d y:%d\n",playerX,playerY);
+
     }
+    
+    
+        
+        
+    
+    }
+    
 
 
 
-}
+
+
