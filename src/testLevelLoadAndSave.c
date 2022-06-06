@@ -81,7 +81,4 @@ void testLevelLoadAndSave(void) {
 
 	printLevelsInfo();
 	freeNode();
-
-	//readLevelsFile("data/level/levels3.lvl");
-	//printLevelsInfo();
 }
