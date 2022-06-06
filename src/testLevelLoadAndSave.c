@@ -71,7 +71,7 @@ void testLevelLoadAndSave(void) {
         return;
     }
 
-	initLevel(&levelsNode); // initaliser le 1er level
+	initLevel(levelsNode); // initaliser le 1er level
 	printf("Coordonées x et y du joueur du 1er tableau : %d,%d\n", levelsNode->playerX, levelsNode->playerY);
 	printf("Modification du 1er caractère de la 1ère ligne de la map 1\n");
 	levelsNode->map[0][0] = '!';
