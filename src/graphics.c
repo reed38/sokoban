@@ -27,16 +27,10 @@ int configureTerminal()
 	return 1;
 }
 
-void terminalReset()
-{
-	system("clear");
-
-}
-
 
 void terminalRefresh(char **map, int maxHeight)
 {
-	terminalReset();
+	system("clear");
 	for (int i=0;i<maxHeight;i++)
 	{
 		printf("%s\n",map[i]);

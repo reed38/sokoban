@@ -4,10 +4,10 @@
 #include "keys.h"
 #include "movements.h"
 
-static void goRight(int *x, int *y, char **currentMap);
-static void goLeft(int *x, int *y, char **currentMap);
-static void goUp(int *x, int *y, char **currentMap);
-static void goDown(int *x, int *y, char **currentMap);
+static void goRight(unsigned int *x, unsigned int *y, char **currentMap);
+static void goLeft(unsigned int *x, unsigned int *y, char **currentMap);
+static void goUp(unsigned int *x, unsigned int *y, char **currentMap);
+static void goDown(unsigned int *x, unsigned int *y, char **currentMap);
 
 
 /**
@@ -18,7 +18,7 @@ static void goDown(int *x, int *y, char **currentMap);
  * @param y coordonnée y du joueur
  * @param currentMap map modifiée par les actions du joueur
  */
-void move(int *x, int *y, char **currentMap)
+void move(unsigned int *x, unsigned int *y, char **currentMap)
 {
     enum Keys  order=getInput();
     switch (order)
@@ -50,7 +50,7 @@ void move(int *x, int *y, char **currentMap)
  * @param y coordonnée y joueur
  * @param currentMap map modifiée par les actions du joueur
  */
-static void goRight(int *x, int *y, char **currentMap)
+static void goRight(unsigned int *x, unsigned int *y, char **currentMap)
 {
     if(currentMap[*x][*y]==OVERTARGET)
     {
@@ -136,7 +136,7 @@ static void goRight(int *x, int *y, char **currentMap)
  * @param y coordonnée y joueur
  * @param currentMap map modifiée par les actions du joueur
  */
-static void goLeft(int *x, int *y, char **currentMap)
+static void goLeft(unsigned int *x, unsigned int *y, char **currentMap)
 {
     if(currentMap[*x][*y]==OVERTARGET)
     {
@@ -222,7 +222,7 @@ static void goLeft(int *x, int *y, char **currentMap)
  * @param y coordonnée y joueur
  * @param currentMap map modifiée par les actions du joueur
  */
-static void goUp(int *x, int *y, char **currentMap)
+static void goUp(unsigned int *x, unsigned int *y, char **currentMap)
 {
     if(currentMap[*x][*y]==OVERTARGET)
     {
@@ -308,7 +308,7 @@ static void goUp(int *x, int *y, char **currentMap)
  * @param y coordonnée y joueur
  * @param currentMap map modifiée par les actions du joueur
  */
-static void goDown(int *x, int *y, char **currentMap)
+static void goDown(unsigned int *x, unsigned int *y, char **currentMap)
 {
      if(currentMap[*x][*y]==OVERTARGET)
     {
