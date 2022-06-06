@@ -6,7 +6,6 @@
 #include "levelLoader.h"
 #include "movements.h"
 
-
 int main(void)
 {
     char *levelFile="data/level/levels.lvl";
@@ -23,10 +22,12 @@ int main(void)
     while(1)
     {
         terminalRefresh(mapBuffer,levelPtr->numberLines);
-        move(&playerX,&playerY,levelPtr->numberLines,mapBuffer);
+        move(&playerX,&playerY,mapBuffer);
         printf(" x:%d y:%d\n",playerX,playerY);
 
     }
+    
+    
     
     
         

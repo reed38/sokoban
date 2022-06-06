@@ -8,7 +8,7 @@
     #define FULLBOX 'Q'
     #define OVERTARGET 'O'
 
-    void move(unsigned int *y, unsigned int *x, unsigned int linesNumber, char **currentMap);
+    void move(unsigned int *y, unsigned int *x,  char **currentMap);
 
 
     #endif
