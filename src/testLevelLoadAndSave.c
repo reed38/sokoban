@@ -71,15 +71,28 @@ void testLevelLoadAndSave(void) {
         return;
     }
 
-	initLevel(levelsNode); // initaliser le 1er level
+	initLevel(levelsNode); // initialiser le 1er level
 	printf("Coordonées x et y du joueur du 1er tableau : %d,%d\n", levelsNode->playerX, levelsNode->playerY);
-	printf("Modification du 1er caractère de la 1ère ligne de la map 1\n");
+
+	printf("Modification du 1er caractère de la 1ère ligne de la map 1 et du score\n");
 	levelsNode->map[0][0] = '!';
+	levelsNode->numberMov = 980;
 	printf("MAP TEMPORAIRE :\n");
 	for(int i = 0; i != levelsNode->numberLines; i++) 
 		printf("\t\t| %s\n", levelsNode->map[i]);
+	printf("SCORE : %d\n", levelsNode->numberMov);
+
 	freeLevel(levelsNode);
-	printf("Map temporaire supprimée\n");
+	initLevel(levelsNode); // réinitialiser le 1er level
+	printf("Niveau réinitialisée\n");
+
+	printf("MAP TEMPORAIRE :\n");
+	for(int i = 0; i != levelsNode->numberLines; i++) 
+		printf("\t\t| %s\n", levelsNode->map[i]);
+	printf("SCORE : %d\n", levelsNode->numberMov);
+
+	printf("Supression des données temporaires du niveau\n");
+	freeLevel(levelsNode);
 
 	//Bloc ajoutant un auteur au 1er niveau
 	char *author = "Jean-Dupont de La Clergerie";
