@@ -23,7 +23,15 @@ void testGraphics(void)
         return;
     }
 
-    initLevel(levelsNode);
+	Level *currentLevel = levelsNode;
+    for (int i=0; i<6; i++)
+	{
+		initLevel(currentLevel);
+		printLevel(currentLevel);
+		sleep(2);
+		currentLevel = currentLevel->nextLevel;
+	}
+	/*initLevel(levelsNode);
     initLevel(levelsNode->nextLevel);
 
     for (;;)
@@ -47,5 +55,5 @@ void testGraphics(void)
             sleep(1);
         }
 
-    }
+    }*/
 }
