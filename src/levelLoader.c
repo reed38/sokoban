@@ -160,6 +160,7 @@ static Level* insertLevel(unsigned int levelNumber)
 	lv->defaultMap = NULL;
 	lv->map = NULL;
 	lv->numberLines = 0;
+	lv->stepsNode = NULL;
 	lv->nextLevel = NULL;
 
 	if (levelsNode == NULL) {	// Dans le cas où la liste est vide
