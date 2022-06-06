@@ -23,6 +23,9 @@ void testGraphics(void)
         return;
     }
 
+    initLevel(&levelsNode);
+    initLevel(&(levelsNode->nextLevel));
+
     for (;;)
     {
         for(int i = 0; i <= 5; i++)
