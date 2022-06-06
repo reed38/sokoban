@@ -28,7 +28,15 @@ void testGraphics(void)
 
     for (;;)
     {
-        for(int i = 0; i <= 5; i++)
+		
+		printLevel(levelsNode);
+        sleep(2);
+        //levelsNode->nextLevel->numberMov = 255;
+        //levelsNode->nextLevel->numberPush = 1;
+        printLevel(levelsNode->nextLevel);
+    	sleep(2);
+		
+        for(int i = 0; i <= 1; i++)
         {
             levelsNode->map[0][0] = '#';
             printLevel(levelsNode);
@@ -39,8 +47,5 @@ void testGraphics(void)
             sleep(1);
         }
 
-        
-        printLevel(levelsNode->nextLevel);
-        sleep(2);
     }
 }

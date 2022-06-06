@@ -20,6 +20,7 @@ static inline void refreshTerminal(void);
 static void printMap(char **, int);
 static void printHeader(unsigned int, char *, char *);
 static void printFooter(char);
+static void printScore(unsigned int, unsigned int);
 
 
 /*------------------------------------------------------------------------------
@@ -41,6 +42,7 @@ void printLevel(Level *level)
 	refreshTerminal();
 	printHeader(level->levelNumber, level->author, level->comment);
 	printMap(level->map, level->numberLines);
+	printScore(level->numberMov, level->numberPush);
 	printFooter(level->success);
 }
 
@@ -153,4 +155,14 @@ static void printFooter(char success)
 		printf("z : annuler\tr : recommencer\n" ANSI_CODE_RESET);
 	}
 
+}
+
+/**
+ * @brief affiche les scores en dessous de la carte
+ * 
+ * @param success réussite du niveau
+ */
+static void printScore(unsigned int numberMov, unsigned int numberPush)
+{
+	printf("Mouvements : %d\tCaisses poussées : %d\n", numberMov, numberPush);
 }
