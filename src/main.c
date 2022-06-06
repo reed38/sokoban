@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "levelLoader.h"
+#include "graphics.h"
 
 int main(int argc, char *argv[]) 
 {
-	testLevelLoader();
+	testGraphics();
 
 	return(0); 
 }
