@@ -57,7 +57,10 @@ void freeNode(void)
 
 	while (ptrFollow != NULL) 
 	{        
-		freeLevel(ptrFollow);
+		for(int i = 0; i != ptrFollow->numberLines; i++) 
+			free(ptrFollow->defaultMap[i]);
+		free(ptrFollow->defaultMap);
+		
 		free(ptrFollow->author);
 		free(ptrFollow->comment);
 		precPtdr = ptrFollow;
@@ -69,8 +72,6 @@ void freeNode(void)
 void freeLevel(Level *level) 
 {
 	for(int i = 0; i < level->numberLines; i++) 
-	{
 		free(level->map[i]);
-	}
 	free(level->map);
 }
