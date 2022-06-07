@@ -22,7 +22,7 @@ int main(void)
     while(1)
     {
         terminalRefresh(mapBuffer,levelPtr->numberLines);
-        move(&playerX,&playerY,mapBuffer);
+        move(&playerX,&playerY,levelPtr->map);
         printf(" x:%d y:%d\n",playerX,playerY);
 
     }
