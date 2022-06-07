@@ -64,12 +64,18 @@ II-pas sur target
 
 */
 
+
+/**
+ * @brief permet de déplacer le personnage à droite et d'intéragir aves les objets se trouvant à droite
+ * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ */
+
 static void goRight()
 {
     char **currentMap = globalCurrent->map; 
     unsigned int *y=&globalCurrent->playerX;
     unsigned int *x=&globalCurrent->playerY;
-    char nextCase=(currentMap[*y][*x]==OVERTARGET)?TARGET:NOTHING;
+    char nextCase=(currentMap[*y][*x]==OVERTARGET)?TARGET:NOTHING; //on différencie le cas où le personnage est sur une target et celui poù il est sur rien
 
 
 
@@ -129,7 +135,10 @@ static void goRight()
         }
     
 }
-
+/**
+ * @brief permet de déplacer le personnage à droite et d'intéragir aves les objets se trouvant à gauche
+ * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ */
 static void goLeft()
 {
  char **currentMap = globalCurrent->map; 
@@ -193,7 +202,10 @@ static void goLeft()
         }
     
 }
-
+/**
+ * @brief permet de déplacer le personnage vers le bas et d'intéragir aves les objets se trouvant en dessous
+ * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ */
 static void goDown()
 {
     char **currentMap = globalCurrent->map; 
@@ -255,7 +267,10 @@ static void goDown()
         }
     
 }
-
+/**
+ * @brief permet de déplacer le personnage vers le haut et d'intéragir aves les objets se trouvant a dessus
+ * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ */
 static void goUp()
 {
    char **currentMap = globalCurrent->map; 
