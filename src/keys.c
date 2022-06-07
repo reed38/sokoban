@@ -73,8 +73,8 @@ void interactionLoop(char *saveFile)
             // steps.c 
             break;
         case 'r': // Réinitialise le niveau
-            freeLevel(currentLevel);
-            initLevel(currentLevel);          
+            freeLevel(globalCurrentLevel);
+            initLevel(globalCurrentLevel);          
             break;
         case 't': // Revoir les déplacements effectués
             // steps.c    
@@ -90,9 +90,11 @@ void interactionLoop(char *saveFile)
         case 'q': // Sauvegarder et quitter
             printf("\nMerci d'avoir joué !\n"); 
             saveLevels("data/level/levels3.lvl");
-            freeLevel(currentLevel) 
+            freeLevel(globalCurrentLevel);
             freeNode();
             return;
         }
+
+		printLevel(globalCurrent);
     }
 }
