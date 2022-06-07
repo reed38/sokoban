@@ -2,11 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "levelLoader.h"
-#include "steps.h"
+#include "movements.h"
 
 int main(void)
 {
-    testLevelLoadAndSave();
-    //testSteps();
+    testMovements();
 }
