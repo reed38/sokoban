@@ -1,32 +1,27 @@
+/**
+ * @file testMovements.c
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief Programme de test de la gestion des mouvements du joueur.
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "keys.h"
 #include "graphics.h"
 #include "levelLoader.h"
 #include "movements.h"
 
-int main(void)
+void testMovements(void)
 {
     char *levelFile="data/level/levels.lvl";
     readLevelsFile(levelFile);
-    globalCurrent=levelsNode;
-    initLevel(globalCurrent);
+    globalCurrentLevel=levelsNode;
+    initLevel(globalCurrentLevel);
     
        
     configureTerminal();
     interactionLoop();
     
-    
-    
-    
-        
-        
-    
-    }
-    
-
-
-
-
-
+}

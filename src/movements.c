@@ -1,3 +1,9 @@
+/**
+ * @file movements.c
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief Programme de gestion des mouvements du joueur.
+ * 
+ */
 #include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -5,335 +11,330 @@
 #include "keys.h"
 #include "movements.h"
 
-Level *globalCurrent;
+Level *globalCurrentLevel;
 
-static void goRight();
-static void goLeft();
-static void goUp();
-static void goDown();
+static void goRight(unsigned int *x, unsigned int *y);
+static void goLeft(unsigned int *x, unsigned int *y);
+static void goUp(unsigned int *x, unsigned int *y);
+static void goDown(unsigned int *x, unsigned int *y);
+static void checkFinished(void);
+
+void move(int direction)
+{
+	// todo: à inverser
+	unsigned int *y = &globalCurrentLevel->playerX;
+	unsigned int *x = &globalCurrentLevel->playerY;
+
+	switch (direction)
+	{
+	case RIGHT:
+		goRight(x, y);
+		break;
+	case LEFT:
+		goLeft(x, y);
+		break;
+	case DOWN:
+		goDown(x, y);
+		break;
+	case UP:
+		goUp(x, y);
+		break;
+	default:
+		break;
+	}
+
+	checkFinished();
+}
 
 /**
- * @brief détecte l'input du joueur, puis modifie les coordonnées du joueur et
- * l'état de la map en conséquence
+ * @brief Fonction qui permet de déplacer le personnage à droite et d'intéragir aves les objets se trouvant à droite.
  *
- * @param x coordonnée x du joueur
- * @param y coordonnée y du joueur
- * @param currentMap map modifiée par les actions du joueur
+ * @param x,y Coordonnées du joueur
  */
-void move(int command)
+static void goRight(unsigned int *x, unsigned int *y)
 {
-    // todo: à inverser
+	char **currentMap = globalCurrentLevel->map;
 
-    globalCurrent->numberMov += 1;
-    switch (command)
-    {
-    case RIGHT:
-        goRight();
-        break;
-    case LEFT:
-        goLeft();
-        break;
-    case DOWN:
-        goDown();
-        break;
-    case UP:
-        goUp();
-        break;
-    default:
-        break;
-    }
-    isFinished();
+	// on différencie le cas où le personnage est sur une target et celui où il est sur rien
+	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+
+	if (currentMap[*y][*x + 1] == NOTHING)
+	{
+		currentMap[*y][*x + 1] = PLAYER;
+		currentMap[*y][*x] = nextCase;
+		*x += 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y][*x + 1] == TARGET)
+	{
+		currentMap[*y][*x + 1] = OVERTARGET;
+		currentMap[*y][*x] = nextCase;
+		*x += 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y][*x + 1] == BOX || currentMap[*y][*x + 1] == FULLBOX)
+	{
+		if (currentMap[*y][*x + 2] != WALL && currentMap[*y][*x + 2] != BOX && currentMap[*y][*x + 2] != FULLBOX)
+		{
+			if (currentMap[*y][*x + 2] == NOTHING)
+			{
+				if (currentMap[*y][*x + 1] == FULLBOX)
+				{
+					currentMap[*y][*x + 1] = OVERTARGET;
+					currentMap[*y][*x + 2] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*x += 1;
+				}
+				else if (currentMap[*y][*x + 1] == BOX)
+				{
+					currentMap[*y][*x + 1] = PLAYER;
+					currentMap[*y][*x + 2] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*x += 1;
+				}
+			}
+			else if (currentMap[*y][*x + 2] == TARGET)
+			{
+				if (currentMap[*y][*x + 1] == FULLBOX)
+				{
+					currentMap[*y][*x + 1] = OVERTARGET;
+					currentMap[*y][*x + 2] = FULLBOX;
+					currentMap[*y][*x] = nextCase;
+					*x += 1;
+				}
+				else if (currentMap[*y][*x + 1] == BOX)
+				{
+					currentMap[*y][*x + 1] = PLAYER;
+					currentMap[*y][*x + 2] = FULLBOX;
+					currentMap[*y][*x] = nextCase;
+					*x += 1;
+				}
+			}
+			globalCurrentLevel->numberPush += 1;
+			globalCurrentLevel->numberMov += 1;
+		}
+	}
 }
-
-// tab[y][x], y ordonnée x abscisse
-// max abscisse: strlen
-// max ordonnée: numbreLine char **currentMap = globalCurrent->map;
-/*
-I-sur target
--devant vide 1
--devant target 1
--devant box espace derrière 2
--devant box pas espace derrière 1
--devant box target derrière 2
-II-pas sur target
--devant vide
--devant target
--devant box espace derrière
--devant box pas espace derrière
--devant box target derrière
-
-*/
 
 /**
- * @brief permet de déplacer le personnage à droite et d'intéragir aves les objets se trouvant à droite
- * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ * @brief Fonction qui permet de déplacer le personnage à gauche et d'intéragir aves les objets se trouvant à gauche.
+ *
+ * @param x,y Coordonnées du joueur
  */
-
-static void goRight()
+static void goLeft(unsigned int *x, unsigned int *y)
 {
-    char **currentMap = globalCurrent->map;
-    unsigned int *y = &globalCurrent->playerX;
-    unsigned int *x = &globalCurrent->playerY;
-    char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING; // on différencie le cas où le personnage est sur une target et celui poù il est sur rien
-    if (currentMap[*y][*x + 1] == NOTHING)
-    {
-        currentMap[*y][*x + 1] = PLAYER;
-        currentMap[*y][*x] = nextCase;
-        *x += 1;
-    }
-    else if (currentMap[*y][*x + 1] == TARGET)
-    {
-        currentMap[*y][*x + 1] = OVERTARGET;
-        currentMap[*y][*x] = nextCase;
-        *x += 1;
-    }
-    else if (currentMap[*y][*x + 1] == BOX || currentMap[*y][*x + 1] == FULLBOX)
-    {
-        if (currentMap[*y][*x + 2] != WALL && currentMap[*y][*x + 2] != BOX && currentMap[*y][*x + 2] != FULLBOX)
-        {
-            if (currentMap[*y][*x + 2] == NOTHING)
-            {
-                if (currentMap[*y][*x + 1] == FULLBOX)
-                {
-                    currentMap[*y][*x + 1] = OVERTARGET;
-                    currentMap[*y][*x + 2] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x += 1;
-                }
-                else if (currentMap[*y][*x + 1] == BOX)
-                {
-                    currentMap[*y][*x + 1] = PLAYER;
-                    currentMap[*y][*x + 2] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x += 1;
-                }
-            }
-            else if (currentMap[*y][*x + 2] == TARGET)
-            {
-                if (currentMap[*y][*x + 1] == FULLBOX)
-                {
-                    currentMap[*y][*x + 1] = OVERTARGET;
-                    currentMap[*y][*x + 2] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x += 1;
-                }
-                else if (currentMap[*y][*x + 1] == BOX)
-                {
-                    currentMap[*y][*x + 1] = PLAYER;
-                    currentMap[*y][*x + 2] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x += 1;
-                }
-            }
-            globalCurrent->numberPush += 1;
-        }
-    }
+	char **currentMap = globalCurrentLevel->map;
+	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+
+	if (currentMap[*y][*x - 1] == NOTHING)
+	{
+		currentMap[*y][*x - 1] = PLAYER;
+		currentMap[*y][*x] = nextCase;
+		*x -= 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y][*x - 1] == TARGET)
+	{
+		currentMap[*y][*x - 1] = OVERTARGET;
+		currentMap[*y][*x] = nextCase;
+		*x -= 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y][*x - 1] == BOX || currentMap[*y][*x - 1] == FULLBOX)
+	{
+		if (currentMap[*y][*x - 2] != WALL && currentMap[*y][*x - 2] != BOX && currentMap[*y][*x - 2] != FULLBOX)
+		{
+			if (currentMap[*y][*x - 2] == NOTHING)
+			{
+				if (currentMap[*y][*x - 1] == FULLBOX)
+				{
+					currentMap[*y][*x - 1] = OVERTARGET;
+					currentMap[*y][*x - 2] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*x -= 1;
+				}
+				else if (currentMap[*y][*x - 1] == BOX)
+				{
+					currentMap[*y][*x - 1] = PLAYER;
+					currentMap[*y][*x - 2] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*x -= 1;
+				}
+			}
+			else if (currentMap[*y][*x - 2] == TARGET)
+			{
+				if (currentMap[*y][*x - 1] == FULLBOX)
+				{
+					currentMap[*y][*x - 1] = OVERTARGET;
+					currentMap[*y][*x - 2] = FULLBOX;
+					currentMap[*y][*x] = nextCase;
+					*x -= 1;
+				}
+				else if (currentMap[*y][*x - 1] == BOX)
+				{
+					currentMap[*y][*x - 1] = PLAYER;
+					currentMap[*y][*x - 2] = FULLBOX;
+					currentMap[*y][*x] = nextCase;
+					*x -= 1;
+				}
+			}
+			globalCurrentLevel->numberPush += 1;
+			globalCurrentLevel->numberMov += 1;
+		}
+	}
 }
+
 /**
- * @brief permet de déplacer le personnage à droite et d'intéragir aves les objets se trouvant à gauche
- * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ * @brief Fonction qui permet de déplacer le personnage en bas et d'intéragir aves les objets se trouvant en bas.
+ *
+ * @param x,y Coordonnées du joueur
  */
-static void goLeft()
+static void goDown(unsigned int *x, unsigned int *y)
 {
-    char **currentMap = globalCurrent->map;
-    unsigned int *y = &globalCurrent->playerX;
-    unsigned int *x = &globalCurrent->playerY;
-    char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+	char **currentMap = globalCurrentLevel->map;
+	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 
-    if (currentMap[*y][*x - 1] == NOTHING)
-    {
-        currentMap[*y][*x - 1] = PLAYER;
-        currentMap[*y][*x] = nextCase;
-        *x -= 1;
-    }
-    else if (currentMap[*y][*x - 1] == TARGET)
-    {
-        currentMap[*y][*x - 1] = OVERTARGET;
-        currentMap[*y][*x] = nextCase;
-        *x -= 1;
-    }
-    else if (currentMap[*y][*x - 1] == BOX || currentMap[*y][*x - 1] == FULLBOX)
-    {
-        if (currentMap[*y][*x - 2] != WALL && currentMap[*y][*x - 2] != BOX && currentMap[*y][*x - 2] != FULLBOX)
-        {
-            if (currentMap[*y][*x - 2] == NOTHING)
-            {
-                if (currentMap[*y][*x - 1] == FULLBOX)
-                {
-                    currentMap[*y][*x - 1] = OVERTARGET;
-                    currentMap[*y][*x - 2] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x -= 1;
-                }
-                else if (currentMap[*y][*x - 1] == BOX)
-                {
-                    currentMap[*y][*x - 1] = PLAYER;
-                    currentMap[*y][*x - 2] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x -= 1;
-                }
-            }
-            else if (currentMap[*y][*x - 2] == TARGET)
-            {
-                if (currentMap[*y][*x - 1] == FULLBOX)
-                {
-                    currentMap[*y][*x - 1] = OVERTARGET;
-                    currentMap[*y][*x - 2] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x -= 1;
-                }
-                else if (currentMap[*y][*x - 1] == BOX)
-                {
-                    currentMap[*y][*x - 1] = PLAYER;
-                    currentMap[*y][*x - 2] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *x -= 1;
-                }
-            }
-            globalCurrent->numberPush += 1;
-        }
-    }
+	if (currentMap[*y + 1][*x] == NOTHING)
+	{
+		currentMap[*y + 1][*x] = PLAYER;
+		currentMap[*y][*x] = nextCase;
+		*y += 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y + 1][*x] == TARGET)
+	{
+		currentMap[*y + 1][*x] = OVERTARGET;
+		currentMap[*y][*x] = nextCase;
+		*y += 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y + 1][*x] == BOX || currentMap[*y + 1][*x] == FULLBOX)
+	{
+		if (currentMap[*y + 2][*x] != WALL && currentMap[*y + 2][*x] != BOX && currentMap[*y + 2][*x] != FULLBOX)
+		{
+			if (currentMap[*y + 2][*x] == NOTHING)
+			{
+				if (currentMap[*y + 1][*x] == FULLBOX)
+				{
+					currentMap[*y + 1][*x] = OVERTARGET;
+					currentMap[*y + 2][*x] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*y += 1;
+				}
+				else if (currentMap[*y + 1][*x] == BOX)
+				{
+					currentMap[*y + 1][*x] = PLAYER;
+					currentMap[*y + 2][*x] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*y += 1;
+				}
+			}
+			else if (currentMap[*y + 2][*x] == TARGET)
+			{
+				if (currentMap[*y + 1][*x] == FULLBOX)
+				{
+					currentMap[*y + 1][*x] = OVERTARGET;
+					currentMap[*y + 2][*x] = FULLBOX;
+					currentMap[*y][*x] = nextCase;
+					*y += 1;
+				}
+				else if (currentMap[*y + 1][*x] == BOX)
+				{
+					currentMap[*y + 1][*x] = PLAYER;
+					currentMap[*y + 2][*x] = FULLBOX;
+					currentMap[*y][*x] = nextCase;
+					*y += 1;
+				}
+			}
+			globalCurrentLevel->numberPush += 1;
+			globalCurrentLevel->numberMov += 1;
+		}
+	}
 }
+
 /**
- * @brief permet de déplacer le personnage vers le bas et d'intéragir aves les objets se trouvant en dessous
- * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ * @brief Fonction qui permet de déplacer le personnage en haut et d'intéragir aves les objets se trouvant en haut.
+ *
+ * @param x,y Coordonnées du joueur
  */
-static void goDown()
+static void goUp(unsigned int *x, unsigned int *y)
 {
-    char **currentMap = globalCurrent->map;
-    unsigned int *y = &globalCurrent->playerX;
-    unsigned int *x = &globalCurrent->playerY;
-    char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+	char **currentMap = globalCurrentLevel->map;
+	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 
-    if (currentMap[*y + 1][*x] == NOTHING)
-    {
-        currentMap[*y + 1][*x] = PLAYER;
-        currentMap[*y][*x] = nextCase;
-        *y += 1;
-    }
-    else if (currentMap[*y + 1][*x] == TARGET)
-    {
-        currentMap[*y + 1][*x] = OVERTARGET;
-        currentMap[*y][*x] = nextCase;
-        *y += 1;
-    }
-    else if (currentMap[*y + 1][*x] == BOX || currentMap[*y + 1][*x] == FULLBOX)
-    {
-        if (currentMap[*y + 2][*x] != WALL && currentMap[*y + 2][*x] != BOX && currentMap[*y + 2][*x] != FULLBOX)
-        {
-            if (currentMap[*y + 2][*x] == NOTHING)
-            {
-                if (currentMap[*y + 1][*x] == FULLBOX)
-                {
-                    currentMap[*y + 1][*x] = OVERTARGET;
-                    currentMap[*y + 2][*x] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y += 1;
-                }
-                else if (currentMap[*y + 1][*x] == BOX)
-                {
-                    currentMap[*y + 1][*x] = PLAYER;
-                    currentMap[*y + 2][*x] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y += 1;
-                }
-            }
-            else if (currentMap[*y + 2][*x] == TARGET)
-            {
-                if (currentMap[*y + 1][*x] == FULLBOX)
-                {
-                    currentMap[*y + 1][*x] = OVERTARGET;
-                    currentMap[*y + 2][*x] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y += 1;
-                }
-                else if (currentMap[*y + 1][*x] == BOX)
-                {
-                    currentMap[*y + 1][*x] = PLAYER;
-                    currentMap[*y + 2][*x] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y += 1;
-                }
-            }
-            globalCurrent->numberPush += 1;
-        }
-    }
+	if (currentMap[*y - 1][*x] == NOTHING)
+	{
+		currentMap[*y - 1][*x] = PLAYER;
+		currentMap[*y][*x] = nextCase;
+		*y -= 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y - 1][*x] == TARGET)
+	{
+		currentMap[*y - 1][*x] = OVERTARGET;
+		currentMap[*y][*x] = nextCase;
+		*y -= 1;
+		globalCurrentLevel->numberMov += 1;
+	}
+	else if (currentMap[*y - 1][*x] == BOX || currentMap[*y - 1][*x] == FULLBOX)
+	{
+		if (currentMap[*y - 2][*x] != WALL && currentMap[*y - 2][*x] != BOX && currentMap[*y - 2][*x] != FULLBOX)
+		{
+			if (currentMap[*y - 2][*x] == NOTHING)
+			{
+				if (currentMap[*y - 1][*x] == FULLBOX)
+				{
+					currentMap[*y - 1][*x] = OVERTARGET;
+					currentMap[*y - 2][*x] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*y -= 1;
+				}
+				else if (currentMap[*y - 1][*x] == BOX)
+				{
+					currentMap[*y - 1][*x] = PLAYER;
+					currentMap[*y - 2][*x] = BOX;
+					currentMap[*y][*x] = nextCase;
+					*y -= 1;
+				}
+			}
+			else if (currentMap[*y - 2][*x] == TARGET)
+			{
+				if (currentMap[*y - 1][*x] == FULLBOX)
+				{
+					currentMap[*y - 1][*x] = OVERTARGET;
+					currentMap[*y - 2][*x] = FULLBOX;
+					currentMap[*y][*x] = nextCase;
+					*y -= 1;
+				}
+				else if (currentMap[*y - 1][*x] == BOX)
+				{
+					currentMap[*y - 1][*x] = PLAYER;
+					currentMap[*y - 2][*x] = FULLBOX;
+				}
+			}
+			globalCurrentLevel->numberPush += 1;
+			globalCurrentLevel->numberMov += 1;
+		}
+	}
 }
+
 /**
- * @brief permet de déplacer le personnage vers le haut et d'intéragir aves les objets se trouvant a dessus
- * @args: void, Goright intéragit avec la struct Level globalCurrent contenant la map, les coordnnées du personnage ect
+ * @brief Fonction servant à marquer un niveau comme terminé, une fois toutes les caisses placées sur les cibles.
+ *
  */
-static void goUp()
+void checkFinished(void)
 {
-    char **currentMap = globalCurrent->map;
-    unsigned int *y = &globalCurrent->playerX;
-    unsigned int *x = &globalCurrent->playerY;
-    char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
-
-    if (currentMap[*y - 1][*x] == NOTHING)
-    {
-        currentMap[*y - 1][*x] = PLAYER;
-        currentMap[*y][*x] = nextCase;
-        *y -= 1;
-    }
-    else if (currentMap[*y - 1][*x] == TARGET)
-    {
-        currentMap[*y - 1][*x] = OVERTARGET;
-        currentMap[*y][*x] = nextCase;
-        *y -= 1;
-    }
-    else if (currentMap[*y - 1][*x] == BOX || currentMap[*y - 1][*x] == FULLBOX)
-    {
-        if (currentMap[*y - 2][*x] != WALL && currentMap[*y - 2][*x] != BOX && currentMap[*y - 2][*x] != FULLBOX)
-        {
-            if (currentMap[*y - 2][*x] == NOTHING)
-            {
-                if (currentMap[*y - 1][*x] == FULLBOX)
-                {
-                    currentMap[*y - 1][*x] = OVERTARGET;
-                    currentMap[*y - 2][*x] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y -= 1;
-                }
-                else if (currentMap[*y - 1][*x] == BOX)
-                {
-                    currentMap[*y - 1][*x] = PLAYER;
-                    currentMap[*y - 2][*x] = BOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y -= 1;
-                }
-            }
-            else if (currentMap[*y - 2][*x] == TARGET)
-            {
-                if (currentMap[*y - 1][*x] == FULLBOX)
-                {
-                    currentMap[*y - 1][*x] = OVERTARGET;
-                    currentMap[*y - 2][*x] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y -= 1;
-                }
-                else if (currentMap[*y - 1][*x] == BOX)
-                {
-                    currentMap[*y - 1][*x] = PLAYER;
-                    currentMap[*y - 2][*x] = FULLBOX;   
-
-                }
-            }
-            globalCurrent->numberPush += 1;
-        }
-    }
-}
-
-void checkFinished()
-{
-    char **currentMap = globalCurrent->map;
-    for (int i = 0; i < globalCurrent->numberLines; i++)
-    {
-        for (int j = 0; j < strlen(currentMap[i]);j++)
-            {
-                if (currentMap[i][j] == '$')
-                    globalCurrent->success=0;
-            }
-    }
-    globalCurrent->success=1;
+	char **currentMap = globalCurrentLevel->map;
+	for (int i = 0; i < globalCurrentLevel->numberLines; i++)
+	{
+		for (int j = 0; j < strlen(currentMap[i]); j++)
+		{
+			if (currentMap[i][j] == '$')
+			{
+				globalCurrentLevel->success = 0;
+				return;
+			}
+		}
+	}
+	globalCurrentLevel->success = 1;
 }
