@@ -10,6 +10,7 @@
 
 #include "levelLoader.h"
 #include "levelSaver.h"
+#include "steps.h"
 
 static void printLevelsInfo(void);
 
@@ -45,6 +46,8 @@ static void printLevelsInfo(void)
 		if(ptrFollow->comment != NULL)
 			printf("\tCOMMENTAIRE : %s\n", ptrFollow->comment);
 		printf("\tNIVEAU RESOLU : %d\n", ptrFollow->success);
+		if(ptrFollow->stepsNode != NULL)
+			printf("\tETAPES : %s\n", stepsSerialiser(ptrFollow->stepsNode));
 		printf("\tLIGNES TABLEAU : %d\n", ptrFollow->numberLines);
 		if(ptrFollow->nextLevel != NULL)
 			printf("\tLEVEL SUIVANT : %d\n", ptrFollow->nextLevel->levelNumber);

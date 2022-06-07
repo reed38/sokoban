@@ -28,6 +28,7 @@ typedef struct Level {
 	unsigned int playerX; /**< Abscisse du joueur dans la map */
 	unsigned int playerY; /**< Ordonnée du joueur dans la map */
 	/*@}*/
+	struct Step *stepsNode; /**< Pile des déplacements effectués */
 	struct Level *nextLevel; /**< Lien au niveau suivant */
 } Level;
 
@@ -64,7 +65,7 @@ extern void readLevelsFile(char *);
 extern void initLevel(Level *);
 
 /**
- * @brief Fonction de test du levelLoader et du  levelSaver.
+ * @brief Fonction de test du levelLoader et du levelSaver.
  */
 extern void testLevelLoadAndSave(void);
 
