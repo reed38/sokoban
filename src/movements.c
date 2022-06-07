@@ -69,22 +69,22 @@ static void goRight()
     char **currentMap = globalCurrent->map; 
     unsigned int *y=&globalCurrent->playerX;
     unsigned int *x=&globalCurrent->playerY;
+    char nextCase=(currentMap[*y][*x]==OVERTARGET)?TARGET:NOTHING;
 
 
 
-    if (currentMap[*y][*x] == OVERTARGET) // premier cas le personnage est déja sur une target
-    {
+
 
         if (currentMap[*y][*x + 1] == NOTHING)
         {
             currentMap[*y][*x + 1] = PLAYER;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *x += 1;
         }
         else if (currentMap[*y][*x + 1] == TARGET)
         {
             currentMap[*y][*x + 1] = OVERTARGET;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *x += 1;
         }
         else if (currentMap[*y][*x + 1] == BOX || currentMap[*y][*x + 1] == FULLBOX)
@@ -97,14 +97,14 @@ static void goRight()
                     {
                         currentMap[*y][*x + 1] = OVERTARGET;
                         currentMap[*y][*x + 2] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x += 1;
                     }
                     else if (currentMap[*y][*x + 1] == BOX)
                     {
                         currentMap[*y][*x + 1] = PLAYER;
                         currentMap[*y][*x + 2] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x += 1;
                     }
                 }
@@ -114,97 +114,41 @@ static void goRight()
                     {
                         currentMap[*y][*x + 1] = OVERTARGET;
                         currentMap[*y][*x + 2] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x += 1;
                     }
                     else if (currentMap[*y][*x + 1] == BOX)
                     {
                         currentMap[*y][*x + 1] = PLAYER;
                         currentMap[*y][*x + 2] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x += 1;
                     }
                 }
             }
         }
-    }
-
-    else // deuxième cas le personnage n'est pas sur une target
-    {
-        if (currentMap[*y][*x + 1] == NOTHING)
-        {
-            currentMap[*y][*x + 1] = PLAYER;
-            currentMap[*y][*x] = NOTHING;
-            *x += 1;
-        }
-        else if (currentMap[*y][*x + 1] == TARGET)
-        {
-            currentMap[*y][*x + 1] = OVERTARGET;
-            currentMap[*y][*x] = NOTHING;
-            *x += 1;
-        }
-        else if (currentMap[*y][*x + 1] == BOX || currentMap[*y][*x + 1] == FULLBOX)
-        {
-            if (currentMap[*y][*x + 2] != WALL && currentMap[*y][*x + 2] != BOX && currentMap[*y][*x + 2] != FULLBOX)
-            {
-                if (currentMap[*y][*x + 2] == NOTHING)
-                {
-                    if (currentMap[*y][*x + 1] == FULLBOX)
-                    {
-                        currentMap[*y][*x + 1] = OVERTARGET;
-                        currentMap[*y][*x + 2] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x += 1;
-                    }
-                    else if (currentMap[*y][*x + 1] == BOX)
-                    {
-                        currentMap[*y][*x + 1] = PLAYER;
-                        currentMap[*y][*x + 2] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x += 1;
-                    }
-                }
-                else if (currentMap[*y][*x + 2] == TARGET)
-                {
-                    if (currentMap[*y][*x + 1] == FULLBOX)
-                    {
-                        currentMap[*y][*x + 1] = OVERTARGET;
-                        currentMap[*y][*x + 2] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x += 1;
-                    }
-                    else if (currentMap[*y][*x + 1] == BOX)
-                    {
-                        currentMap[*y][*x + 1] = PLAYER;
-                        currentMap[*y][*x + 2] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x += 1;
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 static void goLeft()
 {
-   char **currentMap = globalCurrent->map; 
+ char **currentMap = globalCurrent->map; 
     unsigned int *y=&globalCurrent->playerX;
     unsigned int *x=&globalCurrent->playerY;
+    char nextCase=(currentMap[*y][*x]==OVERTARGET)?TARGET:NOTHING;
 
-    if (currentMap[*y][*x] == OVERTARGET)
-    {
+    
 
         if (currentMap[*y][*x - 1] == NOTHING)
         {
             currentMap[*y][*x - 1] = PLAYER;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *x -= 1;
         }
         else if (currentMap[*y][*x - 1] == TARGET)
         {
             currentMap[*y][*x - 1] = OVERTARGET;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *x -= 1;
         }
         else if (currentMap[*y][*x - 1] == BOX || currentMap[*y][*x - 1] == FULLBOX)
@@ -217,14 +161,14 @@ static void goLeft()
                     {
                         currentMap[*y][*x - 1] = OVERTARGET;
                         currentMap[*y][*x - 2] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x -= 1;
                     }
                     else if (currentMap[*y][*x - 1] == BOX)
                     {
                         currentMap[*y][*x - 1] = PLAYER;
                         currentMap[*y][*x - 2] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x -= 1;
                     }
                 }
@@ -234,76 +178,20 @@ static void goLeft()
                     {
                         currentMap[*y][*x - 1] = OVERTARGET;
                         currentMap[*y][*x - 2] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x -= 1;
                     }
                     else if (currentMap[*y][*x - 1] == BOX)
                     {
                         currentMap[*y][*x - 1] = PLAYER;
                         currentMap[*y][*x - 2] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *x -= 1;
                     }
                 }
             }
         }
-    }
-    else
-    {
-
-        if (currentMap[*y][*x - 1] == NOTHING)
-        {
-            currentMap[*y][*x - 1] = PLAYER;
-            currentMap[*y][*x] = NOTHING;
-            *x -= 1;
-        }
-        else if (currentMap[*y][*x - 1] == TARGET)
-        {
-            currentMap[*y][*x - 1] = OVERTARGET;
-            currentMap[*y][*x] = NOTHING;
-            *x -= 1;
-        }
-        else if (currentMap[*y][*x - 1] == BOX || currentMap[*y][*x - 1] == FULLBOX)
-        {
-            if (currentMap[*y][*x - 2] != WALL && currentMap[*y][*x - 2] != BOX && currentMap[*y][*x - 2] != FULLBOX)
-            {
-                if (currentMap[*y][*x - 2] == NOTHING)
-                {
-                    if (currentMap[*y][*x - 1] == FULLBOX)
-                    {
-                        currentMap[*y][*x - 1] = OVERTARGET;
-                        currentMap[*y][*x - 2] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x -= 1;
-                    }
-                    else if (currentMap[*y][*x - 1] == BOX)
-                    {
-                        currentMap[*y][*x - 1] = PLAYER;
-                        currentMap[*y][*x - 2] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x -= 1;
-                    }
-                }
-                else if (currentMap[*y][*x - 2] == TARGET)
-                {
-                    if (currentMap[*y][*x - 1] == FULLBOX)
-                    {
-                        currentMap[*y][*x - 1] = OVERTARGET;
-                        currentMap[*y][*x - 2] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x -= 1;
-                    }
-                    else if (currentMap[*y][*x - 1] == BOX)
-                    {
-                        currentMap[*y][*x - 1] = PLAYER;
-                        currentMap[*y][*x - 2] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *x -= 1;
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 static void goDown()
@@ -311,19 +199,18 @@ static void goDown()
     char **currentMap = globalCurrent->map; 
     unsigned int *y=&globalCurrent->playerX;
     unsigned int *x=&globalCurrent->playerY;
-    if (currentMap[*y][*x] == OVERTARGET)
-    {
-
+    char nextCase=(currentMap[*y][*x]==OVERTARGET)?TARGET:NOTHING;
+    
         if (currentMap[*y + 1][*x] == NOTHING)
         {
             currentMap[*y + 1][*x] = PLAYER;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *y += 1;
         }
         else if (currentMap[*y + 1][*x] == TARGET)
         {
             currentMap[*y + 1][*x] = OVERTARGET;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *y += 1;
         }
         else if (currentMap[*y + 1][*x] == BOX || currentMap[*y + 1][*x] == FULLBOX)
@@ -336,14 +223,14 @@ static void goDown()
                     {
                         currentMap[*y + 1][*x] = OVERTARGET;
                         currentMap[*y + 2][*x] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y += 1;
                     }
                     else if (currentMap[*y + 1][*x] == BOX)
                     {
                         currentMap[*y + 1][*x] = PLAYER;
                         currentMap[*y + 2][*x] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y += 1;
                     }
                 }
@@ -353,76 +240,20 @@ static void goDown()
                     {
                         currentMap[*y + 1][*x] = OVERTARGET;
                         currentMap[*y + 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y += 1;
                     }
                     else if (currentMap[*y + 1][*x] == BOX)
                     {
                         currentMap[*y + 1][*x] = PLAYER;
                         currentMap[*y + 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y += 1;
                     }
                 }
             }
         }
-    }
-    else
-    {
-
-        if (currentMap[*y + 1][*x] == NOTHING)
-        {
-            currentMap[*y + 1][*x] = PLAYER;
-            currentMap[*y][*x] = NOTHING;
-            *y += 1;
-        }
-        else if (currentMap[*y + 1][*x] == TARGET)
-        {
-            currentMap[*y + 1][*x] = OVERTARGET;
-            currentMap[*y][*x] = NOTHING;
-            *y += 1;
-        }
-        else if (currentMap[*y + 1][*x] == BOX || currentMap[*y + 1][*x] == FULLBOX)
-        {
-            if (currentMap[*y + 2][*x] != WALL && currentMap[*y + 2][*x] != BOX && currentMap[*y + 2][*x] != FULLBOX)
-            {
-                if (currentMap[*y + 2][*x] == NOTHING)
-                {
-                    if (currentMap[*y + 1][*x] == FULLBOX)
-                    {
-                        currentMap[*y + 1][*x] = OVERTARGET;
-                        currentMap[*y + 2][*x] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y += 1;
-                    }
-                    else if (currentMap[*y + 1][*x] == BOX)
-                    {
-                        currentMap[*y + 1][*x] = PLAYER;
-                        currentMap[*y + 2][*x] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y += 1;
-                    }
-                }
-                else if (currentMap[*y + 2][*x] == TARGET)
-                {
-                    if (currentMap[*y + 1][*x] == FULLBOX)
-                    {
-                        currentMap[*y + 1][*x] = OVERTARGET;
-                        currentMap[*y + 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y += 1;
-                    }
-                    else if (currentMap[*y + 1][*x] == BOX)
-                    {
-                        currentMap[*y][*x - 1] = PLAYER;
-                        currentMap[*y + 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y += 1;
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 static void goUp()
@@ -430,19 +261,18 @@ static void goUp()
    char **currentMap = globalCurrent->map; 
     unsigned int *y=&globalCurrent->playerX;
     unsigned int *x=&globalCurrent->playerY;
-    if (currentMap[*y][*x] == OVERTARGET)
-    {
-
+    char nextCase=(currentMap[*y][*x]==OVERTARGET)?TARGET:NOTHING;
+    
         if (currentMap[*y - 1][*x] == NOTHING)
         {
             currentMap[*y - 1][*x] = PLAYER;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *y -= 1;
         }
         else if (currentMap[*y - 1][*x] == TARGET)
         {
             currentMap[*y - 1][*x] = OVERTARGET;
-            currentMap[*y][*x] = TARGET;
+            currentMap[*y][*x] = nextCase;
             *y -= 1;
         }
         else if (currentMap[*y - 1][*x] == BOX || currentMap[*y - 1][*x] == FULLBOX)
@@ -455,14 +285,14 @@ static void goUp()
                     {
                         currentMap[*y - 1][*x] = OVERTARGET;
                         currentMap[*y - 2][*x] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y -= 1;
                     }
                     else if (currentMap[*y - 1][*x] == BOX)
                     {
                         currentMap[*y - 1][*x] = PLAYER;
                         currentMap[*y - 2][*x] = BOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y -= 1;
                     }
                 }
@@ -472,74 +302,18 @@ static void goUp()
                     {
                         currentMap[*y - 1][*x] = OVERTARGET;
                         currentMap[*y - 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y -= 1;
                     }
                     else if (currentMap[*y - 1][*x] == BOX)
                     {
                         currentMap[*y - 1][*x] = PLAYER;
                         currentMap[*y - 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = TARGET;
+                        currentMap[*y][*x] = nextCase;
                         *y -= 1;
                     }
                 }
             }
         }
-    }
-    else
-    {
-
-        if (currentMap[*y - 1][*x] == NOTHING)
-        {
-            currentMap[*y - 1][*x] = PLAYER;
-            currentMap[*y][*x] = NOTHING;
-            *y -= 1;
-        }
-        else if (currentMap[*y - 1][*x] == TARGET)
-        {
-            currentMap[*y - 1][*x] = OVERTARGET;
-            currentMap[*y][*x] = NOTHING;
-            *y -= 1;
-        }
-        else if (currentMap[*y - 1][*x] == BOX || currentMap[*y - 1][*x] == FULLBOX)
-        {
-            if (currentMap[*y - 2][*x] != WALL && currentMap[*y - 2][*x] != BOX && currentMap[*y - 2][*x] != FULLBOX)
-            {
-                if (currentMap[*y - 2][*x] == NOTHING)
-                {
-                    if (currentMap[*y - 1][*x] == FULLBOX)
-                    {
-                        currentMap[*y - 1][*x] = OVERTARGET;
-                        currentMap[*y - 2][*x] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y -= 1;
-                    }
-                    else if (currentMap[*y - 1][*x] == BOX)
-                    {
-                        currentMap[*y - 1][*x] = PLAYER;
-                        currentMap[*y - 2][*x] = BOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y -= 1;
-                    }
-                }
-                else if (currentMap[*y - 2][*x] == TARGET)
-                {
-                    if (currentMap[*y - 1][*x] == FULLBOX)
-                    {
-                        currentMap[*y - 1][*x] = OVERTARGET;
-                        currentMap[*y - 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y -= 1;
-                    }
-                    else if (currentMap[*y - 1][*x] == BOX)
-                    {
-                        currentMap[*y][*x - 1] = PLAYER;
-                        currentMap[*y - 2][*x] = FULLBOX;
-                        currentMap[*y][*x] = NOTHING;
-                        *y -= 1;
-                    }
-                }
-            }
-        }
-    }
+    
 }
