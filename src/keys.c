@@ -53,6 +53,8 @@ static int readKeyboard(void)
 
 void interactionLoop(char *saveFile)
 {
+    printLevel(globalCurrentLevel);
+
     for(;;)
     {
         switch (readKeyboard())
@@ -89,12 +91,10 @@ void interactionLoop(char *saveFile)
             break;
         case 'q': // Sauvegarder et quitter
             printf("\nMerci d'avoir joué !\n"); 
-            saveLevels("data/level/levels3.lvl");
-            freeLevel(globalCurrentLevel);
-            freeNode();
+            saveLevels(saveFile);
             return;
         }
 
-		printLevel(globalCurrent);
+		printLevel(globalCurrentLevel);
     }
 }
