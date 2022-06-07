@@ -10,7 +10,9 @@
 #include <string.h>
 
 #include "movements.h"
+#include "levelLoader.h"
 #include "keys.h"
+#include "steps.h"
 
 /*------------------------------------------------------------------------------
 	PROTOTYPES
@@ -61,23 +63,25 @@ void move(int direction)
 static void goRight(unsigned int *x, unsigned int *y)
 {
 	char **currentMap = globalCurrentLevel->map;
-
+	
 	// on différencie le cas où le personnage est sur une target et celui où il est sur rien
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+	char mvt = 0;
+	char cellReplaced = currentMap[*y][*x + 1];
+	char cellReplacedPlus = currentMap[*y][*x + 2];
+	// TODO : crash quand bord tableau (car accès +2 non existant)
 
 	if (currentMap[*y][*x + 1] == NOTHING)
 	{
 		currentMap[*y][*x + 1] = PLAYER;
 		currentMap[*y][*x] = nextCase;
-		*x += 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y][*x + 1] == TARGET)
 	{
 		currentMap[*y][*x + 1] = OVERTARGET;
 		currentMap[*y][*x] = nextCase;
-		*x += 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y][*x + 1] == BOX || currentMap[*y][*x + 1] == FULLBOX)
 	{
@@ -90,14 +94,14 @@ static void goRight(unsigned int *x, unsigned int *y)
 					currentMap[*y][*x + 1] = OVERTARGET;
 					currentMap[*y][*x + 2] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*x += 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y][*x + 1] == BOX)
 				{
 					currentMap[*y][*x + 1] = PLAYER;
 					currentMap[*y][*x + 2] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*x += 1;
+					mvt = 1;
 				}
 			}
 			else if (currentMap[*y][*x + 2] == TARGET)
@@ -107,19 +111,25 @@ static void goRight(unsigned int *x, unsigned int *y)
 					currentMap[*y][*x + 1] = OVERTARGET;
 					currentMap[*y][*x + 2] = FULLBOX;
 					currentMap[*y][*x] = nextCase;
-					*x += 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y][*x + 1] == BOX)
 				{
 					currentMap[*y][*x + 1] = PLAYER;
 					currentMap[*y][*x + 2] = FULLBOX;
 					currentMap[*y][*x] = nextCase;
-					*x += 1;
+					mvt = 1;
 				}
 			}
 			globalCurrentLevel->numberPush += 1;
-			globalCurrentLevel->numberMov += 1;
 		}
+	}
+
+	if(mvt)
+	{
+		*x += 1;
+		globalCurrentLevel->numberMov += 1;
+		addStep(&globalCurrentLevel->stepsNode, RIGHT, cellReplaced, cellReplacedPlus);
 	}
 }
 
@@ -132,20 +142,21 @@ static void goLeft(unsigned int *x, unsigned int *y)
 {
 	char **currentMap = globalCurrentLevel->map;
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+	char mvt = 0;
+	char cellReplaced = currentMap[*y][*x - 1];
+	char cellReplacedPlus = currentMap[*y][*x - 2];
 
 	if (currentMap[*y][*x - 1] == NOTHING)
 	{
 		currentMap[*y][*x - 1] = PLAYER;
 		currentMap[*y][*x] = nextCase;
-		*x -= 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y][*x - 1] == TARGET)
 	{
 		currentMap[*y][*x - 1] = OVERTARGET;
 		currentMap[*y][*x] = nextCase;
-		*x -= 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y][*x - 1] == BOX || currentMap[*y][*x - 1] == FULLBOX)
 	{
@@ -158,14 +169,14 @@ static void goLeft(unsigned int *x, unsigned int *y)
 					currentMap[*y][*x - 1] = OVERTARGET;
 					currentMap[*y][*x - 2] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*x -= 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y][*x - 1] == BOX)
 				{
 					currentMap[*y][*x - 1] = PLAYER;
 					currentMap[*y][*x - 2] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*x -= 1;
+					mvt = 1;
 				}
 			}
 			else if (currentMap[*y][*x - 2] == TARGET)
@@ -175,19 +186,25 @@ static void goLeft(unsigned int *x, unsigned int *y)
 					currentMap[*y][*x - 1] = OVERTARGET;
 					currentMap[*y][*x - 2] = FULLBOX;
 					currentMap[*y][*x] = nextCase;
-					*x -= 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y][*x - 1] == BOX)
 				{
 					currentMap[*y][*x - 1] = PLAYER;
 					currentMap[*y][*x - 2] = FULLBOX;
 					currentMap[*y][*x] = nextCase;
-					*x -= 1;
+					mvt = 1;
 				}
 			}
 			globalCurrentLevel->numberPush += 1;
-			globalCurrentLevel->numberMov += 1;
 		}
+	}
+
+	if(mvt)
+	{
+		*x -= 1;
+		globalCurrentLevel->numberMov += 1;
+		addStep(&globalCurrentLevel->stepsNode, LEFT, cellReplaced, cellReplacedPlus);
 	}
 }
 
@@ -200,20 +217,21 @@ static void goDown(unsigned int *x, unsigned int *y)
 {
 	char **currentMap = globalCurrentLevel->map;
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+	char mvt = 0;
+	char cellReplaced = currentMap[*y + 1][*x];
+	char cellReplacedPlus = currentMap[*y + 2][*x];
 
 	if (currentMap[*y + 1][*x] == NOTHING)
 	{
 		currentMap[*y + 1][*x] = PLAYER;
 		currentMap[*y][*x] = nextCase;
-		*y += 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y + 1][*x] == TARGET)
 	{
 		currentMap[*y + 1][*x] = OVERTARGET;
 		currentMap[*y][*x] = nextCase;
-		*y += 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y + 1][*x] == BOX || currentMap[*y + 1][*x] == FULLBOX)
 	{
@@ -226,14 +244,14 @@ static void goDown(unsigned int *x, unsigned int *y)
 					currentMap[*y + 1][*x] = OVERTARGET;
 					currentMap[*y + 2][*x] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*y += 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y + 1][*x] == BOX)
 				{
 					currentMap[*y + 1][*x] = PLAYER;
 					currentMap[*y + 2][*x] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*y += 1;
+					mvt = 1;
 				}
 			}
 			else if (currentMap[*y + 2][*x] == TARGET)
@@ -243,19 +261,25 @@ static void goDown(unsigned int *x, unsigned int *y)
 					currentMap[*y + 1][*x] = OVERTARGET;
 					currentMap[*y + 2][*x] = FULLBOX;
 					currentMap[*y][*x] = nextCase;
-					*y += 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y + 1][*x] == BOX)
 				{
 					currentMap[*y + 1][*x] = PLAYER;
 					currentMap[*y + 2][*x] = FULLBOX;
 					currentMap[*y][*x] = nextCase;
-					*y += 1;
+					mvt = 1;
 				}
 			}
 			globalCurrentLevel->numberPush += 1;
-			globalCurrentLevel->numberMov += 1;
 		}
+	}
+
+	if(mvt)
+	{
+		*y += 1;
+		globalCurrentLevel->numberMov += 1;
+		addStep(&globalCurrentLevel->stepsNode, DOWN, cellReplaced, cellReplacedPlus);
 	}
 }
 
@@ -268,20 +292,21 @@ static void goUp(unsigned int *x, unsigned int *y)
 {
 	char **currentMap = globalCurrentLevel->map;
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
+	char mvt = 0;
+	char cellReplaced = currentMap[*y - 1][*x];
+	char cellReplacedPlus = currentMap[*y - 2][*x];
 
 	if (currentMap[*y - 1][*x] == NOTHING)
 	{
 		currentMap[*y - 1][*x] = PLAYER;
 		currentMap[*y][*x] = nextCase;
-		*y -= 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y - 1][*x] == TARGET)
 	{
 		currentMap[*y - 1][*x] = OVERTARGET;
 		currentMap[*y][*x] = nextCase;
-		*y -= 1;
-		globalCurrentLevel->numberMov += 1;
+		mvt = 1;
 	}
 	else if (currentMap[*y - 1][*x] == BOX || currentMap[*y - 1][*x] == FULLBOX)
 	{
@@ -294,14 +319,14 @@ static void goUp(unsigned int *x, unsigned int *y)
 					currentMap[*y - 1][*x] = OVERTARGET;
 					currentMap[*y - 2][*x] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*y -= 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y - 1][*x] == BOX)
 				{
 					currentMap[*y - 1][*x] = PLAYER;
 					currentMap[*y - 2][*x] = BOX;
 					currentMap[*y][*x] = nextCase;
-					*y -= 1;
+					mvt = 1;
 				}
 			}
 			else if (currentMap[*y - 2][*x] == TARGET)
@@ -311,7 +336,7 @@ static void goUp(unsigned int *x, unsigned int *y)
 					currentMap[*y - 1][*x] = OVERTARGET;
 					currentMap[*y - 2][*x] = FULLBOX;
 					currentMap[*y][*x] = nextCase;
-					*y -= 1;
+					mvt = 1;
 				}
 				else if (currentMap[*y - 1][*x] == BOX)
 				{
@@ -320,8 +345,14 @@ static void goUp(unsigned int *x, unsigned int *y)
 				}
 			}
 			globalCurrentLevel->numberPush += 1;
-			globalCurrentLevel->numberMov += 1;
 		}
+	}
+
+	if(mvt)
+	{
+		*y -= 1;
+		globalCurrentLevel->numberMov += 1;
+		addStep(&globalCurrentLevel->stepsNode, UP, cellReplaced, cellReplacedPlus);
 	}
 }
 

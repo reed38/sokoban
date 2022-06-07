@@ -4,7 +4,6 @@
  * @brief Programme de détection des appuis de touches sur le terminal.
  *
  */
-#include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
 
@@ -57,26 +56,46 @@ void interactionLoop(char *saveFile)
 
     for(;;)
     {
+        char refreshTerminal = 0; // On n'actualise l'affichage que lorsque cela est nécessaire
+
         switch (readKeyboard())
         {
         case UP:
-            move(UP);
+            if(!globalCurrentLevel->success)
+            {
+                move(UP); 
+                refreshTerminal = 1;
+            }
             break;
         case DOWN:
-            move(DOWN);
+            if(!globalCurrentLevel->success)
+            {
+                move(DOWN); 
+                refreshTerminal = 1;
+            }
             break;
         case RIGHT:
-            move(RIGHT);
+            if(!globalCurrentLevel->success)
+            {
+                move(RIGHT);
+                refreshTerminal = 1;
+            } 
             break;
         case LEFT:
-            move(LEFT);
+            if(!globalCurrentLevel->success)
+            {
+                move(LEFT);
+                refreshTerminal = 1;
+            }
             break;
         case 'z': // Annuler un déplacement
-            // steps.c 
+            backStep(globalCurrentLevel); 
+            refreshTerminal = 1;
             break;
         case 'r': // Réinitialise le niveau
             freeLevel(globalCurrentLevel);
-            initLevel(globalCurrentLevel);          
+            initLevel(globalCurrentLevel);
+            refreshTerminal = 1;          
             break;
         case 't': // Revoir les déplacements effectués
             // steps.c    
@@ -95,6 +114,6 @@ void interactionLoop(char *saveFile)
             return;
         }
 
-		printLevel(globalCurrentLevel);
+        if(refreshTerminal) printLevel(globalCurrentLevel);
     }
 }

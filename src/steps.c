@@ -55,7 +55,7 @@ void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, 
 	*steps = step;
 }
 
-void backStep(Level *level)
+void backStep(Level *level) // TODO : Décrémenter les scores (attention, verif à faire pour numberPush)
 {
 	Step *lastStep = level->stepsNode;
 	
