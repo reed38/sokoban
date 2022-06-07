@@ -7,8 +7,6 @@
 #ifndef __LEVEL_LOADER_H__
 #define __LEVEL_LOADER_H__
 
-#include "steps.h"
-
 /*------------------------------------------------------------------------------
 	TYPE DEFINITIONS
 ------------------------------------------------------------------------------*/
@@ -30,7 +28,7 @@ typedef struct Level {
 	unsigned int playerX; /**< Abscisse du joueur dans la map */
 	unsigned int playerY; /**< Ordonnée du joueur dans la map */
 	/*@}*/
-	Step *stepsNode; /**< Pile des déplacements effectués */
+	struct Step *stepsNode; /**< Pile des déplacements effectués */
 	struct Level *nextLevel; /**< Lien au niveau suivant */
 } Level;
 

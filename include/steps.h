@@ -7,6 +7,8 @@
 #ifndef __STEPS_H__
 #define __STEPS_H__
 
+#include "levelLoader.h"
+
 /*------------------------------------------------------------------------------
 	MACROS
 ------------------------------------------------------------------------------*/
@@ -50,12 +52,17 @@ typedef struct Step {
 	DECLARATIONS
 ------------------------------------------------------------------------------*/
 
-void addStep(Step **, unsigned char, unsigned char, unsigned char);
+extern void addStep(Step **, unsigned char, unsigned char, unsigned char);
 
+extern void backStep(Level *level);
 
 /**
- * @brief Fonction de test de steps.
+ * @brief Fonction récupérant une chaine représentant un trajet, effectuant les mouvements et ajoute sur la pile d'étapes
+ * @param steps pile des mouvements
+ * @param str chaine représentant un trajet
  */
+extern void stepsParser(Step **steps, char *str);
+
 extern void testSteps(void);
 
 
