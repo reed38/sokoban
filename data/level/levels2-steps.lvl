@@ -1,3 +1,14 @@
+;WALLS
+            12     f     f   ff      0   standard floor
+.           13     f     f   ff      4   target field
+#            0     0     0    0      0   walls
+
+;OBJECTS
+@            0       f       0    101   201    1     0 player
+$            1       f       0    100     0    2  1000 heavy box
+
+;MAXLEVEL 88
+;ATOP *$.
 ;LEVEL 1
 ;SUCCESS 0
     #####
@@ -7,24 +18,26 @@
   #  $ $ #
 ### # ## #   ######
 #   # ## #####  ..#
-# $  $          ..#
-##### ### #@##  ..#
+# $ $@          ..#
+##### ### # ##  ..#
     #     #########
     #######
 ;LEVEL 2
-;SUCCESS 0
+;SUCCESS 1
+;AUTHOR Jean-François Copé
+;COMMENT Les jumelles, le 2
 ############
 #..  #     ###
 #..  # $  $  #
 #..  #$####  #
-#..    @ ##  #
-#..  # #  $ ##
+#..     @##  #
+#..$ # #  $ ##
 ###### ##$ $ #
   # $  $ $ $ #
   #    #     #
   ############
 ;LEVEL 3
-;SUCCESS 0
+;SUCCESS 1
         ########
         #     @#
         # $#$ ##
@@ -36,7 +49,7 @@
 #....  ##########
 ########
 ;LEVEL 4
-;SUCCESS 0
+;SUCCESS 1
            ########
            #  ....#
 ############  ....#
@@ -67,7 +80,7 @@
           #    #
           ######
 ;LEVEL 6
-;SUCCESS 0
+;SUCCESS 1
 ######  ###
 #..  # ##@##
 #..  ###   #
@@ -78,6 +91,9 @@
    #  $# $ #
    # $  $  #
    #  ##   #
+<<<<<<< HEAD:data/level/levels2-steps.lvl
+   #########
+=======
    #########
 ;LEVEL 7
 ;SUCCESS 0
@@ -1365,3 +1381,4 @@
 ## ## ### $  $   #
  #    # #    #####
  ###### ######
+>>>>>>> master:data/level/levels3.lvl

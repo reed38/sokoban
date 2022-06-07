@@ -14,6 +14,22 @@
 
 static void printLevelsInfo(void);
 
+// todo : à virer
+void printSteps(Step *stepsNode)
+{
+    // Affiche la pile
+    Step *ptrFollow = stepsNode;
+    if (NULL == ptrFollow)
+		printf("pile vide!");
+	else
+		printf("Contenu de la pile : \n");
+	while (NULL != ptrFollow) {
+		printf("DIR = %d \tCR = %c \tCRP = %c\n", ptrFollow->direction, ptrFollow->cellReplaced, ptrFollow->cellReplacedPlus);
+
+		ptrFollow = ptrFollow->previousStep;
+	}
+	printf("\n");
+}
 // A virer à la fin, sert de débug
 /*static void listeAffiche(void)
 {
