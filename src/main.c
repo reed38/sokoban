@@ -14,7 +14,7 @@ int main(void)
     initLevel(globalCurrent);
     
        
-   configureTerminal();
+    configureTerminal();
     interactionLoop();
     
     
