@@ -1,7 +1,7 @@
 /**
  * @file steps.h
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
- * @brief 
+ * @brief En-tête du programme de gestion de l'historique des déplacements.
  * 
  */
 #ifndef __STEPS_H__

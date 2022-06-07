@@ -1,3 +1,9 @@
+/**
+ * @file steps.h
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief Programme de test de la gestion de l'historique des déplacements.
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
