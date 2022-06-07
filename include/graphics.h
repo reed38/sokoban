@@ -49,6 +49,12 @@
 extern void configureTerminal(void);
 
 /**
+ * @brief Fonction servant à remettre le terminal avec affichage des touches.
+ * 
+ */
+extern void resetTerminal(void);
+
+/**
  * @brief Fonction servant à afficher sur l'écran toutes les informations d'un niveau.
  * En particulier, le numéro, l'auteur, le commentaire, la map et les contrôles. 
  * 

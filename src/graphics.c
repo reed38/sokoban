@@ -12,6 +12,13 @@
 
 #include "graphics.h"
 
+
+/*------------------------------------------------------------------------------
+	VARIABLES
+------------------------------------------------------------------------------*/
+
+static struct termios terminalSetup;
+
 /*------------------------------------------------------------------------------
 	PROTOTYPES
 ------------------------------------------------------------------------------*/
@@ -61,16 +68,26 @@ void printLevel(Level *level)
 
 void configureTerminal(void)
 {
-	struct termios terminalSetup;
 	if (tcgetattr(0, &terminalSetup) == -1)
 	{
 		perror("tcgetattr");
 		exit(1);
 	}
-	terminalSetup.c_lflag &= ~(ICANON); // Met le terminal en mode canonique.
+	terminalSetup.c_lflag &= ~(ICANON); // Met le terminal en mode non canonique (interprète à chaque touche).
 	terminalSetup.c_lflag &= ~(ECHO);	// Les touches tapées ne s'inscriront plus dans le terminal
 	terminalSetup.c_cc[VMIN] = 1;		// Nombre minimum de caractères lors d'une lecture en mode non canonique.
 	terminalSetup.c_cc[VTIME] = 0;		// Délai en dixièmes de seconde pour une lecture en mode non canonique.
+	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) // tcsetattr() indique une réussite si une des modifications peut être réalisée
+	{ 
+		perror("tcsetattr");
+		exit(1);
+	}
+}
+
+void resetTerminal(void)
+{
+	terminalSetup.c_lflag |= (ICANON); // Met le terminal en mode canonique (attend un appui sur entrée pour interpréter).
+	terminalSetup.c_lflag |= (ECHO);	// Les touches tapées ne s'inscriront plus dans le terminal
 	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) // tcsetattr() indique une réussite si une des modifications peut être réalisée
 	{ 
 		perror("tcsetattr");

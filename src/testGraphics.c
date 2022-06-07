@@ -31,6 +31,7 @@ void testGraphics(void)
 		sleep(2);
 		currentLevel = currentLevel->nextLevel;
 	}
+    resetTerminal();
 	/*initLevel(levelsNode);
     initLevel(levelsNode->nextLevel);
 
