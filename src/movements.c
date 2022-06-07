@@ -42,6 +42,7 @@ void move(int command)
     default:
         break;
     }
+    isFinished();
 }
 
 // tab[y][x], y ordonnée x abscisse
@@ -74,7 +75,6 @@ static void goRight()
     unsigned int *y = &globalCurrent->playerX;
     unsigned int *x = &globalCurrent->playerY;
     char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING; // on différencie le cas où le personnage est sur une target et celui poù il est sur rien
-
     if (currentMap[*y][*x + 1] == NOTHING)
     {
         currentMap[*y][*x + 1] = PLAYER;
@@ -315,9 +315,8 @@ static void goUp()
                 else if (currentMap[*y - 1][*x] == BOX)
                 {
                     currentMap[*y - 1][*x] = PLAYER;
-                    currentMap[*y - 2][*x] = FULLBOX;
-                    currentMap[*y][*x] = nextCase;
-                    *y -= 1;
+                    currentMap[*y - 2][*x] = FULLBOX;   
+
                 }
             }
             globalCurrent->numberPush += 1;
@@ -325,7 +324,7 @@ static void goUp()
     }
 }
 
-char isFinished()
+void checkFinished()
 {
     char **currentMap = globalCurrent->map;
     for (int i = 0; i < globalCurrent->numberLines; i++)
@@ -333,8 +332,8 @@ char isFinished()
         for (int j = 0; j < strlen(currentMap[i]);j++)
             {
                 if (currentMap[i][j] == '$')
-                    return 0;
+                    globalCurrent->success=0;
             }
     }
-    return 1;
+    globalCurrent->success=1;
 }
