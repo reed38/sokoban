@@ -10,6 +10,8 @@
 
 #include "steps.h"
 #include "levelLoader.h"
+#include "keys.h"
+#include "movements.h"
 
 
 /*------------------------------------------------------------------------------

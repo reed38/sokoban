@@ -41,6 +41,12 @@ typedef struct Level {
  */
 extern Level *levelsNode;
 
+/**
+ * @brief Niveau en cours de jeu.
+ * 
+ */
+extern Level *globalCurrentLevel;
+
 
 /*------------------------------------------------------------------------------
 	DECLARATIONS

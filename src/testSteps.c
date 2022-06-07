@@ -11,6 +11,8 @@
 #include "levelLoader.h"
 #include "levelSaver.h"
 #include "steps.h"
+#include "keys.h"
+#include "movements.h"
 
 static void printMap(char **map, unsigned int nbLines)
 {

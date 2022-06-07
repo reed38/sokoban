@@ -8,16 +8,24 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
-#include "keys.h"
-#include "movements.h"
 
-Level *globalCurrentLevel;
+#include "movements.h"
+#include "keys.h"
+
+/*------------------------------------------------------------------------------
+	PROTOTYPES
+------------------------------------------------------------------------------*/
 
 static void goRight(unsigned int *x, unsigned int *y);
 static void goLeft(unsigned int *x, unsigned int *y);
 static void goUp(unsigned int *x, unsigned int *y);
 static void goDown(unsigned int *x, unsigned int *y);
 static void checkFinished(void);
+
+
+/*------------------------------------------------------------------------------
+	FONCTIONS
+------------------------------------------------------------------------------*/
 
 void move(int direction)
 {
