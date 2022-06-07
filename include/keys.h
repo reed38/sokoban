@@ -1,12 +1,35 @@
+    /**
+     * @file keys.c
+     * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+     * @brief En-tête du programme de détection des appuis de touches sur le terminal.
+     * 
+     */
     #ifndef __KEYS_H__
     #define __KEYS_H__
 
-    enum Keys {RIGHT,LEFT,DOWN,UP,RESET,BACK};
-    enum Keys getInput(void);
-    int litClavier(void);
+    /*------------------------------------------------------------------------------
+    	MACROS
+    ------------------------------------------------------------------------------*/
+
+    #define MAXSIZE 10
+
+    #define UP			1
+    #define DOWN 		2
+    #define RIGHT		3
+    #define LEFT		4
 
 
+    /*------------------------------------------------------------------------------
+    	DECLARATIONS
+    ------------------------------------------------------------------------------*/
 
+    /**
+     * @brief Fonction servant de boucle principale du programme.
+     * Attend qu'une touche soit pressée et exécute le sous-programme correspondant suivant la touche.
+     * 
+     * @param saveFile Chemin d'accès du fichier de sauvegarde
+     */
+    extern void interactionLoop(/*char **/);
 
 
     #endif

@@ -1,3 +1,5 @@
+  
+  
     #ifndef __MOVEMENTS_H__
     #define __MOVEMENTS_H__
     #include "levelLoader.h"
@@ -8,8 +10,10 @@
     #define NOTHING ' '
     #define FULLBOX 'Q'
     #define OVERTARGET 'O'
+    
+    extern Level *globalCurrent;
 
-    void move(unsigned int *y, unsigned int *x,  Level *levelPtr);
+    void move(int) ;
 
 
     #endif

@@ -1,56 +1,91 @@
+/**
+ * @file keys.c
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief Programme de détection des appuis de touches sur le terminal.
+ *
+ */
 #include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
+
 #include "keys.h"
+#include "graphics.h"
+#include "levelLoader.h"
 #include "movements.h"
-#define MAXSIZE 10
+
+/*------------------------------------------------------------------------------
+	PROTOTYPES
+------------------------------------------------------------------------------*/
+
+static int readKeyboard(void);
 
 /**
- * @brief permet de lire la touche pressée et retourne un int correspondant 
- * @return int corresondant
+ * @brief Fonction servant à lire la touche pressée.
+ * Cette fonction est bloquante.
+ *
+ * @return int Code de la touche lue.
  */
-int litClavier()
+static int readKeyboard(void)
 {
-	char r[MAXSIZE];
+	char buff[MAXSIZE];
 	int c;
 
-	if ((c=read(0,r,3)) == - 1 ) return 0;
+	if ((c = read(0, buff, 3)) == -1) // Si read échoue
+		return 0;
 
-	switch (r[0]) {
-		case 27 :  if ((c==3) && (r[1]==91)) return (r[2]-64); else return 0; break;
-		default: return r[0]; break;
-	}
-}
-/**
- * @brief scan la touche presse 
- * @return enum Keys 
- */
-enum Keys getInput(void)
-{
-	int a=litClavier();
-
-	switch(a)
+	switch (buff[0])
 	{
-		case 1:
-			return UP;
-			break;
-		case 2:
-			return DOWN;
-			break;
-		case 3:
-			return RIGHT;
-			break;
-		case 4:
-			return LEFT;
-			break;
-		case 98:
-			return BACK;
-		case 114:
-			return RESET;
-			break;
-		default:
-			getInput();
+	case 27:
+		if ((c == 3) && (buff[1] == 91))
+			return (buff[2] - 64);
+		else
+			return 0;
+		break;
+	default:
+		return buff[0];
 		break;
 	}
 }
 
+void interactionLoop(/*char *saveFile*/)
+{
+	for (;;)
+	{
+		switch (readKeyboard())
+		{
+		case UP:
+			move(UP);
+			break;
+		case DOWN:
+			 move(DOWN);
+			break;
+		case RIGHT:
+			 move(RIGHT);
+			break;
+		case LEFT:
+			 move(LEFT);
+			break;
+		case 'z':
+			// steps.c
+			break;
+		case 'r':
+			// freeLevel(currentLevel);
+			// initLevel(currentLevel);
+			break;
+		case 't':
+			// steps.c
+			break;
+			/*case 's':
+				saveLevels(saveFile);
+				printf("\nPartie sauvegardée !\n");
+				break;
+			case 'q': 
+			printf("\nMerci d'avoir joué !\n");
+			saveLevels("data/level/levels3.lvl");*/
+			// TODO : freeLevel(currentLevel)
+			//freeNode();
+			return;
+		}
+		printLevel(globalCurrent);
+	}
+}
