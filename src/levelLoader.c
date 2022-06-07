@@ -245,12 +245,13 @@ void initLevel(Level *level)
 	level->numberPush = 0;
 
 	// Détermination de la position du joueur
-	for(int x = 0; x <= level->numberLines && !playerFound; x++) 
+	// TODO : ne pas oublier d'inverser dans movement
+	for(int y = 0; y <= level->numberLines && !playerFound; y++) 
 	{
 		char element = ' '; 
-		for(int y = 0; element != '\0' && !playerFound; y++)
+		for(int x = 0; element != '\0' && !playerFound; x++)
 		{
-			element = level->defaultMap[x][y];
+			element = level->defaultMap[y][x];
 			if(element == '@')
 			{
 				level->playerX = x;

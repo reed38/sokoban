@@ -42,6 +42,42 @@ void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, 
 	*steps = step;
 }
 
+void backStep(Level *level)
+{
+	unsigned int x = level->playerX;
+	unsigned int y = level->playerY;
+
+	switch (level->stepsNode->direction)
+	{
+	case UP:
+		level->map[y-1][x] = PLAYER;
+		level->playerY -= 1;
+		level->map[y][x] = level->stepsNode->cellReplaced;
+		level->map[y+1][x] = level->stepsNode->cellReplacedPlus;
+		break;
+	case DOWN:
+		level->map[y+1][x] = PLAYER;
+		level->playerY += 1;
+		level->map[y][x] = level->stepsNode->cellReplaced;
+		level->map[y-1][x] = level->stepsNode->cellReplacedPlus;
+		break;
+	case RIGHT:
+		level->map[y][x-1] = PLAYER;
+		level->playerX -= 1;
+		level->map[y][x] = level->stepsNode->cellReplaced;
+		level->map[y][x+1] = level->stepsNode->cellReplacedPlus;
+		break;
+	case LEFT:
+		level->map[y][x+1] = PLAYER;
+		level->playerX += 1;
+		level->map[y][x] = level->stepsNode->cellReplaced;
+		level->map[y][x-1] = level->stepsNode->cellReplacedPlus;
+		break;
+	default:
+		break;
+	}
+}
+
 void stepParser(Step **steps, char **str)
 {
 	// Parser des chaînes comme "URLDLRUDRR"  
