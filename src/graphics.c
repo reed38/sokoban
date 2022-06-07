@@ -12,6 +12,13 @@
 
 #include "graphics.h"
 
+
+/*------------------------------------------------------------------------------
+	VARIABLES
+------------------------------------------------------------------------------*/
+
+static struct termios terminalSetup;
+
 /*------------------------------------------------------------------------------
 	PROTOTYPES
 ------------------------------------------------------------------------------*/
@@ -19,7 +26,8 @@
 static inline void refreshTerminal(void);
 static void printMap(char **, int);
 static void printHeader(unsigned int, char *, char *);
-static void printFooter(char);
+static void printFooter(char, char, char);
+static void printScore(unsigned int, unsigned int);
 
 
 /*------------------------------------------------------------------------------
@@ -35,27 +43,51 @@ static inline void refreshTerminal(void)
 	printf("\e[1;1H\e[2J"); // Séquence d'échappement permettant d'effacer le terminal
 }
 
-// TODO : Implémenter l'affichage du score
 void printLevel(Level *level)
 {
+	char reachPrevious = 0; //1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+	char reachNext = 0; //1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
+
 	refreshTerminal();
 	printHeader(level->levelNumber, level->author, level->comment);
 	printMap(level->map, level->numberLines);
-	printFooter(level->success);
+	printScore(level->numberMov, level->numberPush);
+
+	if (level->levelNumber != 1)
+		reachPrevious = 1;
+	else
+		reachPrevious = 0;
+	
+	if ( (level->nextLevel != NULL) && (level->success == 1) )
+		reachNext = 1;
+	else
+		reachNext = 0;
+	
+	printFooter(level->success, reachPrevious, reachNext);
 }
 
 void configureTerminal(void)
 {
-	struct termios terminalSetup;
 	if (tcgetattr(0, &terminalSetup) == -1)
 	{
 		perror("tcgetattr");
 		exit(1);
 	}
-	terminalSetup.c_lflag &= ~(ICANON); // Met le terminal en mode canonique.
+	terminalSetup.c_lflag &= ~(ICANON); // Met le terminal en mode non canonique (interprète à chaque touche).
 	terminalSetup.c_lflag &= ~(ECHO);	// Les touches tapées ne s'inscriront plus dans le terminal
 	terminalSetup.c_cc[VMIN] = 1;		// Nombre minimum de caractères lors d'une lecture en mode non canonique.
 	terminalSetup.c_cc[VTIME] = 0;		// Délai en dixièmes de seconde pour une lecture en mode non canonique.
+	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) // tcsetattr() indique une réussite si une des modifications peut être réalisée
+	{ 
+		perror("tcsetattr");
+		exit(1);
+	}
+}
+
+void resetTerminal(void)
+{
+	terminalSetup.c_lflag |= (ICANON); // Met le terminal en mode canonique (attend un appui sur entrée pour interpréter).
+	terminalSetup.c_lflag |= (ECHO);	// Les touches tapées ne s'inscriront plus dans le terminal
 	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) // tcsetattr() indique une réussite si une des modifications peut être réalisée
 	{ 
 		perror("tcsetattr");
@@ -135,22 +167,47 @@ static void printHeader(unsigned int levelNumber, char *author, char *comment)
 }
 
 /**
- * @brief affiche les commandes disponibles en bas de terminal selon si le niveau est réussi ou non
+ * @brief affiche les commandes disponibles en bas de terminal selon si le niveau est réussi, et les niveaux atteignables ou non
  * 
- * @param success réussite du niveau
+ * @param success 1 si le niveau est réussi ; 0 sinon
+ * @param reachPrevious 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+ * @param reachNext 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
  */
-static void printFooter(char success)
+static void printFooter(char success, char reachPrevious, char reachNext)
 {
 	if (success)
 	{
 		printf(ANSI_CODE_YELLOW "Bravo, vous avez réussi ce niveau !\n");
-		printf(ANSI_CODE_MAGENTA "Appuyez sur t pour revoir votre trajet\n" ANSI_CODE_RESET);
+		printf(ANSI_CODE_MAGENTA "t : revoir votre trajet\n");
+		
+		if (reachPrevious && reachNext)
+			printf("p : niveau précédent    n : niveau suivant\n");
+		else if (reachPrevious && !reachNext)
+			printf("p : niveau précédent\n");
+		else if (!reachPrevious && reachNext)
+			printf("n : niveau suivant\n");
+
+		printf("s : sauvegarder         q : sauvergarder et quitter\n" ANSI_CODE_RESET);
 	}
 
 	else
 	{
 		printf(ANSI_CODE_MAGENTA "Deplacer le joueur avec les fleches du clavier\n");
-		printf("z : annuler\tr : recommencer\n" ANSI_CODE_RESET);
+		printf("z : annuler\t\tr : recommencer\n");
+		if (reachPrevious)
+			printf("p : niveau précédent\n");
+		printf("s : sauvegarder\t\tq : sauvergarder et quitter\n" ANSI_CODE_RESET);
 	}
 
+}
+
+/**
+ * @brief affiche les scores en dessous de la carte
+ * 
+ * @param numberMov nombre de déplacements du manutentionnaire
+ * @param numberPush nombre de poussages de caisses
+ */
+static void printScore(unsigned int numberMov, unsigned int numberPush)
+{
+	printf("Mouvements : %d\tCaisses poussées : %d\n", numberMov, numberPush);
 }
