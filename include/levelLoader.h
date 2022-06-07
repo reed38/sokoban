@@ -65,7 +65,7 @@ extern void readLevelsFile(char *);
 extern void initLevel(Level *);
 
 /**
- * @brief Fonction de test du levelLoader et du  levelSaver.
+ * @brief Fonction de test du levelLoader et du levelSaver.
  */
 extern void testLevelLoadAndSave(void);
 

@@ -10,6 +10,7 @@
 
 #include "levelSaver.h"
 #include "levelLoader.h"
+#include "steps.h"
 
 void saveLevels(char *destination)
 {
@@ -37,12 +38,17 @@ void saveLevels(char *destination)
 
         fprintf(saveFile, ";SUCCESS %d\n", ptr->success);
 
+		if (ptr->stepsNode != NULL)
+		{
+			char *strStep = stepsSerialiser(ptr->stepsNode);
+			fprintf(saveFile, ";STEPS %s\n", strStep);
+			free(strStep);
+		}
+
         for (int i=0; i<(ptr->numberLines); i++)
         {
            fprintf(saveFile, "%s\n", ptr->defaultMap[i]); 
         }
-
-        // TODO : Implémenter l'historique de mouvmeents PATH
         
 		ptr = ptr->nextLevel;
 	}
@@ -60,6 +66,14 @@ void freeNode(void)
 		for(int i = 0; i != ptrFollow->numberLines; i++) 
 			free(ptrFollow->defaultMap[i]);
 		free(ptrFollow->defaultMap);
+		
+		Step *ptrStepsFollow = ptrFollow->stepsNode;
+		while(ptrStepsFollow != NULL)
+		{
+			Step *ptrStepsToFree = ptrStepsFollow;
+			ptrStepsFollow = ptrStepsFollow->previousStep;
+			free(ptrStepsToFree);
+		}
 		
 		free(ptrFollow->author);
 		free(ptrFollow->comment);

@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "levelLoader.h"
+#include "steps.h"
 
 /*------------------------------------------------------------------------------
 	VARIABLES
@@ -127,6 +128,10 @@ static void parseLine(char *line)
 	else if(startWith(";SUCCESS", line)) // Mot clef SUCCESS
 	{
 		currentLevel->success = atoi(removeKeyword(line));
+	}
+	else if(startWith(";STEPS", line)) // Mot clef STEPS
+	{
+		stepsParser(&currentLevel->stepsNode, removeKeyword(line));
 	}
 	else // Pas de mot clef : c'est une ligne d'un tableau
 	{
