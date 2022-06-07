@@ -12,6 +12,8 @@
 #include "graphics.h"
 #include "levelLoader.h"
 #include "levelSaver.h"
+#include "movements.h"
+#include "steps.h"
 
 /*------------------------------------------------------------------------------
 	PROTOTYPES
@@ -56,35 +58,39 @@ void interactionLoop(char *saveFile)
         switch (readKeyboard())
         {
         case UP:
-            //move(UP)
+            move(UP);
             break;
         case DOWN:
-            //move(DOWN);
+            move(DOWN);
             break;
         case RIGHT:
-            //move(RIGHT)
+            move(RIGHT);
             break;
         case LEFT:
-            //move(LEFT)
+            move(LEFT);
             break;
-        case 'z':
+        case 'z': // Annuler un déplacement
             // steps.c 
             break;
-        case 'r': 
-            //freeLevel(currentLevel);
-            //initLevel(currentLevel);          
+        case 'r': // Réinitialise le niveau
+            freeLevel(currentLevel);
+            initLevel(currentLevel);          
             break;
-        case 't':
+        case 't': // Revoir les déplacements effectués
             // steps.c    
             break;
-        case 's':
+        case 'p': // Niveau précédent    
+            break;
+        case 'n': // Niveau suivant 
+            break;
+        case 's': // Sauvegarder
             saveLevels(saveFile);
             printf("\nPartie sauvegardée !\n");
             break;
-        case 'q': 
+        case 'q': // Sauvegarder et quitter
             printf("\nMerci d'avoir joué !\n"); 
             saveLevels("data/level/levels3.lvl");
-            // TODO : freeLevel(currentLevel) 
+            freeLevel(currentLevel) 
             freeNode();
             return;
         }
