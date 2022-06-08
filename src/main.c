@@ -13,8 +13,9 @@ int main(void)
     readLevelsFile(levelFile);
     globalCurrent = levelsNode;
     initLevel(globalCurrent);
-   // Node **graph = pathfinding (globalCurrent,5,1,6,1);
-   Node **graph=convertToNode(globalCurrent);
+    printLevel(globalCurrent);
+   Node **graph = pathfinding (globalCurrent,5,1,6,1);
+  // Node **graph=convertToNode(globalCurrent);
     printfGraph(graph,globalCurrent);
     
    
