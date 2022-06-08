@@ -11,7 +11,7 @@ typedef struct Node
     char type;   // 1 TRAVERSABLE, 0 NOTTRAVERSABLE, 
     char isOpen; // 0 pour unexplored, 1 pour explored
 } Node;
-Node ** pathfinding(Level *level, unsigned int xStart, unsigned int yStart, unsigned int xTarget, unsigned int yTarget);
+void pathfinding(Node **graph, unsigned int xStart, unsigned int yStart, unsigned int xTarget, unsigned int yTarget);
 Node **convertToNode(Level *level);
 unsigned int maxLength(Level *level);
 void printfGraph(Node **node,Level *level);

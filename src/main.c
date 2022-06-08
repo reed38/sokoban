@@ -14,9 +14,14 @@ int main(void)
     globalCurrent = levelsNode;
     initLevel(globalCurrent);
     printLevel(globalCurrent);
-   Node **graph = pathfinding (globalCurrent,5,1,6,1);
-  // Node **graph=convertToNode(globalCurrent);
+   Node **graph=convertToNode(globalCurrent);
     printfGraph(graph,globalCurrent);
+    for (int i=0;i<40;i++)
+    {
+        pathfinding (graph,5,1,8,8);
+        printfGraph(graph,globalCurrent);
+    }
+
     
    
    for (int i = 0; i < globalCurrent->numberLines; i++)
