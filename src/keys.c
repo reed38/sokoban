@@ -64,8 +64,11 @@ void interactionLoop(char *saveFile)
             }
             break;
         case 'z': // Annuler un déplacement
-            backStep(globalCurrentLevel); 
-            refreshTerminal = 1;
+            if(!globalCurrentLevel->success)
+            {
+                backStep(globalCurrentLevel); 
+                refreshTerminal = 1;
+            }
             break;
         case 'r': // Réinitialise le niveau
             if(!globalCurrentLevel->success)
@@ -76,16 +79,25 @@ void interactionLoop(char *saveFile)
             }
             break;
         case 't': // Revoir les déplacements effectués
-            replaySteps(globalCurrentLevel->stepsNode); 
-            refreshTerminal = 1; 
+        	if(globalCurrentLevel->success)
+		    {
+                replaySteps(); 
+                refreshTerminal = 1; 
+            }        
             break;
         case 'p': // Niveau précédent
-			loadPreviousLevel();
-            refreshTerminal = 1;
+        	if(isPreviousReachable(globalCurrentLevel))
+	        {
+                loadPreviousLevel();
+                refreshTerminal = 1;
+            }
             break;
         case 'n': // Niveau suivant
-			loadNextLevel();
-            refreshTerminal = 1;
+        	if(isNextReachable(globalCurrentLevel))
+	        {
+                loadNextLevel();
+                refreshTerminal = 1;
+            }
             break;
         case 's': // Sauvegarder
             saveLevels(saveFile);

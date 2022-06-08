@@ -52,7 +52,7 @@ void readLevelsFile(char *location)
 	{
 		fprintf(stderr, "Erreur lors de l'ouverture du fichier...\n");
 		perror("");
-		exit(0);
+		exit(1);
 	}
 	
 	while ((lineLen = getline(&lineBuffer, &lineSize, levelsFile)) != -1) // getline alloue dynamiquement un buffer pour la ligne
@@ -76,7 +76,7 @@ void initLevel(Level *level, char reset)
 	level->numberPush = 0;
 
 	// Détermination de la position du joueur
-	for(int y = 0; y <= level->numberLines && !playerFound; y++) 
+	for(int y = 0; y < level->numberLines && !playerFound; y++) 
 	{
 		char element = ' '; 
 		for(int x = 0; element != '\0' && !playerFound; x++)
@@ -89,6 +89,12 @@ void initLevel(Level *level, char reset)
 				playerFound = 1;
 			}
 		}
+	}
+
+	if(!playerFound) 
+	{
+		fprintf(stderr, "Joueur introuvable !\n");
+		exit(1);
 	}
 
 	// Copie de defaultMap dans map pour la modification
@@ -106,7 +112,6 @@ void initLevel(Level *level, char reset)
 	}
 
 	// Quand on a quitté le jeu sans finir le niveau, on reprend là où on est
-	// Serialize les steps et appele move lettre par lettre
 	if (reset)
 	{
 		freeStepsNode(level); // On supprime les déplacements déjà sauvegardés
@@ -126,50 +131,32 @@ void initLevel(Level *level, char reset)
 
 char isPreviousReachable(Level *level)
 {
-	char reachablePrevious = 0;
-	if (level->levelNumber != 1)
-		reachablePrevious = 1;
-	else
-		reachablePrevious = 0;
-
-	return reachablePrevious;
+	return (level->levelNumber != 1) ? 1 : 0;
 }
 
 char isNextReachable(Level *level)
 {
-	char reachableNext = 0;
-	if ( (level->nextLevel != NULL) && (level->success == 1) )
-		reachableNext = 1;
-	else
-		reachableNext = 0;
-
-	return reachableNext;
+	return ((level->nextLevel != NULL) && (level->success == 1)) ? 1 : 0;
 }
 
 void loadNextLevel(void)
 {
-	if(isNextReachable(globalCurrentLevel))
-	{
-		freeLevel(globalCurrentLevel);
-		globalCurrentLevel = globalCurrentLevel->nextLevel;
-		initLevel(globalCurrentLevel, 0);
-	}
+	freeLevel(globalCurrentLevel);
+	globalCurrentLevel = globalCurrentLevel->nextLevel;
+	initLevel(globalCurrentLevel, 0);
 }
 
 void loadPreviousLevel(void)
 {
-	if(isPreviousReachable(globalCurrentLevel))
-	{
-		unsigned int levelToReach = globalCurrentLevel->levelNumber - 1;
-		Level *ptr = levelsNode;
+	unsigned int levelToReach = globalCurrentLevel->levelNumber - 1;
+	Level *ptr = levelsNode;
 
-		while(ptr->levelNumber != levelToReach)
-			ptr = ptr->nextLevel;
+	while(ptr->levelNumber != levelToReach)
+		ptr = ptr->nextLevel;
 
-		freeLevel(globalCurrentLevel);
-		globalCurrentLevel = ptr;
-		initLevel(globalCurrentLevel, 0);
-	}
+	freeLevel(globalCurrentLevel);
+	globalCurrentLevel = ptr;
+	initLevel(globalCurrentLevel, 0);
 }
 
 /**
@@ -250,6 +237,12 @@ static Level* insertLevel(unsigned int levelNumber)
 
 	while (ptrFollow->nextLevel != NULL) // On cherche la liste qui a le lien vide
 		ptrFollow = ptrFollow->nextLevel;
+
+	if(levelNumber != ptrFollow->levelNumber + 1)
+	{
+		fprintf(stderr, "Les numéros de niveaux ne se jouxtent pas =(\n");
+		exit(1);	
+	}
 
 	ptrFollow->nextLevel = lv; // On fait pointer le dernier élément de la liste à notre nouveau élément
 

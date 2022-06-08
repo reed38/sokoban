@@ -50,7 +50,7 @@ void backStep(Level *level)
 {
 	Step *lastStep = level->stepsNode;
 	
-	if(lastStep == NULL || (lastStep->cellReplaced == 0 && lastStep->cellReplacedPlus == 0) || level->success)
+	if(lastStep == NULL || (lastStep->cellReplaced == 0 && lastStep->cellReplacedPlus == 0))
 		return;
 
 	unsigned int x = level->playerX;
@@ -104,7 +104,7 @@ void freeStepsNode(Level *level)
 		free(ptrFollow);
 		ptrFollow = level->stepsNode;
 	}
-	globalCurrentLevel->stepsNode = NULL;
+	level->stepsNode = NULL;
 }
 
 void stepsParser(Step **steps, char *str)
@@ -169,26 +169,30 @@ char *stepsSerialiser(Step *steps)
 	return serialisedStr;
 }
 
-void replaySteps(Step *steps)
+void replaySteps(void)
 {
-	if(isNextReachable(globalCurrentLevel))
+	if(globalCurrentLevel->stepsNode == NULL) // Si les étapes ont été effacé manuellement du fichier alors que le niveau était résolu
 	{
-		char *serialisedSteps = stepsSerialiser(globalCurrentLevel->stepsNode);
-		int strLen = strlen(serialisedSteps); 
-		freeStepsNode(globalCurrentLevel); // On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
-
-		freeLevel(globalCurrentLevel);
-        initLevel(globalCurrentLevel, 0);
-
-		for (int i=0; i<strLen; i++)
-		{
-			printLevel(globalCurrentLevel);
-			printf("\nRelecture du trajet en cours...\n");
-			move(serialisedSteps[i] - '0');
-			usleep(100 * 1000); // Met le jeu en pause 100 ms
-		}
-		free(serialisedSteps);
+		globalCurrentLevel->success = 0;
+		return;
 	}
+	
+	char *serialisedSteps = stepsSerialiser(globalCurrentLevel->stepsNode);
+	int strLen = strlen(serialisedSteps); 
+	freeStepsNode(globalCurrentLevel); // On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
+
+	freeLevel(globalCurrentLevel);
+    initLevel(globalCurrentLevel, 0);
+
+	for (int i=0; i<strLen; i++)
+	{
+		printLevel(globalCurrentLevel);
+		printf("\nRelecture du trajet en cours...\n");
+		move(serialisedSteps[i] - '0');
+		usleep(100 * 1000); // Met le jeu en pause 100 ms
+	}
+	free(serialisedSteps);
+	
 }
 
 /**

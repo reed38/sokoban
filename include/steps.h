@@ -76,7 +76,7 @@ extern char *stepsSerialiser(Step *steps);
  *  
  * @param steps Pile des déplacements
  */
-extern void replaySteps(Step *steps);
+extern void replaySteps(void);
 
 /**
  * @brief Fonction testant la gestion des déplacements (pile, parser/serializer).

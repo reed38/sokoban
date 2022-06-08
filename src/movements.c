@@ -63,7 +63,7 @@ void move(char direction)
 static void goRight(unsigned int *x, unsigned int *y)
 {
 	char **currentMap = globalCurrentLevel->map;
-	
+
 	// On différencie le cas où le personnage est sur une cible et celui où il est sur une cellule vide
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 	char mvt = 0;

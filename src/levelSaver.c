@@ -24,7 +24,7 @@ void saveLevels(char *destination)
 	{
 		fprintf(stderr, "Erreur lors de l'ouverture du fichier de sauvegarde...\n");
 		perror("");
-		exit(0);
+		exit(1);
 	}
 
     Level *ptr = levelsNode;
@@ -68,14 +68,7 @@ void freeNode(void)
 			free(ptrFollow->defaultMap[i]);
 		free(ptrFollow->defaultMap);
 		
-		Step *ptrStepsFollow = ptrFollow->stepsNode;
-		while(ptrStepsFollow != NULL)
-		{
-			Step *ptrStepsToFree = ptrStepsFollow;
-			ptrStepsFollow = ptrStepsFollow->previousStep;
-			free(ptrStepsToFree);
-		}
-		
+		freeStepsNode(ptrFollow);
 		free(ptrFollow->author);
 		free(ptrFollow->comment);
 		precPtdr = ptrFollow;
