@@ -92,14 +92,12 @@ extern char isNextReachable(Level *level);
 /**
  * @brief Fonction servant à charger le niveau suivant s'il existe à condition que le niveau actuel est résolu.
  * 
- * @param level Niveau actuel
  */
 extern void loadNextLevel(void);
 
 /**
  * @brief Fonction servant à charger le niveau précédent s'il existe à condition que le niveau actuel est résolu.
  * 
- * @param level Niveau actuel
  */
 extern void loadPreviousLevel(void);
 

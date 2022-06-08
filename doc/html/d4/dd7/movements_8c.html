@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Super Sokoban: Référence du fichier src/movements.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../sokologo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">Super Sokoban
+   </div>
+   <div id="projectbrief">Projet 2A - PX212 IR&amp;C</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d4/dd7/movements_8c.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier movements.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Programme de gestion des mouvements du joueur.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;termios.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../da/def/movements_8h_source.html">movements.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d82/level_loader_8h_source.html">levelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d2/d01/keys_8h_source.html">keys.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d45/steps_8h_source.html">steps.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:abda35f67747132a612160c886f963f11"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd7/movements_8c.html#abda35f67747132a612160c886f963f11">goRight</a> (unsigned int *x, unsigned int *y)</td></tr>
+<tr class="memdesc:abda35f67747132a612160c886f963f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui permet de déplacer le personnage à droite et d'intéragir aves les objets se trouvant à droite.  <a href="../../d4/dd7/movements_8c.html#abda35f67747132a612160c886f963f11">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abda35f67747132a612160c886f963f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aede1456d75d19c58c0e3ca79d8e34c0c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd7/movements_8c.html#aede1456d75d19c58c0e3ca79d8e34c0c">goLeft</a> (unsigned int *x, unsigned int *y)</td></tr>
+<tr class="memdesc:aede1456d75d19c58c0e3ca79d8e34c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui permet de déplacer le personnage à gauche et d'intéragir aves les objets se trouvant à gauche.  <a href="../../d4/dd7/movements_8c.html#aede1456d75d19c58c0e3ca79d8e34c0c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aede1456d75d19c58c0e3ca79d8e34c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3ea99070f7d50f38e842143646de3f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd7/movements_8c.html#a7b3ea99070f7d50f38e842143646de3f">goUp</a> (unsigned int *x, unsigned int *y)</td></tr>
+<tr class="memdesc:a7b3ea99070f7d50f38e842143646de3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui permet de déplacer le personnage en haut et d'intéragir aves les objets se trouvant en haut.  <a href="../../d4/dd7/movements_8c.html#a7b3ea99070f7d50f38e842143646de3f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7b3ea99070f7d50f38e842143646de3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73555a46ce044d2d3e0a66de6c8f386b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd7/movements_8c.html#a73555a46ce044d2d3e0a66de6c8f386b">goDown</a> (unsigned int *x, unsigned int *y)</td></tr>
+<tr class="memdesc:a73555a46ce044d2d3e0a66de6c8f386b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui permet de déplacer le personnage en bas et d'intéragir aves les objets se trouvant en bas.  <a href="../../d4/dd7/movements_8c.html#a73555a46ce044d2d3e0a66de6c8f386b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a73555a46ce044d2d3e0a66de6c8f386b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a618b52e0875c232c8dd621681c7f0544"><td class="memItemLeft" align="right" valign="top"><a id="a618b52e0875c232c8dd621681c7f0544" name="a618b52e0875c232c8dd621681c7f0544"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkFinished</b> (void)</td></tr>
+<tr class="memdesc:a618b52e0875c232c8dd621681c7f0544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à marquer un niveau comme terminé, une fois toutes les caisses placées sur les cibles. <br /></td></tr>
+<tr class="separator:a618b52e0875c232c8dd621681c7f0544"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5cb98cbd587b5acbbe882850ec0ac46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/dd7/movements_8c.html#ae5cb98cbd587b5acbbe882850ec0ac46">move</a> (char direction)</td></tr>
+<tr class="memdesc:ae5cb98cbd587b5acbbe882850ec0ac46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à modifier les coordonnées du joueur dans le tableau selon une direction.  <a href="../../d4/dd7/movements_8c.html#ae5cb98cbd587b5acbbe882850ec0ac46">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae5cb98cbd587b5acbbe882850ec0ac46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >Programme de gestion des mouvements du joueur. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Esteban CADIC, Noé MOREAU, Edgar REGNAULT </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a73555a46ce044d2d3e0a66de6c8f386b" name="a73555a46ce044d2d3e0a66de6c8f386b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73555a46ce044d2d3e0a66de6c8f386b">&#9670;&nbsp;</a></span>goDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void goDown </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction qui permet de déplacer le personnage en bas et d'intéragir aves les objets se trouvant en bas. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x,y</td><td>Coordonnées du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aede1456d75d19c58c0e3ca79d8e34c0c" name="aede1456d75d19c58c0e3ca79d8e34c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aede1456d75d19c58c0e3ca79d8e34c0c">&#9670;&nbsp;</a></span>goLeft()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void goLeft </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction qui permet de déplacer le personnage à gauche et d'intéragir aves les objets se trouvant à gauche. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x,y</td><td>Coordonnées du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abda35f67747132a612160c886f963f11" name="abda35f67747132a612160c886f963f11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda35f67747132a612160c886f963f11">&#9670;&nbsp;</a></span>goRight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void goRight </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction qui permet de déplacer le personnage à droite et d'intéragir aves les objets se trouvant à droite. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x,y</td><td>Coordonnées du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7b3ea99070f7d50f38e842143646de3f" name="a7b3ea99070f7d50f38e842143646de3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b3ea99070f7d50f38e842143646de3f">&#9670;&nbsp;</a></span>goUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void goUp </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction qui permet de déplacer le personnage en haut et d'intéragir aves les objets se trouvant en haut. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x,y</td><td>Coordonnées du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae5cb98cbd587b5acbbe882850ec0ac46" name="ae5cb98cbd587b5acbbe882850ec0ac46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5cb98cbd587b5acbbe882850ec0ac46">&#9670;&nbsp;</a></span>move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void move </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>direction</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction servant à modifier les coordonnées du joueur dans le tableau selon une direction. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">direction</td><td>Direction dans laquelle on souhaite déplacer le joueur (UP, DOWN, RIGHT, LEFT) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../d4/dd7/movements_8c.html">movements.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

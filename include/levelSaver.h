@@ -33,10 +33,5 @@ extern void freeNode(void);
  */
 extern void freeLevel(Level *level);
 
-/**
- * @brief Fonction de test du levelSaver et levelLoader.
- */
-extern void testLevelLoadAndSave(void);
-
 
 #endif
