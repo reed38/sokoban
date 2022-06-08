@@ -51,7 +51,7 @@ void printfGraph(Node **node, Level *level)
         for (unsigned int j = 0; j < strlen(level->map[i]); j++)
         {
             // printf("%u_%u_%u_%d_%d ", node[i][j].gCost, node[i][j].hCost, node[i][j].total_cost, (int)node[i][j].isOpen, (int)node[i][j].type);
-            printf("%d ", node[i][j].total_cost);
+            printf("%d ", node[i][j].isOpen);
         }
         printf("\n");
     }
@@ -94,11 +94,12 @@ static void initializeSurrounding(Node **node, Level *level, unsigned int x, uns
 unsigned int *findMin(unsigned int *result, Node **node)
 {
     unsigned int currentMin = MAXUNSIGNED;
-    for (int i = 0; i < globalCurrent->numberLines; i++)
+    
+    for (unsigned int i = 0; i < globalCurrent->numberLines; i++)
     {
-        for (int j = 0; j < strlen(globalCurrent->map[i]); j++)
+        for (unsigned int j = 0; j < strlen(globalCurrent->map[i]); j++)
         {
-            if (node[i][j].total_cost < currentMin && node[i][j].total_cost > 0 && node[i][j].isOpen == 1 && node[i][j].type == TRAVERSABLE)
+            if ((node[i][j].total_cost < currentMin) && (node[i][j].total_cost > 0) && (node[i][j].isOpen == 1) && (node[i][j].type == TRAVERSABLE))
             {
                 currentMin = node[i][j].total_cost;
                 result[0] = i;
@@ -123,9 +124,9 @@ void pathfinding(Node **graph, unsigned int xStart, unsigned int yStart, unsigne
     currentNode->isOpen = 0;
     currentNode->total_cost = 2;
     // while (currentNode != &graph[xTarget][yTarget])
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 50; i++)
     {
-        initializeSurrounding(graph, globalCurrent, nodeCoordinates[1], nodeCoordinates[0], xTarget, yTarget);
+        initializeSurrounding(graph, globalCurrent, nodeCoordinates[0], nodeCoordinates[1], xTarget, yTarget);
         nodeCoordinates = findMin(nodeCoordinates, graph);
     }
     free(nodeCoordinates);
