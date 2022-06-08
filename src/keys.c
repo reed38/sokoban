@@ -1,7 +1,7 @@
 /**
  * @file keys.c
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
- * @brief Programme de détection des appuis de touches sur le terminal.
+ * @brief Programme de détection des appuis de touches dans le terminal.
  *
  */
 #include <unistd.h>
@@ -21,34 +21,9 @@
 static int readKeyboard(void);
 
 
-/**
- * @brief Fonction servant à lire la touche pressée.
- * Cette fonction est bloquante.
- * 
- * @return int Code de la touche lue.
- */
-static int readKeyboard(void)
-{
-    char buff[MAXSIZE];
-    int c;
-
-    if ((c = read(0, buff, 3)) == -1) // Si read échoue
-        return 0;
-
-    switch (buff[0])
-    {
-    case 27:
-        if ((c == 3) && (buff[1] == 91))
-            return (buff[2] - 64);
-        else
-            return 0;
-        break;
-    default:
-        return buff[0];
-        break;
-    }
-}
-
+/*------------------------------------------------------------------------------
+	FONCTIONS
+------------------------------------------------------------------------------*/
 
 void interactionLoop(char *saveFile)
 {
@@ -123,5 +98,33 @@ void interactionLoop(char *saveFile)
         }
 
         if(refreshTerminal) printLevel(globalCurrentLevel);
+    }
+}
+
+/**
+ * @brief Fonction servant à lire la touche pressée.
+ * Cette fonction est bloquante.
+ * 
+ * @return Code de la touche lue.
+ */
+static int readKeyboard(void)
+{
+    char buff[MAXSIZE];
+    int c;
+
+    if ((c = read(0, buff, 3)) == -1) // Si read échoue
+        return 0;
+
+    switch (buff[0])
+    {
+    case 27:
+        if ((c == 3) && (buff[1] == 91))
+            return (buff[2] - 64);
+        else
+            return 0;
+        break;
+    default:
+        return buff[0];
+        break;
     }
 }

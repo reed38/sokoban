@@ -1,7 +1,7 @@
 /**
  * @file graphics.c
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
- * @brief Programme de gestion de la configuration et l'affichage sur le terminal.
+ * @brief Programme de gestion de la configuration et de l'affichage sur le terminal.
  * 
  */
 #include <termios.h>
@@ -14,41 +14,32 @@
 #include "movements.h"
 #include "levelLoader.h"
 
-
 /*------------------------------------------------------------------------------
 	VARIABLES
 ------------------------------------------------------------------------------*/
 
 static struct termios terminalSetup;
 
+
 /*------------------------------------------------------------------------------
 	PROTOTYPES
 ------------------------------------------------------------------------------*/
 
 static inline void refreshTerminal(void);
-static void printMap(char **, int);
-static void printHeader(unsigned int, char *, char *);
-static void printFooter(char, char, char);
-static void printScore(unsigned int, unsigned int);
+static void printMap(char **map, int maxHeight);
+static void printHeader(unsigned int levelNumber, char *author, char *comment);
+static void printFooter(char success, char reachablePrevious, char reachableNext);
+static void printScore(unsigned int numberMov, unsigned int numberPush);
 
 
 /*------------------------------------------------------------------------------
 	FONCTIONS
 ------------------------------------------------------------------------------*/
 
-/**
- * @brief Fonction servant à effacer le terminal.
- * 
- */
-static inline void refreshTerminal(void)
-{
-	printf("\e[1;1H\e[2J"); // Séquence d'échappement permettant d'effacer le terminal
-}
-
 void printLevel(Level *level)
 {
-	char reachablePrevious = 0; //1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
-	char reachableNext = 0; //1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
+	char reachablePrevious = 0; // 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+	char reachableNext = 0; // 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
 
 	refreshTerminal();
 	printHeader(level->levelNumber, level->author, level->comment);
@@ -68,10 +59,10 @@ void configureTerminal(void)
 		perror("tcgetattr");
 		exit(1);
 	}
-	terminalSetup.c_lflag &= ~(ICANON); // Met le terminal en mode non canonique (interprète à chaque touche).
+	terminalSetup.c_lflag &= ~(ICANON); // Met le terminal en mode non canonique (interprète à chaque touche)
 	terminalSetup.c_lflag &= ~(ECHO);	// Les touches tapées ne s'inscriront plus dans le terminal
-	terminalSetup.c_cc[VMIN] = 1;		// Nombre minimum de caractères lors d'une lecture en mode non canonique.
-	terminalSetup.c_cc[VTIME] = 0;		// Délai en dixièmes de seconde pour une lecture en mode non canonique.
+	terminalSetup.c_cc[VMIN] = 1;		// Nombre minimum de caractères lors d'une lecture en mode non canonique
+	terminalSetup.c_cc[VTIME] = 0;		// Délai en dixièmes de seconde pour une lecture en mode non canonique
 	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) // tcsetattr() indique une réussite si une des modifications peut être réalisée
 	{ 
 		perror("tcsetattr");
@@ -81,7 +72,7 @@ void configureTerminal(void)
 
 void resetTerminal(void)
 {
-	terminalSetup.c_lflag |= (ICANON); // Met le terminal en mode canonique (attend un appui sur entrée pour interpréter).
+	terminalSetup.c_lflag |= (ICANON); // Met le terminal en mode canonique (attend un appui sur entrée pour interpréter)
 	terminalSetup.c_lflag |= (ECHO);	// Les touches tapées ne s'inscriront plus dans le terminal
 	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) // tcsetattr() indique une réussite si une des modifications peut être réalisée
 	{ 
@@ -91,7 +82,7 @@ void resetTerminal(void)
 }
 
 /**
- * @brief Fonction servant à afficher la map avec des couleurs
+ * @brief Fonction servant à afficher la map avec des couleurs.
  *
  * @param map Tableau 2D
  * @param maxHeight Nombre de lignes du tableau
@@ -136,11 +127,11 @@ static void printMap(char **map, int maxHeight)
 }
 
 /**
- * @brief affiche l'en-tête du jeu (titre, noms, niveau, auteur, commentaire)
+ * @brief Fonction qui affiche l'en-tête du jeu (titre, noms, niveau, auteur, commentaire).
  * 
- * @param levelNumber numéro du niveau
- * @param author auteur du niveau
- * @param comment commentaire sur le niveau
+ * @param levelNumber Numéro du niveau
+ * @param author Auteur du niveau
+ * @param comment Commentaire sur le niveau
  */
 static void printHeader(unsigned int levelNumber, char *author, char *comment)
 {
@@ -161,11 +152,11 @@ static void printHeader(unsigned int levelNumber, char *author, char *comment)
 }
 
 /**
- * @brief affiche les commandes disponibles en bas de terminal selon si le niveau est réussi, et les niveaux atteignables ou non
+ * @brief Fonction qui affiche les commandes disponibles en bas de terminal selon si le niveau est réussi et si le niveau suivant / précédent sont atteignables.
  * 
- * @param success 1 si le niveau est réussi ; 0 sinon
- * @param reachablePrevious 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
- * @param reachableNext 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
+ * @param success Booléen : 1 si le niveau est réussi ; 0 sinon
+ * @param reachablePrevious Booléen : 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+ * @param reachableNext Booléen : 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
  */
 static void printFooter(char success, char reachablePrevious, char reachableNext)
 {
@@ -196,12 +187,21 @@ static void printFooter(char success, char reachablePrevious, char reachableNext
 }
 
 /**
- * @brief affiche les scores en dessous de la carte
+ * @brief Fonction qui affiche les scores en dessous de la carte.
  * 
- * @param numberMov nombre de déplacements du manutentionnaire
- * @param numberPush nombre de poussages de caisses
+ * @param numberMov Nombre de déplacements du joueur
+ * @param numberPush Nombre de caisses poussées
  */
 static void printScore(unsigned int numberMov, unsigned int numberPush)
 {
 	printf("Mouvements : %d\tCaisses poussées : %d\n", numberMov, numberPush);
+}
+
+/**
+ * @brief Fonction servant à effacer le terminal.
+ * 
+ */
+static inline void refreshTerminal(void)
+{
+	printf("\e[1;1H\e[2J"); // Séquence d'échappement permettant d'effacer le terminal
 }

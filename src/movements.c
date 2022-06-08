@@ -29,7 +29,7 @@ static void checkFinished(void);
 	FONCTIONS
 ------------------------------------------------------------------------------*/
 
-void move(int direction)
+void move(char direction)
 {
 	unsigned int *x = &globalCurrentLevel->playerX;
 	unsigned int *y = &globalCurrentLevel->playerY;
@@ -64,7 +64,7 @@ static void goRight(unsigned int *x, unsigned int *y)
 {
 	char **currentMap = globalCurrentLevel->map;
 	
-	// on différencie le cas où le personnage est sur une target et celui où il est sur rien
+	// On différencie le cas où le personnage est sur une cible et celui où il est sur une cellule vide
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 	char mvt = 0;
 	char cellReplaced = currentMap[*y][*x + 1];
@@ -363,7 +363,7 @@ static void goUp(unsigned int *x, unsigned int *y)
  * @brief Fonction servant à marquer un niveau comme terminé, une fois toutes les caisses placées sur les cibles.
  *
  */
-void checkFinished(void)
+static void checkFinished(void)
 {
 	char **currentMap = globalCurrentLevel->map;
 	for (int i = 0; i < globalCurrentLevel->numberLines; i++)

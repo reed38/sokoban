@@ -63,9 +63,10 @@ extern void resetTerminal(void);
 extern void printLevel(Level *level);
 
 /**
- * @brief Fonction de test de l'affiage.
+ * @brief Fonction de test de l'affichage.
  * 
  */
 extern void testGraphics(void);
+
 
 #endif

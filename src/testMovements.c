@@ -21,7 +21,6 @@ void testMovements(void)
     globalCurrentLevel=levelsNode;
     initLevel(globalCurrentLevel, 0);
     
-       
     configureTerminal();
     interactionLoop(saveFile);
 }

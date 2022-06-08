@@ -1,5 +1,5 @@
 /**
- * @file keys.c
+ * @file keys.h
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
  * @brief En-tête du programme de détection des appuis de touches sur le terminal.
  * 

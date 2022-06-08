@@ -4,8 +4,8 @@
  * @brief Programme de gestion de l'historique des déplacements.
  * 
  */
-#define _XOPEN_SOURCE   600 // pour utiliser usleep()
-#define _POSIX_C_SOURCE 200112L // pour utiliser usleep()
+#define _XOPEN_SOURCE   600 // Pour utiliser usleep()
+#define _POSIX_C_SOURCE 200112L // Pour utiliser usleep()
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,7 +19,6 @@
 #include "movements.h"
 #include "graphics.h"
 
-
 /*------------------------------------------------------------------------------
 	PROTOTYPES
 ------------------------------------------------------------------------------*/
@@ -30,20 +29,6 @@ static inline void movePlayer(char *cell);
 /*------------------------------------------------------------------------------
 	FONCTIONS
 ------------------------------------------------------------------------------*/
-
-/**
- * @brief Fonction remplaçant le contenu d'une cellule par le joueur.
- * Permet de gérer le cas où la cellule est un point.
- *
- * @param cell Caractère représentant l'objet de la cellule
- */
-static inline void movePlayer(char *cell)
-{
-	if(*cell == TARGET)
-		*cell = OVERTARGET;
-	else
-		*cell = PLAYER;
-}
 
 void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, unsigned char cellReplacedPlus)
 {
@@ -174,7 +159,6 @@ char *stepsSerialiser(Step *steps)
 		exit(1);
 	}
 
-	
 	serialisedStr[strLen] = '\0';
 	for (int i=strLen-1; i >= 0; i--)
 	{
@@ -191,7 +175,7 @@ void replaySteps(Step *steps)
 	{
 		char *serialisedSteps = stepsSerialiser(globalCurrentLevel->stepsNode);
 		int strLen = strlen(serialisedSteps); 
-		freeStepsNode(globalCurrentLevel); // On supprimes les déplacements déjà sauvegardés : on va les regénérer avec move
+		freeStepsNode(globalCurrentLevel); // On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
 
 		freeLevel(globalCurrentLevel);
         initLevel(globalCurrentLevel, 0);
@@ -201,8 +185,22 @@ void replaySteps(Step *steps)
 			printLevel(globalCurrentLevel);
 			printf("\nRelecture du trajet en cours...\n");
 			move(serialisedSteps[i] - '0');
-			usleep(100 * 1000); // 100 ms
+			usleep(100 * 1000); // Met le jeu en pause 100 ms
 		}
 		free(serialisedSteps);
 	}
+}
+
+/**
+ * @brief Fonction remplaçant le contenu d'une cellule par le joueur.
+ * Permet de gérer le cas où la cellule est un point.
+ *
+ * @param cell Caractère représentant l'objet de la cellule
+ */
+static inline void movePlayer(char *cell)
+{
+	if(*cell == TARGET)
+		*cell = OVERTARGET;
+	else
+		*cell = PLAYER;
 }

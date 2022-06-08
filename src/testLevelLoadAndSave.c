@@ -1,7 +1,7 @@
 /**
  * @file testLevelLoadAndSave.c
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
- * @brief Programme testant le chargement et la sauvegarde de niveaux en mémoire
+ * @brief Programme testant le chargement et la sauvegarde de niveaux en mémoire.
  * 
  */
 #include <stdio.h>
@@ -58,7 +58,7 @@ void testLevelLoadAndSave(void) {
         return;
     }
 
-	initLevel(levelsNode, 0); // initialiser le 1er level
+	initLevel(levelsNode, 0); // Initialiser le 1er level
 	printf("Coordonées x et y du joueur du 1er tableau : %d,%d\n", levelsNode->playerX, levelsNode->playerY);
 
 	printf("Modification du 1er caractère de la 1ère ligne de la map 1 et du score\n");
@@ -70,7 +70,7 @@ void testLevelLoadAndSave(void) {
 	printf("SCORE : %d\n", levelsNode->numberMov);
 
 	freeLevel(levelsNode);
-	initLevel(levelsNode, 0); // réinitialiser le 1er level
+	initLevel(levelsNode, 0); // Réinitialiser le 1er level
 	printf("Niveau réinitialisée\n");
 
 	printf("MAP TEMPORAIRE :\n");

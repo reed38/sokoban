@@ -9,7 +9,6 @@
 
 #include "levelLoader.h"
 
-
 /*------------------------------------------------------------------------------
 	TYPE DEFINITIONS
 ------------------------------------------------------------------------------*/
@@ -29,7 +28,6 @@ typedef struct Step {
 /*------------------------------------------------------------------------------
 	DECLARATIONS
 ------------------------------------------------------------------------------*/
-
 
 /**
  * @brief Fonction servant à ajouter une étape sur la pile des déplacements.
@@ -68,14 +66,15 @@ extern void stepsParser(Step **steps, char *str);
  * Penser à free la chaîne une fois récupérée !
  *
  * @param steps Pile des déplacements
- * @return str Chaîne de caractères représentant une suite de déplacements
+ * @return serialisedStr : Chaîne de chiffres compris entre 1 et 4 représentant une suite de déplacements
  */
 extern char *stepsSerialiser(Step *steps);
 
 /**
- * @brief 
- * 
- * @param steps 
+ * @brief Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu.
+ * Cette fonction est bloquante et rénitialise l'affichage.
+ *  
+ * @param steps Pile des déplacements
  */
 extern void replaySteps(Step *steps);
 

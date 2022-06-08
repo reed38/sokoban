@@ -12,10 +12,35 @@
 #include "graphics.h"
 #include "keys.h"
 #include "movements.h"
+#include "steps.h"
 
-
+/**
+ * @brief Fonction d'entrée du programme.
+ * 
+ * @param argc Nombre d'arguments d'éxecution
+ * @param argv Tableau des arguments d'éxecution
+ * @return Etat de sortie du programme
+ */
 int main(int argc, char *argv[])
 {
+	#ifdef TEST_LEVEL_LOADER_SAVER
+		testLevelLoadAndSave();
+		return 0;
+	#endif
+	#ifdef TEST_GRAPHICS
+		testGraphics();
+		return 0;
+	#endif
+	#ifdef TEST_MOVEMENTS
+		testMovements();
+		return 0;
+	#endif
+	#ifdef TEST_STEPS
+		testSteps();
+		return 0;
+	#endif
+
+
 	if (argc < 3)
 	{
 		fprintf(stderr, "Mauvaise utilisation de la commande... Utilisez : %s [fichier de niveaux] [fichier de sauvegarde]\n", argv[0]);
@@ -34,7 +59,7 @@ int main(int argc, char *argv[])
 	
 	globalCurrentLevel=levelsNode;
 	while(isNextReachable(globalCurrentLevel))
-	 globalCurrentLevel = globalCurrentLevel->nextLevel;
+		globalCurrentLevel = globalCurrentLevel->nextLevel;
 	
 	initLevel(globalCurrentLevel, 0);
 
