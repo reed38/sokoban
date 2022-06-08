@@ -6,13 +6,14 @@ Jeu de Sokoban codé en C dans le cadre des projets de fin de deuxième année.
 
 ## Utilisation
 
-Lancer le jeu avec la syntaxe ./bin/sokoban [chemin d'accès du fichier à charger] [chemin d'accès du fichier où sauvegarder]
+Lancer le jeu avec la syntaxe ``./bin/sokoban [chemin d'accès du fichier à charger] [chemin d'accès du fichier où sauvegarder]``
 
 
 
 ## Fonctionalités
 
-Fonctions de base :
+**Fonctions de base :**
+
 ✔️ Lecture tableaux depuis un fichier au format texte standard
 
 ✔️ Affichage d'un tableau
@@ -33,14 +34,16 @@ Fonctions de base :
 
 ✔️ Enregistrement de la solution quand on réussit un tableau
 
-Fonctions avancées
+**Fonctions avancées :**
+
 ❌ Déplacement du joueur par sélection sur la case destination 
 
 ❌ Déplacement d'une caisse par sélection
 
 
 
-Fonctions optionnelles
+**Fonctions optionnelles :**
+
 ❌ Utilisation d’une bibliothèque graphique 
 
 ❌ Réalisation d’un éditeur de tableaux
