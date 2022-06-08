@@ -13,6 +13,7 @@
 unsigned int wallDistance(int direction, Level *level);
 unsigned int maxLength(Level *level);
 static Node *returneNode(Node **node, unsigned int x, unsigned int y, unsigned int xMax, unsigned int yMax);
+static void defineSurrounding(Node **tab, unsigned int xNode, unsigned int yNode, unsigned int xTarget, unsigned int yTarget, unsigned int xMax, unsigned int yMax);
 // distance verticale et horizontale de 10
 // distance diagonale de 14
 /**
@@ -35,23 +36,22 @@ unsigned int maxLength(Level *level)
 
 /**
  * @brief prend en entrée un taableau 2D de chars et renvoi un tableau de struct de Node
- * 
+ *
  * @param level struct Level
- * @return retourne un double pointeur de Node 
+ * @return retourne un double pointeur de Node
  */
 Node **convertToNode(Level *level) // permet de convertir un niveau en tableau 2 D de structure de type Node, s'apparentant à un graph
 {
     char **map = level->map;
-    Node **tabNode = malloc(sizeof(Node*) * (level->numberLines) );
-    for (int i=0;i<level->numberLines;i++)
+    Node **tabNode = malloc(sizeof(Node *) * (level->numberLines));
+    for (int i = 0; i < level->numberLines; i++)
     {
-        tabNode[i]=malloc(sizeof(Node)*(strlen(level->map[i]))+1);
+        tabNode[i] = malloc(sizeof(Node) * (strlen(level->map[i])) + 1);
     }
     for (unsigned int i = 0; i < level->numberLines; i++)
     {
-        for (unsigned int j = 0; j <strlen(level->map[i]); j++)
+        for (unsigned int j = 0; j < strlen(level->map[i]); j++)
         {
-            tabNode[i][j].isOpen = 1;
             if (map[i][j] == BOX || map[i][j] == WALL || map[i][j] == FULLBOX)
             {
                 tabNode[i][j].type = NOTTRAVERSABLE;
@@ -60,6 +60,10 @@ Node **convertToNode(Level *level) // permet de convertir un niveau en tableau 2
             {
                 tabNode[i][j].type = TRAVERSABLE;
             }
+            tabNode[i][j].gCost = 0;
+            tabNode[i][j].hCost = 0;
+            tabNode[i][j].total_cost = 0;
+            tabNode[i][j].isOpen = 1;
         }
     }
     return tabNode;
@@ -67,24 +71,23 @@ Node **convertToNode(Level *level) // permet de convertir un niveau en tableau 2
 
 /**
  * @brief permet d'afficher le champs type d'un double pointeur de node pour vérrifier que la conversion en node s'est biien passée
- * 
+ *
  * @param double pointeur de Node
  */
 void printfGraph(Node **node)
 {
-    for (unsigned int i=0;i<globalCurrent->numberLines;i++)
+    for (unsigned int i = 0; i < globalCurrent->numberLines; i++)
     {
         printf("\n");
-        for (unsigned int j=0;j<strlen(globalCurrent->map[i]);j++)
+        for (unsigned int j = 0; j < strlen(globalCurrent->map[i]); j++)
         {
-            printf("%d ",(int)node[i][j].type);
-
+            printf("%u_%u_%u_%d_%d ", node[i][j].gCost, node[i][j].hCost, node[i][j].total_cost, (int)node[i][j].isOpen,(int) node[i][j].type);
         }
     }
 }
 /**
  * @brief permet de vérrifier si un point se trouve bien dans le tableau
- * 
+ *
  * @param node double pointeur Node contenant le tableau 2D de Node
  * @param x coordonnée x du point
  * @param y coordonnée y du point
@@ -99,24 +102,33 @@ static Node *returneNode(Node **node, unsigned int x, unsigned int y, unsigned i
     else
         return NULL;
 }
-//
-Node** defineSurrounding(Node **tab, unsigned int xNode, unsigned int yNode, unsigned int xTarget, unsigned int yTarget, unsigned int xMax, unsigned int yMax)
+/**
+ * @brief permet d'exporer et initialiser les 8 nodes voisins de la node dont les coordonnées sont saisits
+ *
+ * @param tab double pointeur de C
+ * @param xNode coordonnée x de la node centrale
+ * @param yNode coordonnée y de la node centrale
+ * @param xTarget coordonnée x de la cible
+ * @param yTarget coordonnée y de la cible
+ * @param xMax coordonnée max x du tableau 2D de node
+ * @param yMax coordonnée max y du tableau 2D de node
+ * @return nada senor
+ */
+static void defineSurrounding(Node **tab, unsigned int xNode, unsigned int yNode, unsigned int xTarget, unsigned int yTarget, unsigned int xMax, unsigned int yMax)
 {
-    Node **surrounding= malloc(8*sizeof(Node*));
-    surrounding[0]=returneNode(tab,xNode+1,yNode-1,xMax,yMax);
-    surrounding[1]=returneNode(tab,xNode+1,yNode-1,xMax,yMax);
-    surrounding[2]=returneNode(tab,xNode-1,yNode,xMax,yMax);
-    surrounding[3]=returneNode(tab,xNode-1,yNode,xMax,yMax);
-    surrounding[4]=returneNode(tab,xNode-1,yNode,xMax,yMax);
-    surrounding[5]=returneNode(tab,xNode-1,yNode,xMax,yMax);
-    surrounding[6]=returneNode(tab,xNode-1,yNode,xMax,yMax);
-    surrounding[7]=returneNode(tab,xNode-1,yNode,xMax,yMax);
-    surrounding[8]=returneNode(tab,xNode-1,yNode,xMax,yMax);
-    
+    Node **surrounding = malloc(8 * sizeof(Node *));
+    surrounding[0] = returneNode(tab, xNode + 1, yNode + 1, xMax, yMax);
+    surrounding[1] = returneNode(tab, xNode + 1, yNode - 1, xMax, yMax);
+    surrounding[2] = returneNode(tab, xNode - 1, yNode - 1, xMax, yMax);
+    surrounding[3] = returneNode(tab, xNode - 1, yNode + 1, xMax, yMax);
+    surrounding[4] = returneNode(tab, xNode - 1, yNode, xMax, yMax);
+    surrounding[5] = returneNode(tab, xNode + 1, yNode, xMax, yMax);
+    surrounding[6] = returneNode(tab, xNode, yNode + 1, xMax, yMax);
+    surrounding[7] = returneNode(tab, xNode, yNode - 1, xMax, yMax);
 
     for (int i = 0; i < 7; i++)
     {
-        if (surrounding[i]!=NULL && surrounding[i]->type == TRAVERSABLE && surrounding[i]->isOpen == 1) // si le node est traversable et n'est pas Closed
+        if (surrounding[i] != NULL && surrounding[i]->type == TRAVERSABLE && surrounding[i]->isOpen == 1) // si le node est traversable et n'est pas Closed
         {
 
             if (i < 3) // les 4 premières case correspondent aux nodes les plus éloignés du centre
@@ -131,7 +143,7 @@ Node** defineSurrounding(Node **tab, unsigned int xNode, unsigned int yNode, uns
             surrounding[i]->total_cost = surrounding[i]->hCost + surrounding[i]->gCost;
         }
     }
-    return surrounding;
+    free(surrounding);
 }
 
 unsigned int *findMin(Node **node, unsigned int xMax, unsigned int yMax)
@@ -143,7 +155,7 @@ unsigned int *findMin(Node **node, unsigned int xMax, unsigned int yMax)
     {
         for (int j = 1; j < yMax; j++)
         {
-            if (node[i][j].total_cost < currentMin)
+            if (node[i][j].total_cost < currentMin &&node[i][j].isOpen==1 && node[i][j].type==TRAVERSABLE)
             {
                 currentMin = node[i][j].total_cost;
                 result[0] = i;
@@ -151,29 +163,28 @@ unsigned int *findMin(Node **node, unsigned int xMax, unsigned int yMax)
             }
         }
     }
-    node[result[0]][result[1]].isOpen=0;
+    node[result[0]][result[1]].isOpen = 0;
 
     return result;
 }
 
-void somebodyOnceToldMe(Level *level, unsigned int xStart, unsigned int yStart, unsigned int xTarget, unsigned int yTarget)
+Node **pathfinding(Level *level, unsigned int xStart, unsigned int yStart, unsigned int xTarget, unsigned int yTarget)
 {
     Node **graph = convertToNode(level);
-    Node *currentNode=graph[xStart][yStart];
-   
-    unsigned int *nodeCoordinates=malloc(sizeof(unsigned int)*2);
-    nodeCoordinates[0]=0;
-    nodeCoordinates[1]=0;
-    currentNode.hCost=sqrt((xStart-xTarget)*(xStart-xTarget)+(yStart-yTarget)*(yStart-yTarget));
-    currentNode.isOpen=0;
-    currentNode.gCost=0;
-    while(&currentNode!=&graph[xTarget][yTarget])
-    {
-        defineSurrounding(graph,nodeCoordinates[0],nodeCoordinates[1],xTarget,yTarget,maxLength(level),level->numberLines);
-        nodeCoordinates=findMin(graph,maxLength(level),level->numberLines);
-        
-    }
+    Node *currentNode = &graph[xStart][yStart];
 
+    unsigned int *nodeCoordinates = malloc(sizeof(unsigned int) * 2);
+    nodeCoordinates[0] = 0;
+    nodeCoordinates[1] = 0;
+    currentNode->hCost = sqrt((xStart - xTarget) * (xStart - xTarget) + (yStart - yTarget) * (yStart - yTarget));
+    currentNode->isOpen = 0;
+    currentNode->gCost = 0;
+    while (currentNode != &graph[xTarget][yTarget])
+    {
+        defineSurrounding(graph, nodeCoordinates[0], nodeCoordinates[1], xTarget, yTarget, strlen(level->map[nodeCoordinates[0]]), level->numberLines);
+        nodeCoordinates = findMin(graph, strlen(level->map[nodeCoordinates[0]]), level->numberLines);
+    }
+    return graph;
 }
 /*
 // char **
