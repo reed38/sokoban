@@ -18,7 +18,7 @@
  *    
  * @param destination Chemin d'accès du fichier de sauvegarde
  */
-extern void saveLevels(char *);
+extern void saveLevels(char *destination);
 
 /**
  * @brief Fonction supprimant de la mémoire la file des niveaux.
@@ -31,7 +31,7 @@ extern void freeNode(void);
  * 
  * @param level Strcuture du niveau dont les membres temporaires sont à supprimer
  */
-extern void freeLevel(Level *);
+extern void freeLevel(Level *level);
 
 /**
  * @brief Fonction de test du levelSaver et levelLoader.

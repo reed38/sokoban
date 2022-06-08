@@ -58,7 +58,7 @@ extern Level *globalCurrentLevel;
  *   
  * @param location Chemin d'accès du fichier 
  */
-extern void readLevelsFile(char *);
+extern void readLevelsFile(char *location);
 
 /**
  * @brief Fonction servant à initaliser / réinitialiser les paramètres temporaires d'un niveau.
@@ -67,8 +67,9 @@ extern void readLevelsFile(char *);
  * Ne pas oublier d'appeler freeLevel(Level *) une fois le niveau terminé ou avant la réinitialisation. 
  * 
  * @param level Structure du niveau que l'on souhaite initialiser
+ * @param reset Indique si on doit recommencer le niveau (supprimer les déplacements)
  */
-extern void initLevel(Level *);
+extern void initLevel(Level *level, char reset);
 
 /**
  * @brief Fonction déterminant si l'on peut passer au niveau précédent
@@ -76,7 +77,7 @@ extern void initLevel(Level *);
  * 
  * @param level Niveau actuel
  */
-char reachPrevious(Level *level);
+extern char isPreviousReachable(Level *level);
 
 /**
  * @brief Fonction déterminant si l'on peut passer au niveau suivant
@@ -84,19 +85,20 @@ char reachPrevious(Level *level);
  * 
  * @param level Niveau actuel
  */
-char reachNext(Level *level);
-
-/**
- * @brief Charge le niveau précédent
- * @param level Niveau actuel
- */
-void loadPreviousLevel(Level *level);
+extern char isNextReachable(Level *level);
 
 /**
  * @brief Charge le niveau suivant
  * @param level Niveau actuel
  */
-void loadNextLevel(Level *level);
+extern void loadNextLevel(void);
+
+/**
+ * @brief Charge le niveau précédent
+ * @param level Niveau actuel
+ */
+extern void loadPreviousLevel(void);
+
 
 /**
  * @brief Fonction de test du levelLoader et du levelSaver.

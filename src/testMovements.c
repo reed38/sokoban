@@ -19,7 +19,7 @@ void testMovements(void)
     char *saveFile = "data/save/save.lvl";
     readLevelsFile(levelFile);
     globalCurrentLevel=levelsNode;
-    initLevel(globalCurrentLevel);
+    initLevel(globalCurrentLevel, 0);
     
        
     configureTerminal();

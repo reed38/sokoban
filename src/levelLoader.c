@@ -4,7 +4,8 @@
  * @brief Programme chargeant les niveaux en mémoire.
  * 
  */
-#define _GNU_SOURCE
+#define _GNU_SOURCE // pour utiliser getline()
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -242,8 +243,7 @@ static void generateMap(char ***defaultMap, unsigned int *numberLines, char *lin
 	*numberLines += 1;
 }
 
-// TODO : changer level pour globalCurrentLevel ?
-void initLevel(Level *level)
+void initLevel(Level *level, char reset)
 {
 	char playerFound = 0;
 
@@ -283,7 +283,11 @@ void initLevel(Level *level)
 
 	// Quand on a quitté le jeu sans finir le niveau, on reprend là où on est
 	// serialize les steps et appele move lettre par lettre
-	if(level->stepsNode != NULL && !level->success)
+	if (reset)
+	{
+		freeStepsNode(level); // On supprimes les déplacements déjà sauvegardés
+	}
+	else if(level->stepsNode != NULL && !level->success)
 	{
 		char *serialisedSteps = stepsSerialiser(level->stepsNode); //  On récupère les mouvements pour les rejouer
 		int strLen = strlen(serialisedSteps); 
@@ -297,7 +301,7 @@ void initLevel(Level *level)
 	}
 }
 
-char reachPrevious(Level *level)
+char isPreviousReachable(Level *level)
 {
 	char reachablePrevious = 0;
 	if (level->levelNumber != 1)
@@ -308,7 +312,7 @@ char reachPrevious(Level *level)
 	return reachablePrevious;
 }
 
-char reachNext(Level *level)
+char isNextReachable(Level *level)
 {
 	char reachableNext = 0;
 	if ( (level->nextLevel != NULL) && (level->success == 1) )
@@ -319,19 +323,28 @@ char reachNext(Level *level)
 	return reachableNext;
 }
 
-//TODO : NIVEAU SUIVANT / PRECEDENT
-
-void loadNextLevel(Level *level)
+void loadNextLevel(void)
 {
-	if(!level->success && level->nextLevel != NULL)
+	if(isNextReachable(globalCurrentLevel))
 	{
-		freeLevel(level);
-		//globalCurrentLevel = level->nextLevel
-		
+		freeLevel(globalCurrentLevel);
+		globalCurrentLevel = globalCurrentLevel->nextLevel;
+		initLevel(globalCurrentLevel, 0);
 	}
 }
 
-void loadPreviousLevel(Level *level)
+void loadPreviousLevel(void)
 {
-	
+	if(isPreviousReachable(globalCurrentLevel))
+	{
+		unsigned int levelToReach = globalCurrentLevel->levelNumber - 1;
+		Level *ptr = levelsNode;
+
+		while(ptr->levelNumber != levelToReach)
+			ptr = ptr->nextLevel;
+
+		freeLevel(globalCurrentLevel);
+		globalCurrentLevel = ptr;
+		initLevel(globalCurrentLevel, 0);
+	}
 }

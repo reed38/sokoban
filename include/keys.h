@@ -29,7 +29,7 @@
  * 
  * @param saveFile Chemin d'accès du fichier de sauvegarde
  */
-extern void interactionLoop(char *);
+extern void interactionLoop(char *saveFile);
 
 
 #endif

@@ -4,14 +4,20 @@
  * @brief Programme de gestion de l'historique des déplacements.
  * 
  */
+#define _XOPEN_SOURCE   600 // pour utiliser usleep()
+#define _POSIX_C_SOURCE 200112L // pour utiliser usleep()
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "steps.h"
 #include "levelLoader.h"
+#include "levelSaver.h"
 #include "keys.h"
 #include "movements.h"
+#include "graphics.h"
 
 
 /*------------------------------------------------------------------------------
@@ -59,7 +65,7 @@ void backStep(Level *level)
 {
 	Step *lastStep = level->stepsNode;
 	
-	if(lastStep == NULL || (lastStep->cellReplaced == 0 && lastStep->cellReplacedPlus == 0))
+	if(lastStep == NULL || (lastStep->cellReplaced == 0 && lastStep->cellReplacedPlus == 0) || level->success)
 		return;
 
 	unsigned int x = level->playerX;
@@ -181,10 +187,22 @@ char *stepsSerialiser(Step *steps)
 
 void replaySteps(Step *steps)
 {
-	/*
-	 *	TODO : Utiliser stepsSerialiser char par char et faire des moves avec des délais (t pour revoir trajet qd niveau fini)
-	 * et refresh l'affichage
-	 */
+	if(isNextReachable(globalCurrentLevel))
+	{
+		char *serialisedSteps = stepsSerialiser(globalCurrentLevel->stepsNode);
+		int strLen = strlen(serialisedSteps); 
+		freeStepsNode(globalCurrentLevel); // On supprimes les déplacements déjà sauvegardés : on va les regénérer avec move
 
+		freeLevel(globalCurrentLevel);
+        initLevel(globalCurrentLevel, 0);
 
+		for (int i=0; i<strLen; i++)
+		{
+			printLevel(globalCurrentLevel);
+			printf("\nRelecture du trajet en cours...\n");
+			move(serialisedSteps[i] - '0');
+			usleep(100 * 1000); // 100 ms
+		}
+		free(serialisedSteps);
+	}
 }

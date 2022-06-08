@@ -26,14 +26,14 @@ void testGraphics(void)
 	Level *currentLevel = levelsNode;
     for (int i=0; i<6; i++)
 	{
-		initLevel(currentLevel);
+		initLevel(currentLevel, 0);
 		printLevel(currentLevel);
 		sleep(2);
 		currentLevel = currentLevel->nextLevel;
 	}
     resetTerminal();
-	/*initLevel(levelsNode);
-    initLevel(levelsNode->nextLevel);
+	/*initLevel(levelsNode, 0);
+    initLevel(levelsNode->nextLevel, 0);
 
     for (;;)
     {

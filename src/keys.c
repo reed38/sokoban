@@ -93,28 +93,31 @@ void interactionLoop(char *saveFile)
             refreshTerminal = 1;
             break;
         case 'r': // Réinitialise le niveau
-            freeLevel(globalCurrentLevel);
-            initLevel(globalCurrentLevel);
-            refreshTerminal = 1;          
+            if(!globalCurrentLevel->success)
+            {
+                freeLevel(globalCurrentLevel);
+                initLevel(globalCurrentLevel, 1);
+                refreshTerminal = 1;  
+            }
             break;
         case 't': // Revoir les déplacements effectués
-            // steps.c    
+            replaySteps(globalCurrentLevel->stepsNode); 
+            refreshTerminal = 1; 
             break;
         case 'p': // Niveau précédent
-			
+			loadPreviousLevel();
+            refreshTerminal = 1;
             break;
         case 'n': // Niveau suivant
-			if (reachNext(globalCurrentLevel))
-			{
-				globalCurrentLevel = globalCurrentLevel->nextLevel;
-			}
+			loadNextLevel();
+            refreshTerminal = 1;
             break;
         case 's': // Sauvegarder
             saveLevels(saveFile);
             printf("\nPartie sauvegardée !\n");
             break;
         case 'q': // Sauvegarder et quitter
-            printf("\nMerci d'avoir joué !\n"); 
+            printf("\nA bientôt sur Super Sokoban =)\n"); 
             saveLevels(saveFile);
             return;
         }

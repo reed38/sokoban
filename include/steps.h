@@ -53,7 +53,7 @@ extern void backStep(Level *level);
  * 
  * @param level Niveau en cours de jeu
  */
-void freeStepsNode(Level *level);
+extern void freeStepsNode(Level *level);
 
 /**
  * @brief Fonction servant à interpréter une chaîne de caractères de déplacements et les ajoutant sur la pile des déplacements.
@@ -71,6 +71,13 @@ extern void stepsParser(Step **steps, char *str);
  * @return str Chaîne de caractères représentant une suite de déplacements
  */
 extern char *stepsSerialiser(Step *steps);
+
+/**
+ * @brief 
+ * 
+ * @param steps 
+ */
+extern void replaySteps(Step *steps);
 
 /**
  * @brief Fonction testant la gestion des déplacements (pile, parser/serializer).

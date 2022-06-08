@@ -55,8 +55,8 @@ void printLevel(Level *level)
 	printMap(level->map, level->numberLines);
 	printScore(level->numberMov, level->numberPush);
 
-	reachablePrevious = reachPrevious(level);
-	reachableNext = reachNext(level);
+	reachablePrevious = isPreviousReachable(level);
+	reachableNext = isNextReachable(level);
 	
 	printFooter(level->success, reachablePrevious, reachableNext);
 }
