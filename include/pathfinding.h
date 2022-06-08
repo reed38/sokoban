@@ -1,5 +1,8 @@
 #ifndef __PATHFINDING_H__
 #define __PATHFINDING_H__
+
+#define MAXUNSIGNED  999999
+
 typedef struct Node
 {
     unsigned int gCost; // distance depuis le point de départ
@@ -8,11 +11,10 @@ typedef struct Node
     char type;   // 1 TRAVERSABLE, 0 NOTTRAVERSABLE, 
     char isOpen; // 0 pour unexplored, 1 pour explored
 } Node;
-
 Node ** pathfinding(Level *level, unsigned int xStart, unsigned int yStart, unsigned int xTarget, unsigned int yTarget);
 Node **convertToNode(Level *level);
 unsigned int maxLength(Level *level);
-void printfGraph(Node **node);
+void printfGraph(Node **node,Level *level);
 
 #endif
 
