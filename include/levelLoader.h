@@ -71,6 +71,34 @@ extern void readLevelsFile(char *);
 extern void initLevel(Level *);
 
 /**
+ * @brief Fonction déterminant si l'on peut passer au niveau précédent
+ * Renvoie 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+ * 
+ * @param level Niveau actuel
+ */
+char reachPrevious(Level *level);
+
+/**
+ * @brief Fonction déterminant si l'on peut passer au niveau suivant
+ * Renvoie si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
+ * 
+ * @param level Niveau actuel
+ */
+char reachNext(Level *level);
+
+/**
+ * @brief Charge le niveau précédent
+ * @param level Niveau actuel
+ */
+void loadPreviousLevel(Level *level);
+
+/**
+ * @brief Charge le niveau suivant
+ * @param level Niveau actuel
+ */
+void loadNextLevel(Level *level);
+
+/**
  * @brief Fonction de test du levelLoader et du levelSaver.
  */
 extern void testLevelLoadAndSave(void);

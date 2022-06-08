@@ -11,6 +11,8 @@
 #include <string.h>
 
 #include "graphics.h"
+#include "movements.h"
+#include "levelLoader.h"
 
 
 /*------------------------------------------------------------------------------
@@ -45,25 +47,18 @@ static inline void refreshTerminal(void)
 
 void printLevel(Level *level)
 {
-	char reachPrevious = 0; //1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
-	char reachNext = 0; //1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
+	char reachablePrevious = 0; //1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+	char reachableNext = 0; //1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
 
 	refreshTerminal();
 	printHeader(level->levelNumber, level->author, level->comment);
 	printMap(level->map, level->numberLines);
 	printScore(level->numberMov, level->numberPush);
 
-	if (level->levelNumber != 1)
-		reachPrevious = 1;
-	else
-		reachPrevious = 0;
+	reachablePrevious = reachPrevious(level);
+	reachableNext = reachNext(level);
 	
-	if ( (level->nextLevel != NULL) && (level->success == 1) )
-		reachNext = 1;
-	else
-		reachNext = 0;
-	
-	printFooter(level->success, reachPrevious, reachNext);
+	printFooter(level->success, reachablePrevious, reachableNext);
 }
 
 void configureTerminal(void)
@@ -107,30 +102,29 @@ static void printMap(char **map, int maxHeight)
 	{
 		for (int j = 0; j < strlen(map[i]); j++)
 		{
-			//TODO : remplacer les char par les macro (PLAYER etc)
 			switch (map[i][j])
 			{
-			case '@': //PLAYER
+			case PLAYER:
 				printf(ANSI_CODE_RED "%c" ANSI_CODE_RESET, map[i][j]);
 				break;
 
-			case '$': //BOX
+			case BOX:
 				printf(ANSI_CODE_YELLOW "%c" ANSI_CODE_RESET, map[i][j]);
 				break;
 
-			case '.': //TARGET
+			case TARGET:
 				printf(ANSI_CODE_GREEN "%c" ANSI_CODE_RESET, map[i][j]);
 				break;
 
-			case 'Q': //FULLBOX
+			case FULLBOX: 
 				printf(ANSI_CODE_BLUE "%c" ANSI_CODE_RESET, map[i][j]);
 				break;	
 
-			case 'O': //OVERTARGET
+			case OVERTARGET:
 				printf(ANSI_CODE_CYAN "%c" ANSI_CODE_RESET, map[i][j]);
 				break;		
 			
-			default: //WALLS et NOTHING
+			default:
 				printf("%c", map[i][j]);
 				break;
 			}
@@ -170,21 +164,21 @@ static void printHeader(unsigned int levelNumber, char *author, char *comment)
  * @brief affiche les commandes disponibles en bas de terminal selon si le niveau est réussi, et les niveaux atteignables ou non
  * 
  * @param success 1 si le niveau est réussi ; 0 sinon
- * @param reachPrevious 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
- * @param reachNext 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
+ * @param reachablePrevious 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+ * @param reachableNext 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
  */
-static void printFooter(char success, char reachPrevious, char reachNext)
+static void printFooter(char success, char reachablePrevious, char reachableNext)
 {
 	if (success)
 	{
 		printf(ANSI_CODE_YELLOW "Bravo, vous avez réussi ce niveau !\n");
 		printf(ANSI_CODE_MAGENTA "t : revoir votre trajet\n");
 		
-		if (reachPrevious && reachNext)
+		if (reachablePrevious && reachableNext)
 			printf("p : niveau précédent    n : niveau suivant\n");
-		else if (reachPrevious && !reachNext)
+		else if (reachablePrevious && !reachableNext)
 			printf("p : niveau précédent\n");
-		else if (!reachPrevious && reachNext)
+		else if (!reachablePrevious && reachableNext)
 			printf("n : niveau suivant\n");
 
 		printf("s : sauvegarder         q : sauvergarder et quitter\n" ANSI_CODE_RESET);
@@ -194,7 +188,7 @@ static void printFooter(char success, char reachPrevious, char reachNext)
 	{
 		printf(ANSI_CODE_MAGENTA "Deplacer le joueur avec les fleches du clavier\n");
 		printf("z : annuler\t\tr : recommencer\n");
-		if (reachPrevious)
+		if (reachablePrevious)
 			printf("p : niveau précédent\n");
 		printf("s : sauvegarder\t\tq : sauvergarder et quitter\n" ANSI_CODE_RESET);
 	}

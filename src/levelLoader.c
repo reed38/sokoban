@@ -10,7 +10,9 @@
 #include <string.h>
 
 #include "levelLoader.h"
+#include "levelSaver.h"
 #include "steps.h"
+#include "movements.h"
 
 /*------------------------------------------------------------------------------
 	VARIABLES
@@ -240,7 +242,7 @@ static void generateMap(char ***defaultMap, unsigned int *numberLines, char *lin
 	*numberLines += 1;
 }
 
-// TODO : Remplacer '@' par le membre de l'enum
+// TODO : changer level pour globalCurrentLevel ?
 void initLevel(Level *level)
 {
 	char playerFound = 0;
@@ -250,14 +252,13 @@ void initLevel(Level *level)
 	level->numberPush = 0;
 
 	// Détermination de la position du joueur
-	// TODO : ne pas oublier d'inverser dans movement
 	for(int y = 0; y <= level->numberLines && !playerFound; y++) 
 	{
 		char element = ' '; 
 		for(int x = 0; element != '\0' && !playerFound; x++)
 		{
 			element = level->defaultMap[y][x];
-			if(element == '@')
+			if(element == PLAYER)
 			{
 				level->playerX = x;
 				level->playerY = y;
@@ -279,4 +280,58 @@ void initLevel(Level *level)
   		level->map[i] = malloc(strlen(level->defaultMap[i]) + 1);
   		strcpy(level->map[i], level->defaultMap[i]);
 	}
+
+	// Quand on a quitté le jeu sans finir le niveau, on reprend là où on est
+	// serialize les steps et appele move lettre par lettre
+	if(level->stepsNode != NULL && !level->success)
+	{
+		char *serialisedSteps = stepsSerialiser(level->stepsNode); //  On récupère les mouvements pour les rejouer
+		int strLen = strlen(serialisedSteps); 
+		freeStepsNode(level); // On supprimes les déplacements déjà sauvegardés : on va les regénérer avec move
+
+		for (int i=0; i<strLen; i++)
+		{
+			move(serialisedSteps[i] - '0');
+		}
+		free(serialisedSteps);
+	}
+}
+
+char reachPrevious(Level *level)
+{
+	char reachablePrevious = 0;
+	if (level->levelNumber != 1)
+		reachablePrevious = 1;
+	else
+		reachablePrevious = 0;
+
+	return reachablePrevious;
+}
+
+char reachNext(Level *level)
+{
+	char reachableNext = 0;
+	if ( (level->nextLevel != NULL) && (level->success == 1) )
+		reachableNext = 1;
+	else
+		reachableNext = 0;
+
+	return reachableNext;
+}
+
+//TODO : NIVEAU SUIVANT / PRECEDENT
+
+void loadNextLevel(Level *level)
+{
+	if(!level->success && level->nextLevel != NULL)
+	{
+		freeLevel(level);
+		//globalCurrentLevel = level->nextLevel
+		
+	}
+}
+
+void loadPreviousLevel(Level *level)
+{
+	
 }

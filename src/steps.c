@@ -55,11 +55,11 @@ void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, 
 	*steps = step;
 }
 
-void backStep(Level *level) // TODO : Décrémenter les scores (attention, verif à faire pour numberPush)
+void backStep(Level *level)
 {
 	Step *lastStep = level->stepsNode;
 	
-	if(lastStep == NULL)
+	if(lastStep == NULL || (lastStep->cellReplaced == 0 && lastStep->cellReplacedPlus == 0))
 		return;
 
 	unsigned int x = level->playerX;
@@ -70,61 +70,73 @@ void backStep(Level *level) // TODO : Décrémenter les scores (attention, verif
 	case UP:
 		movePlayer(&level->map[y+1][x]);
 		level->map[y][x] = lastStep->cellReplaced;
-		level->map[y-1][x] = lastStep->cellReplacedPlus;
+		if(lastStep->cellReplacedPlus) level->map[y-1][x] = lastStep->cellReplacedPlus;
 		level->playerY += 1;
 		break;
 	case DOWN:
 		movePlayer(&level->map[y-1][x]);
 		level->map[y][x] = lastStep->cellReplaced;
-		level->map[y+1][x] = lastStep->cellReplacedPlus;
+		if(lastStep->cellReplacedPlus) level->map[y+1][x] = lastStep->cellReplacedPlus;
 		level->playerY -= 1;
 		break;
 	case RIGHT:
 		movePlayer(&level->map[y][x-1]);
 		level->map[y][x] = lastStep->cellReplaced;
-		level->map[y][x+1] = lastStep->cellReplacedPlus;
+		if(lastStep->cellReplacedPlus) level->map[y][x+1] = lastStep->cellReplacedPlus;
 		level->playerX -= 1;
 		break;
 	case LEFT:
 		movePlayer(&level->map[y][x+1]);
 		level->map[y][x] = lastStep->cellReplaced;
-		level->map[y][x-1] = lastStep->cellReplacedPlus;
+		if(lastStep->cellReplacedPlus) level->map[y][x-1] = lastStep->cellReplacedPlus;
 		level->playerX += 1;
 		break;
 	default:
 		break;
 	}
 	
+	level->numberMov -=1;
+	if (lastStep->cellReplaced == BOX)
+		level->numberPush -=1;
+
 	level->stepsNode = lastStep->previousStep;
 	free(lastStep);
 }
 
+void freeStepsNode(Level *level)
+{
+	Step *ptrFollow = level->stepsNode;
+
+	while(level->stepsNode != NULL)
+	{
+		level->stepsNode = level->stepsNode->previousStep;
+		free(ptrFollow);
+		ptrFollow = level->stepsNode;
+	}
+	globalCurrentLevel->stepsNode = NULL;
+}
+
 void stepsParser(Step **steps, char *str)
 {
-	//TODO : effectuer les déplacements avec move
-	char stringLen = strlen(str);
+	unsigned int stringLen = strlen(str);
 
 	for (int i=0; i<stringLen; i++)
 	{
 		switch (str[i] - '0')
 		{
 		case UP:
-			//move
 			addStep(steps, UP, 0, 0);
 			break;
 
 		case DOWN:
-			//move
 			addStep(steps, DOWN, 0, 0);
 			break;
 
 		case LEFT:
-			//move
 			addStep(steps, LEFT, 0, 0);
 			break;
 		
 		case RIGHT:
-			//move
 			addStep(steps, RIGHT, 0, 0);
 			break;
 
@@ -170,6 +182,9 @@ char *stepsSerialiser(Step *steps)
 void replaySteps(Step *steps)
 {
 	/*
-	 *	TODO : Utiliser stepsSerialiser char par char et faire des moves avec des délais 
+	 *	TODO : Utiliser stepsSerialiser char par char et faire des moves avec des délais (t pour revoir trajet qd niveau fini)
+	 * et refresh l'affichage
 	 */
+
+
 }

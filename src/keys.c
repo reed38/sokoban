@@ -100,9 +100,14 @@ void interactionLoop(char *saveFile)
         case 't': // Revoir les déplacements effectués
             // steps.c    
             break;
-        case 'p': // Niveau précédent    
+        case 'p': // Niveau précédent
+			
             break;
-        case 'n': // Niveau suivant 
+        case 'n': // Niveau suivant
+			if (reachNext(globalCurrentLevel))
+			{
+				globalCurrentLevel = globalCurrentLevel->nextLevel;
+			}
             break;
         case 's': // Sauvegarder
             saveLevels(saveFile);

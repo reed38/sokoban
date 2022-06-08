@@ -23,9 +23,15 @@ int main(int argc, char *argv[])
 	}
 	printf("Chargement...\n");
 
-	configureTerminal();
 	readLevelsFile(argv[1]);
+	if (levelsNode == NULL)
+	{
+		fprintf(stderr, "Fichier d'entrée incorrect\n");
+		return 1;
+	}
 
+	configureTerminal();
+	
 	globalCurrentLevel=levelsNode;
 	initLevel(globalCurrentLevel);
 

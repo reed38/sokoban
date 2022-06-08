@@ -49,6 +49,13 @@ extern void addStep(Step **steps, unsigned char direction, unsigned char cellRep
 extern void backStep(Level *level);
 
 /**
+ * @brief Fonction servant à supprimer tous les déplacements enregistrés pour un niveau.
+ * 
+ * @param level Niveau en cours de jeu
+ */
+void freeStepsNode(Level *level);
+
+/**
  * @brief Fonction servant à interpréter une chaîne de caractères de déplacements et les ajoutant sur la pile des déplacements.
  *
  * @param steps Pile des déplacements

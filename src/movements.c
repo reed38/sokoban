@@ -68,8 +68,7 @@ static void goRight(unsigned int *x, unsigned int *y)
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 	char mvt = 0;
 	char cellReplaced = currentMap[*y][*x + 1];
-	char cellReplacedPlus = currentMap[*y][*x + 2];
-	// TODO : crash quand bord tableau (car accès +2 non existant)
+	char cellReplacedPlus = 0;
 
 	if (currentMap[*y][*x + 1] == NOTHING)
 	{
@@ -85,6 +84,7 @@ static void goRight(unsigned int *x, unsigned int *y)
 	}
 	else if (currentMap[*y][*x + 1] == BOX || currentMap[*y][*x + 1] == FULLBOX)
 	{
+		cellReplacedPlus = currentMap[*y][*x + 2];
 		if (currentMap[*y][*x + 2] != WALL && currentMap[*y][*x + 2] != BOX && currentMap[*y][*x + 2] != FULLBOX)
 		{
 			if (currentMap[*y][*x + 2] == NOTHING)
@@ -144,7 +144,7 @@ static void goLeft(unsigned int *x, unsigned int *y)
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 	char mvt = 0;
 	char cellReplaced = currentMap[*y][*x - 1];
-	char cellReplacedPlus = currentMap[*y][*x - 2];
+	char cellReplacedPlus = 0;
 
 	if (currentMap[*y][*x - 1] == NOTHING)
 	{
@@ -160,6 +160,7 @@ static void goLeft(unsigned int *x, unsigned int *y)
 	}
 	else if (currentMap[*y][*x - 1] == BOX || currentMap[*y][*x - 1] == FULLBOX)
 	{
+		cellReplacedPlus = currentMap[*y][*x - 2];
 		if (currentMap[*y][*x - 2] != WALL && currentMap[*y][*x - 2] != BOX && currentMap[*y][*x - 2] != FULLBOX)
 		{
 			if (currentMap[*y][*x - 2] == NOTHING)
@@ -219,7 +220,7 @@ static void goDown(unsigned int *x, unsigned int *y)
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 	char mvt = 0;
 	char cellReplaced = currentMap[*y + 1][*x];
-	char cellReplacedPlus = currentMap[*y + 2][*x];
+	char cellReplacedPlus = 0;
 
 	if (currentMap[*y + 1][*x] == NOTHING)
 	{
@@ -235,6 +236,7 @@ static void goDown(unsigned int *x, unsigned int *y)
 	}
 	else if (currentMap[*y + 1][*x] == BOX || currentMap[*y + 1][*x] == FULLBOX)
 	{
+		cellReplacedPlus = currentMap[*y + 2][*x];
 		if (currentMap[*y + 2][*x] != WALL && currentMap[*y + 2][*x] != BOX && currentMap[*y + 2][*x] != FULLBOX)
 		{
 			if (currentMap[*y + 2][*x] == NOTHING)
@@ -294,7 +296,7 @@ static void goUp(unsigned int *x, unsigned int *y)
 	char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
 	char mvt = 0;
 	char cellReplaced = currentMap[*y - 1][*x];
-	char cellReplacedPlus = currentMap[*y - 2][*x];
+	char cellReplacedPlus = 0;
 
 	if (currentMap[*y - 1][*x] == NOTHING)
 	{
@@ -310,6 +312,7 @@ static void goUp(unsigned int *x, unsigned int *y)
 	}
 	else if (currentMap[*y - 1][*x] == BOX || currentMap[*y - 1][*x] == FULLBOX)
 	{
+		cellReplacedPlus = currentMap[*y - 2][*x];
 		if (currentMap[*y - 2][*x] != WALL && currentMap[*y - 2][*x] != BOX && currentMap[*y - 2][*x] != FULLBOX)
 		{
 			if (currentMap[*y - 2][*x] == NOTHING)
