@@ -4,13 +4,16 @@
  * @brief Programme sauvegardant les niveaux en mémoire.
  * 
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "levelSaver.h"
 #include "levelLoader.h"
 #include "steps.h"
+
+/*------------------------------------------------------------------------------
+	FONCTIONS
+------------------------------------------------------------------------------*/
 
 void saveLevels(char *destination)
 {
@@ -21,7 +24,7 @@ void saveLevels(char *destination)
 	{
 		fprintf(stderr, "Erreur lors de l'ouverture du fichier de sauvegarde...\n");
 		perror("");
-		exit(0);
+		exit(1);
 	}
 
     Level *ptr = levelsNode;
@@ -46,9 +49,7 @@ void saveLevels(char *destination)
 		}
 
         for (int i=0; i<(ptr->numberLines); i++)
-        {
            fprintf(saveFile, "%s\n", ptr->defaultMap[i]); 
-        }
         
 		ptr = ptr->nextLevel;
 	}
@@ -67,14 +68,7 @@ void freeNode(void)
 			free(ptrFollow->defaultMap[i]);
 		free(ptrFollow->defaultMap);
 		
-		Step *ptrStepsFollow = ptrFollow->stepsNode;
-		while(ptrStepsFollow != NULL)
-		{
-			Step *ptrStepsToFree = ptrStepsFollow;
-			ptrStepsFollow = ptrStepsFollow->previousStep;
-			free(ptrStepsToFree);
-		}
-		
+		freeStepsNode(ptrFollow);
 		free(ptrFollow->author);
 		free(ptrFollow->comment);
 		precPtdr = ptrFollow;

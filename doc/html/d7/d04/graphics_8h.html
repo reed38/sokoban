@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Super Sokoban: Référence du fichier include/graphics.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../sokologo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">Super Sokoban
+   </div>
+   <div id="projectbrief">Projet 2A - PX212 IR&amp;C</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d7/d04/graphics_8h.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier graphics.h</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>En-tête du programme de gestion de la configuration et l'affichage sur le terminal.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../da/d82/level_loader_8h_source.html">levelLoader.h</a>&quot;</code><br />
+</div>
+<p><a href="../../d7/d04/graphics_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a0f4f82510ce31888151395b98ee033f1"><td class="memItemLeft" align="right" valign="top"><a id="a0f4f82510ce31888151395b98ee033f1" name="a0f4f82510ce31888151395b98ee033f1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_RESET</b>&#160;&#160;&#160;&quot;\033[00m&quot;</td></tr>
+<tr class="separator:a0f4f82510ce31888151395b98ee033f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7fcba6c80fde95a644861e7a70f557b"><td class="memItemLeft" align="right" valign="top"><a id="ae7fcba6c80fde95a644861e7a70f557b" name="ae7fcba6c80fde95a644861e7a70f557b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BOLD</b>&#160;&#160;&#160;&quot;\033[1m&quot;</td></tr>
+<tr class="separator:ae7fcba6c80fde95a644861e7a70f557b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b8873506b6d3fae9ea7cbdcac8f4a5d"><td class="memItemLeft" align="right" valign="top"><a id="a8b8873506b6d3fae9ea7cbdcac8f4a5d" name="a8b8873506b6d3fae9ea7cbdcac8f4a5d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_DARK</b>&#160;&#160;&#160;&quot;\033[2m&quot;</td></tr>
+<tr class="separator:a8b8873506b6d3fae9ea7cbdcac8f4a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90f817f836d2b74b19ec79dce7f48feb"><td class="memItemLeft" align="right" valign="top"><a id="a90f817f836d2b74b19ec79dce7f48feb" name="a90f817f836d2b74b19ec79dce7f48feb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_UNDERLINE</b>&#160;&#160;&#160;&quot;\033[4m&quot;</td></tr>
+<tr class="separator:a90f817f836d2b74b19ec79dce7f48feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae64507a706ca10df8bcc5ab28559e1c0"><td class="memItemLeft" align="right" valign="top"><a id="ae64507a706ca10df8bcc5ab28559e1c0" name="ae64507a706ca10df8bcc5ab28559e1c0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BLINK</b>&#160;&#160;&#160;&quot;\033[5m&quot;</td></tr>
+<tr class="separator:ae64507a706ca10df8bcc5ab28559e1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616dd92e0cbc337e891dff1c24bcfd77"><td class="memItemLeft" align="right" valign="top"><a id="a616dd92e0cbc337e891dff1c24bcfd77" name="a616dd92e0cbc337e891dff1c24bcfd77"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_REVERSE</b>&#160;&#160;&#160;&quot;\033[7m&quot;</td></tr>
+<tr class="separator:a616dd92e0cbc337e891dff1c24bcfd77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8757fbc67c842f15851ff9e7987ca2cc"><td class="memItemLeft" align="right" valign="top"><a id="a8757fbc67c842f15851ff9e7987ca2cc" name="a8757fbc67c842f15851ff9e7987ca2cc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_CONCEALED</b>&#160;&#160;&#160;&quot;\033[8m&quot;</td></tr>
+<tr class="separator:a8757fbc67c842f15851ff9e7987ca2cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62a7bc221b3d5a07a4eb745b0895ca08"><td class="memItemLeft" align="right" valign="top"><a id="a62a7bc221b3d5a07a4eb745b0895ca08" name="a62a7bc221b3d5a07a4eb745b0895ca08"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_GREY</b>&#160;&#160;&#160;&quot;\033[30m&quot;</td></tr>
+<tr class="separator:a62a7bc221b3d5a07a4eb745b0895ca08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ee3a81c3d78210f01449f7f9f37f5b9"><td class="memItemLeft" align="right" valign="top"><a id="a0ee3a81c3d78210f01449f7f9f37f5b9" name="a0ee3a81c3d78210f01449f7f9f37f5b9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_RED</b>&#160;&#160;&#160;&quot;\033[31m&quot;</td></tr>
+<tr class="separator:a0ee3a81c3d78210f01449f7f9f37f5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab93953d4943d2d776db5c9e043b9e1b8"><td class="memItemLeft" align="right" valign="top"><a id="ab93953d4943d2d776db5c9e043b9e1b8" name="ab93953d4943d2d776db5c9e043b9e1b8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_GREEN</b>&#160;&#160;&#160;&quot;\033[32m&quot;</td></tr>
+<tr class="separator:ab93953d4943d2d776db5c9e043b9e1b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfa6c19a530776e1bb7fc2148836f910"><td class="memItemLeft" align="right" valign="top"><a id="acfa6c19a530776e1bb7fc2148836f910" name="acfa6c19a530776e1bb7fc2148836f910"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_YELLOW</b>&#160;&#160;&#160;&quot;\033[33m&quot;</td></tr>
+<tr class="separator:acfa6c19a530776e1bb7fc2148836f910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f0a7a9bc9729d81a78cfc3399a6d481"><td class="memItemLeft" align="right" valign="top"><a id="a1f0a7a9bc9729d81a78cfc3399a6d481" name="a1f0a7a9bc9729d81a78cfc3399a6d481"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BLUE</b>&#160;&#160;&#160;&quot;\033[34m&quot;</td></tr>
+<tr class="separator:a1f0a7a9bc9729d81a78cfc3399a6d481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f65e2b30aeeb54962980314a9e567a"><td class="memItemLeft" align="right" valign="top"><a id="a05f65e2b30aeeb54962980314a9e567a" name="a05f65e2b30aeeb54962980314a9e567a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_MAGENTA</b>&#160;&#160;&#160;&quot;\033[35m&quot;</td></tr>
+<tr class="separator:a05f65e2b30aeeb54962980314a9e567a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab021b6c700bc82734085532c0b4cbaff"><td class="memItemLeft" align="right" valign="top"><a id="ab021b6c700bc82734085532c0b4cbaff" name="ab021b6c700bc82734085532c0b4cbaff"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_CYAN</b>&#160;&#160;&#160;&quot;\033[36m&quot;</td></tr>
+<tr class="separator:ab021b6c700bc82734085532c0b4cbaff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cb1587e6de86292ddfeb4b19233417d"><td class="memItemLeft" align="right" valign="top"><a id="a1cb1587e6de86292ddfeb4b19233417d" name="a1cb1587e6de86292ddfeb4b19233417d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_WHITE</b>&#160;&#160;&#160;&quot;\033[37m&quot;</td></tr>
+<tr class="separator:a1cb1587e6de86292ddfeb4b19233417d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af00a4f2ec408c062539fdabb18f34c1a"><td class="memItemLeft" align="right" valign="top"><a id="af00a4f2ec408c062539fdabb18f34c1a" name="af00a4f2ec408c062539fdabb18f34c1a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_GREY</b>&#160;&#160;&#160;&quot;\033[40m&quot;</td></tr>
+<tr class="separator:af00a4f2ec408c062539fdabb18f34c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9065baceb5d7f58bc17d9f7b22fd7673"><td class="memItemLeft" align="right" valign="top"><a id="a9065baceb5d7f58bc17d9f7b22fd7673" name="a9065baceb5d7f58bc17d9f7b22fd7673"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_RED</b>&#160;&#160;&#160;&quot;\033[41m&quot;</td></tr>
+<tr class="separator:a9065baceb5d7f58bc17d9f7b22fd7673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85d3730dead6de2760ed4d70ca0e0d70"><td class="memItemLeft" align="right" valign="top"><a id="a85d3730dead6de2760ed4d70ca0e0d70" name="a85d3730dead6de2760ed4d70ca0e0d70"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_GREEN</b>&#160;&#160;&#160;&quot;\033[42m&quot;</td></tr>
+<tr class="separator:a85d3730dead6de2760ed4d70ca0e0d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac12c3df073a66cd53b9fb3570e070026"><td class="memItemLeft" align="right" valign="top"><a id="ac12c3df073a66cd53b9fb3570e070026" name="ac12c3df073a66cd53b9fb3570e070026"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_YELLOW</b>&#160;&#160;&#160;&quot;\033[43m&quot;</td></tr>
+<tr class="separator:ac12c3df073a66cd53b9fb3570e070026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afddc69a488e81c020260ef84891a4059"><td class="memItemLeft" align="right" valign="top"><a id="afddc69a488e81c020260ef84891a4059" name="afddc69a488e81c020260ef84891a4059"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_BLUE</b>&#160;&#160;&#160;&quot;\033[44m&quot;</td></tr>
+<tr class="separator:afddc69a488e81c020260ef84891a4059"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a1c88f6c6ffc65bf0b57110f52862e"><td class="memItemLeft" align="right" valign="top"><a id="ab8a1c88f6c6ffc65bf0b57110f52862e" name="ab8a1c88f6c6ffc65bf0b57110f52862e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_MAGENTA</b>&#160;&#160;&#160;&quot;\033[45m&quot;</td></tr>
+<tr class="separator:ab8a1c88f6c6ffc65bf0b57110f52862e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72ebbed93dc6ec23ec7f91e927843315"><td class="memItemLeft" align="right" valign="top"><a id="a72ebbed93dc6ec23ec7f91e927843315" name="a72ebbed93dc6ec23ec7f91e927843315"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_CYAN</b>&#160;&#160;&#160;&quot;\033[46m&quot;</td></tr>
+<tr class="separator:a72ebbed93dc6ec23ec7f91e927843315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b21466fc266fe77cce80ec4ec71e711"><td class="memItemLeft" align="right" valign="top"><a id="a0b21466fc266fe77cce80ec4ec71e711" name="a0b21466fc266fe77cce80ec4ec71e711"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_CODE_BG_WHITE</b>&#160;&#160;&#160;&quot;\033[47m&quot;</td></tr>
+<tr class="separator:a0b21466fc266fe77cce80ec4ec71e711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a1fbbc57f35477f4e9f432f9a414bedd1"><td class="memItemLeft" align="right" valign="top"><a id="a1fbbc57f35477f4e9f432f9a414bedd1" name="a1fbbc57f35477f4e9f432f9a414bedd1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>configureTerminal</b> (void)</td></tr>
+<tr class="memdesc:a1fbbc57f35477f4e9f432f9a414bedd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à configurer le terminal en mode canonique sans affichage des touches. <br /></td></tr>
+<tr class="separator:a1fbbc57f35477f4e9f432f9a414bedd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9913136410ce0acfff9e98ebcb0fda3"><td class="memItemLeft" align="right" valign="top"><a id="af9913136410ce0acfff9e98ebcb0fda3" name="af9913136410ce0acfff9e98ebcb0fda3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetTerminal</b> (void)</td></tr>
+<tr class="memdesc:af9913136410ce0acfff9e98ebcb0fda3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à remettre le terminal avec affichage des touches. <br /></td></tr>
+<tr class="separator:af9913136410ce0acfff9e98ebcb0fda3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44b6eea8bda5a1295079fdbfee6dcea8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d04/graphics_8h.html#a44b6eea8bda5a1295079fdbfee6dcea8">printLevel</a> (<a class="el" href="../../d4/dd0/struct_level.html">Level</a> *level)</td></tr>
+<tr class="memdesc:a44b6eea8bda5a1295079fdbfee6dcea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à afficher sur l'écran toutes les informations d'un niveau. En particulier, le numéro, l'auteur, le commentaire, la map et les contrôles.  <a href="../../d7/d04/graphics_8h.html#a44b6eea8bda5a1295079fdbfee6dcea8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a44b6eea8bda5a1295079fdbfee6dcea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e30b111ecae9e213a34c710d37414c7"><td class="memItemLeft" align="right" valign="top"><a id="a2e30b111ecae9e213a34c710d37414c7" name="a2e30b111ecae9e213a34c710d37414c7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>testGraphics</b> (void)</td></tr>
+<tr class="memdesc:a2e30b111ecae9e213a34c710d37414c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de test de l'affichage. <br /></td></tr>
+<tr class="separator:a2e30b111ecae9e213a34c710d37414c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >En-tête du programme de gestion de la configuration et l'affichage sur le terminal. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Esteban CADIC, Noé MOREAU, Edgar REGNAULT </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a44b6eea8bda5a1295079fdbfee6dcea8" name="a44b6eea8bda5a1295079fdbfee6dcea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44b6eea8bda5a1295079fdbfee6dcea8">&#9670;&nbsp;</a></span>printLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printLevel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d4/dd0/struct_level.html">Level</a> *&#160;</td>
+          <td class="paramname"><em>level</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction servant à afficher sur l'écran toutes les informations d'un niveau. En particulier, le numéro, l'auteur, le commentaire, la map et les contrôles. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>Niveau à afficher </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../d7/d04/graphics_8h.html">graphics.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

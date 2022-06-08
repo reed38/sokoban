@@ -10,20 +10,22 @@ $            1       f       0    100     0    2  1000 heavy box
 ;MAXLEVEL 88
 ;ATOP *$.
 ;LEVEL 1
-;SUCCESS 1
+;SUCCESS 0
+;AUTHOR Michu
+;COMMENT bla bla bla
     #####
     #   #
-    #$  #
-  ###  $##
-  #  $ $ #
+    #   #
+  ###   ##
+  #      #
 ### # ## #   ######
-#   # ## #####  ..#
-# $  $          ..#
-##### ### #@##  ..#
+#   # ## #####    #
+#            $   .#
+##### ### #@##    #
     #     #########
     #######
 ;LEVEL 2
-;SUCCESS 1
+;SUCCESS 0
 ;AUTHOR Jean-François Copé
 ;COMMENT Les jumelles, le 2
 ############
@@ -37,7 +39,7 @@ $            1       f       0    100     0    2  1000 heavy box
   #    #     #
   ############
 ;LEVEL 3
-;SUCCESS 1
+;SUCCESS 0
         ########
         #     @#
         # $#$ ##
@@ -49,7 +51,7 @@ $            1       f       0    100     0    2  1000 heavy box
 #....  ##########
 ########
 ;LEVEL 4
-;SUCCESS 1
+;SUCCESS 0
            ########
            #  ....#
 ############  ....#
@@ -80,7 +82,7 @@ $            1       f       0    100     0    2  1000 heavy box
           #    #
           ######
 ;LEVEL 6
-;SUCCESS 1
+;SUCCESS 0
 ######  ###
 #..  # ##@##
 #..  ###   #

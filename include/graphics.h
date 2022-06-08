@@ -60,12 +60,13 @@ extern void resetTerminal(void);
  * 
  * @param level Niveau à afficher
  */
-extern void printLevel(Level *);
+extern void printLevel(Level *level);
 
 /**
- * @brief Fonction de test de l'affiage.
+ * @brief Fonction de test de l'affichage.
  * 
  */
 extern void testGraphics(void);
+
 
 #endif

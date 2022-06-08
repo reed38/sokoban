@@ -10,6 +10,7 @@
 /*------------------------------------------------------------------------------
 	TYPE DEFINITIONS
 ------------------------------------------------------------------------------*/
+
 /**
  * @brief Structure représentant un niveau.
  * 
@@ -36,10 +37,17 @@ typedef struct Level {
 /*------------------------------------------------------------------------------
 	GLOBAL VARIABLES
 ------------------------------------------------------------------------------*/
+
 /**
  * @brief File contenant tous les niveaux.
  */
 extern Level *levelsNode;
+
+/**
+ * @brief Niveau en cours de jeu.
+ * 
+ */
+extern Level *globalCurrentLevel;
 
 
 /*------------------------------------------------------------------------------
@@ -52,7 +60,7 @@ extern Level *levelsNode;
  *   
  * @param location Chemin d'accès du fichier 
  */
-extern void readLevelsFile(char *);
+extern void readLevelsFile(char *location);
 
 /**
  * @brief Fonction servant à initaliser / réinitialiser les paramètres temporaires d'un niveau.
@@ -61,8 +69,37 @@ extern void readLevelsFile(char *);
  * Ne pas oublier d'appeler freeLevel(Level *) une fois le niveau terminé ou avant la réinitialisation. 
  * 
  * @param level Structure du niveau que l'on souhaite initialiser
+ * @param reset Indique si on doit recommencer le niveau (supprimer les déplacements)
  */
-extern void initLevel(Level *);
+extern void initLevel(Level *level, char reset);
+
+/**
+ * @brief Fonction déterminant si l'on peut passer au niveau précédent.
+ * 
+ * @param level Niveau actuel
+ * @return reachablePrevious : Booléen qui renvoie 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
+ */
+extern char isPreviousReachable(Level *level);
+
+/**
+ * @brief Fonction déterminant si l'on peut passer au nveau suivant.
+ * 
+ * @param level Niveau actuel
+ * @return reachableNext : Booléen qui renvoie 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
+ */
+extern char isNextReachable(Level *level);
+
+/**
+ * @brief Fonction servant à charger le niveau suivant s'il existe à condition que le niveau actuel est résolu.
+ * 
+ */
+extern void loadNextLevel(void);
+
+/**
+ * @brief Fonction servant à charger le niveau précédent s'il existe à condition que le niveau actuel est résolu.
+ * 
+ */
+extern void loadPreviousLevel(void);
 
 /**
  * @brief Fonction de test du levelLoader et du levelSaver.

@@ -23,31 +23,21 @@
 
 
 /*------------------------------------------------------------------------------
-	GLOBAL VARIABLES
-------------------------------------------------------------------------------*/
-
-/**
- * @brief Niveau en cours de jeu.
- * 
- */
-extern Level *globalCurrentLevel;
-
-
-/*------------------------------------------------------------------------------
 	DECLARATIONS
 ------------------------------------------------------------------------------*/
 
 /**
  * @brief Fonction servant à modifier les coordonnées du joueur dans le tableau selon une direction.
  *
- * @param direction Direction dans laquelle on souhaite déplacer le joueur
+ * @param direction Direction dans laquelle on souhaite déplacer le joueur (UP, DOWN, RIGHT, LEFT)
  */
-extern void move(int direction);
+extern void move(char direction);
 
 /**
  * @brief Fonction de test des mouvements. 
  * 
  */
 extern void testMovements(void);
+
 
 #endif

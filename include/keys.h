@@ -1,5 +1,5 @@
 /**
- * @file keys.c
+ * @file keys.h
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
  * @brief En-tête du programme de détection des appuis de touches sur le terminal.
  * 
@@ -29,7 +29,7 @@
  * 
  * @param saveFile Chemin d'accès du fichier de sauvegarde
  */
-extern void interactionLoop(char *);
+extern void interactionLoop(char *saveFile);
 
 
 #endif

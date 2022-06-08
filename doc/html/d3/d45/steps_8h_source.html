@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Super Sokoban:  Fichier source de include/steps.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="../../sokologo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">Super Sokoban
+   </div>
+   <div id="projectbrief">Projet 2A - PX212 IR&amp;C</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('d3/d45/steps_8h_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">steps.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d3/d45/steps_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef __STEPS_H__</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define __STEPS_H__</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d82/level_loader_8h.html">levelLoader.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/*------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">    TYPE DEFINITIONS</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">------------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../df/deb/struct_step.html">   20</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="../../df/deb/struct_step.html">Step</a> { </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="../../df/deb/struct_step.html#a4c9b82152ef06a9d3b78f60779cd4b85">   21</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../df/deb/struct_step.html#a4c9b82152ef06a9d3b78f60779cd4b85">direction</a>; </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="../../df/deb/struct_step.html#a568f4cda3199155c20c8bf1e447d7c44">   22</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../df/deb/struct_step.html#a568f4cda3199155c20c8bf1e447d7c44">cellReplaced</a>; </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../df/deb/struct_step.html#ab78837e1bfeeaca53fe57ee6865e3879">   23</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../df/deb/struct_step.html#ab78837e1bfeeaca53fe57ee6865e3879">cellReplacedPlus</a>; </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="../../df/deb/struct_step.html#ac02aed79852055c94697c2cd57551c8e">   24</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="../../df/deb/struct_step.html">Step</a> *<a class="code hl_variable" href="../../df/deb/struct_step.html#ac02aed79852055c94697c2cd57551c8e">previousStep</a>; </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d3/d45/steps_8h.html#a4974e29bc00b8768c3edccb6078d7cef">   25</a></span>} <a class="code hl_typedef" href="../../d3/d45/steps_8h.html#a4974e29bc00b8768c3edccb6078d7cef">Step</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/*------------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">    DECLARATIONS</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">------------------------------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d45/steps_8h.html#a58ba92197eed3aacb99e8e0a2e181624">addStep</a>(<a class="code hl_struct" href="../../df/deb/struct_step.html">Step</a> **steps, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../df/deb/struct_step.html#a4c9b82152ef06a9d3b78f60779cd4b85">direction</a>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../df/deb/struct_step.html#a568f4cda3199155c20c8bf1e447d7c44">cellReplaced</a>, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="../../df/deb/struct_step.html#ab78837e1bfeeaca53fe57ee6865e3879">cellReplacedPlus</a>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d45/steps_8h.html#aff15d6ef70412c760a42b0e4f579eb9f">backStep</a>(<a class="code hl_struct" href="../../d4/dd0/struct_level.html">Level</a> *level);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d45/steps_8h.html#ac11685fd6e5eae87a771f8213e0227a0">freeStepsNode</a>(<a class="code hl_struct" href="../../d4/dd0/struct_level.html">Level</a> *level);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d45/steps_8h.html#aa7fda80fdca1b50afe209f78e785df2f">stepsParser</a>(<a class="code hl_struct" href="../../df/deb/struct_step.html">Step</a> **steps, <span class="keywordtype">char</span> *str);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">extern</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="../../d3/d45/steps_8h.html#ad4f290d24c63380dd6993aaafb865062">stepsSerialiser</a>(<a class="code hl_struct" href="../../df/deb/struct_step.html">Step</a> *steps);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d45/steps_8h.html#a3fa885bf66ceb69e1508d1ac20bc8a19">replaySteps</a>(<a class="code hl_struct" href="../../df/deb/struct_step.html">Step</a> *steps);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d45/steps_8h.html#a2b144dddc81d3f40efc991d3c7c83232">testSteps</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="alevel_loader_8h_html"><div class="ttname"><a href="../../da/d82/level_loader_8h.html">levelLoader.h</a></div><div class="ttdoc">En tête du programme chargeant les niveaux en mémoire.</div></div>
+<div class="ttc" id="asteps_8h_html_a2b144dddc81d3f40efc991d3c7c83232"><div class="ttname"><a href="../../d3/d45/steps_8h.html#a2b144dddc81d3f40efc991d3c7c83232">testSteps</a></div><div class="ttdeci">void testSteps(void)</div><div class="ttdoc">Fonction testant la gestion des déplacements (pile, parser/serializer).</div><div class="ttdef"><b>Definition:</b> testSteps.c:20</div></div>
+<div class="ttc" id="asteps_8h_html_a3fa885bf66ceb69e1508d1ac20bc8a19"><div class="ttname"><a href="../../d3/d45/steps_8h.html#a3fa885bf66ceb69e1508d1ac20bc8a19">replaySteps</a></div><div class="ttdeci">void replaySteps(Step *steps)</div><div class="ttdoc">Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu...</div><div class="ttdef"><b>Definition:</b> steps.c:172</div></div>
+<div class="ttc" id="asteps_8h_html_a4974e29bc00b8768c3edccb6078d7cef"><div class="ttname"><a href="../../d3/d45/steps_8h.html#a4974e29bc00b8768c3edccb6078d7cef">Step</a></div><div class="ttdeci">struct Step Step</div><div class="ttdoc">Structure représentant un déplacement.</div></div>
+<div class="ttc" id="asteps_8h_html_a58ba92197eed3aacb99e8e0a2e181624"><div class="ttname"><a href="../../d3/d45/steps_8h.html#a58ba92197eed3aacb99e8e0a2e181624">addStep</a></div><div class="ttdeci">void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, unsigned char cellReplacedPlus)</div><div class="ttdoc">Fonction servant à ajouter une étape sur la pile des déplacements.</div><div class="ttdef"><b>Definition:</b> steps.c:33</div></div>
+<div class="ttc" id="asteps_8h_html_aa7fda80fdca1b50afe209f78e785df2f"><div class="ttname"><a href="../../d3/d45/steps_8h.html#aa7fda80fdca1b50afe209f78e785df2f">stepsParser</a></div><div class="ttdeci">void stepsParser(Step **steps, char *str)</div><div class="ttdoc">Fonction servant à interpréter une chaîne de caractères de déplacements et les ajoutant sur la pile d...</div><div class="ttdef"><b>Definition:</b> steps.c:110</div></div>
+<div class="ttc" id="asteps_8h_html_ac11685fd6e5eae87a771f8213e0227a0"><div class="ttname"><a href="../../d3/d45/steps_8h.html#ac11685fd6e5eae87a771f8213e0227a0">freeStepsNode</a></div><div class="ttdeci">void freeStepsNode(Level *level)</div><div class="ttdoc">Fonction servant à supprimer tous les déplacements enregistrés pour un niveau.</div><div class="ttdef"><b>Definition:</b> steps.c:97</div></div>
+<div class="ttc" id="asteps_8h_html_ad4f290d24c63380dd6993aaafb865062"><div class="ttname"><a href="../../d3/d45/steps_8h.html#ad4f290d24c63380dd6993aaafb865062">stepsSerialiser</a></div><div class="ttdeci">char * stepsSerialiser(Step *steps)</div><div class="ttdoc">Fonction servant à convertir la pile des déplacements en chaîne de caractères. Penser à free la chaîn...</div><div class="ttdef"><b>Definition:</b> steps.c:141</div></div>
+<div class="ttc" id="asteps_8h_html_aff15d6ef70412c760a42b0e4f579eb9f"><div class="ttname"><a href="../../d3/d45/steps_8h.html#aff15d6ef70412c760a42b0e4f579eb9f">backStep</a></div><div class="ttdeci">void backStep(Level *level)</div><div class="ttdoc">Fonction annulant un déplacement en cours de jeu.</div><div class="ttdef"><b>Definition:</b> steps.c:49</div></div>
+<div class="ttc" id="astruct_level_html"><div class="ttname"><a href="../../d4/dd0/struct_level.html">Level</a></div><div class="ttdoc">Structure représentant un niveau.</div><div class="ttdef"><b>Definition:</b> levelLoader.h:18</div></div>
+<div class="ttc" id="astruct_step_html"><div class="ttname"><a href="../../df/deb/struct_step.html">Step</a></div><div class="ttdoc">Structure représentant un déplacement.</div><div class="ttdef"><b>Definition:</b> steps.h:20</div></div>
+<div class="ttc" id="astruct_step_html_a4c9b82152ef06a9d3b78f60779cd4b85"><div class="ttname"><a href="../../df/deb/struct_step.html#a4c9b82152ef06a9d3b78f60779cd4b85">Step::direction</a></div><div class="ttdeci">unsigned char direction</div><div class="ttdef"><b>Definition:</b> steps.h:21</div></div>
+<div class="ttc" id="astruct_step_html_a568f4cda3199155c20c8bf1e447d7c44"><div class="ttname"><a href="../../df/deb/struct_step.html#a568f4cda3199155c20c8bf1e447d7c44">Step::cellReplaced</a></div><div class="ttdeci">unsigned char cellReplaced</div><div class="ttdef"><b>Definition:</b> steps.h:22</div></div>
+<div class="ttc" id="astruct_step_html_ab78837e1bfeeaca53fe57ee6865e3879"><div class="ttname"><a href="../../df/deb/struct_step.html#ab78837e1bfeeaca53fe57ee6865e3879">Step::cellReplacedPlus</a></div><div class="ttdeci">unsigned char cellReplacedPlus</div><div class="ttdef"><b>Definition:</b> steps.h:23</div></div>
+<div class="ttc" id="astruct_step_html_ac02aed79852055c94697c2cd57551c8e"><div class="ttname"><a href="../../df/deb/struct_step.html#ac02aed79852055c94697c2cd57551c8e">Step::previousStep</a></div><div class="ttdeci">struct Step * previousStep</div><div class="ttdef"><b>Definition:</b> steps.h:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="../../d3/d45/steps_8h.html">steps.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>

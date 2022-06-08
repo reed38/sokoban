@@ -1,32 +1,13 @@
 /**
  * @file steps.h
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
- * @brief 
+ * @brief En-tête du programme de gestion de l'historique des déplacements.
  * 
  */
 #ifndef __STEPS_H__
 #define __STEPS_H__
 
 #include "levelLoader.h"
-
-/*------------------------------------------------------------------------------
-	MACROS
-------------------------------------------------------------------------------*/
-
-// TODO : virer ça, déjà présent dans le movement.h
-#define BOX			'$'
-#define WALL		'#'
-#define PLAYER		'@'
-#define TARGET  	'.'
-#define NOTHING		' '
-#define FULLBOX		'Q'
-#define OVERTARGET	'O'
-
-// TODO : virer ça, déjà présent dans le keys.h
-#define UP          1
-#define DOWN        2
-#define RIGHT       3
-#define LEFT        4
 
 /*------------------------------------------------------------------------------
 	TYPE DEFINITIONS
@@ -48,7 +29,6 @@ typedef struct Step {
 	DECLARATIONS
 ------------------------------------------------------------------------------*/
 
-
 /**
  * @brief Fonction servant à ajouter une étape sur la pile des déplacements.
  *
@@ -67,6 +47,13 @@ extern void addStep(Step **steps, unsigned char direction, unsigned char cellRep
 extern void backStep(Level *level);
 
 /**
+ * @brief Fonction servant à supprimer tous les déplacements enregistrés pour un niveau.
+ * 
+ * @param level Niveau en cours de jeu
+ */
+extern void freeStepsNode(Level *level);
+
+/**
  * @brief Fonction servant à interpréter une chaîne de caractères de déplacements et les ajoutant sur la pile des déplacements.
  *
  * @param steps Pile des déplacements
@@ -79,9 +66,17 @@ extern void stepsParser(Step **steps, char *str);
  * Penser à free la chaîne une fois récupérée !
  *
  * @param steps Pile des déplacements
- * @return str Chaîne de caractères représentant une suite de déplacements
+ * @return serialisedStr : Chaîne de chiffres compris entre 1 et 4 représentant une suite de déplacements
  */
 extern char *stepsSerialiser(Step *steps);
+
+/**
+ * @brief Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu.
+ * Cette fonction est bloquante et rénitialise l'affichage.
+ *  
+ * @param steps Pile des déplacements
+ */
+extern void replaySteps(void);
 
 /**
  * @brief Fonction testant la gestion des déplacements (pile, parser/serializer).

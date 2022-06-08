@@ -1,3 +1,9 @@
+/**
+ * @file steps.h
+ * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
+ * @brief Programme de test de la gestion de l'historique des déplacements.
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,28 +11,11 @@
 #include "levelLoader.h"
 #include "levelSaver.h"
 #include "steps.h"
+#include "keys.h"
+#include "movements.h"
 
-static void printMap(char **map, unsigned int nbLines)
-{
-    for(int i = 0; i != nbLines; i++) 
-	printf("\t\t| %s\n", map[i]);
-}
-
-static void printSteps(Step *stepsNode)
-{
-    // Affiche la pile
-    Step *ptrFollow = stepsNode;
-    if (NULL == ptrFollow)
-		printf("pile vide!");
-	else
-		printf("Contenu de la pile : \n");
-	while (NULL != ptrFollow) {
-		printf("DIR = %d \tCR = %c \tCRP = %c\n", ptrFollow->direction, ptrFollow->cellReplaced, ptrFollow->cellReplacedPlus);
-
-		ptrFollow = ptrFollow->previousStep;
-	}
-	printf("\n");
-}
+static void printMap(char **map, unsigned int nbLines);
+static void printSteps(Step *stepsNode);
 
 void testSteps(void)
 {
@@ -44,7 +33,7 @@ void testSteps(void)
     // Tests de la pile
     printf("-- TEST DE LA PILE DE STEPS\n");
     printf("LEVEL1 \n");
-    initLevel(levelsNode); // initialiser le 1er level
+    initLevel(levelsNode, 0); // Initialiser le 1er level
 
     printSteps(level1->stepsNode);
     // On simule quelques déplacements
@@ -69,7 +58,7 @@ void testSteps(void)
     freeLevel(level1);
 
     printf("LEVEL2 \n");
-    initLevel(level2); // initialiser le 2nd level
+    initLevel(level2, 0); // Initialiser le 2nd level
 
     printSteps(level2->stepsNode);
     // On simule quelques déplacements
@@ -101,7 +90,28 @@ void testSteps(void)
     free(serializedSteps);
     printSteps(level2->stepsNode);
 
-
     freeLevel(level2);
     freeNode();
+}
+
+static void printMap(char **map, unsigned int nbLines)
+{
+    for(int i = 0; i != nbLines; i++) 
+	printf("\t\t| %s\n", map[i]);
+}
+
+static void printSteps(Step *stepsNode)
+{
+    // Affiche la pile
+    Step *ptrFollow = stepsNode;
+    if (NULL == ptrFollow)
+		printf("pile vide!");
+	else
+		printf("Contenu de la pile : \n");
+	while (NULL != ptrFollow) {
+		printf("DIR = %d \tCR = %c \tCRP = %c\n", ptrFollow->direction, ptrFollow->cellReplaced, ptrFollow->cellReplacedPlus);
+
+		ptrFollow = ptrFollow->previousStep;
+	}
+	printf("\n");
 }

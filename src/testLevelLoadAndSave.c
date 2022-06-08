@@ -1,7 +1,7 @@
 /**
  * @file testLevelLoadAndSave.c
  * @author Esteban CADIC, Noé MOREAU, Edgar REGNAULT
- * @brief Programme testant le chargement et la sauvegarde de niveaux en mémoire
+ * @brief Programme testant le chargement et la sauvegarde de niveaux en mémoire.
  * 
  */
 #include <stdio.h>
@@ -14,38 +14,6 @@
 
 static void printLevelsInfo(void);
 
-// todo : à virer
-void printSteps(Step *stepsNode)
-{
-    // Affiche la pile
-    Step *ptrFollow = stepsNode;
-    if (NULL == ptrFollow)
-		printf("pile vide!");
-	else
-		printf("Contenu de la pile : \n");
-	while (NULL != ptrFollow) {
-		printf("DIR = %d \tCR = %c \tCRP = %c\n", ptrFollow->direction, ptrFollow->cellReplaced, ptrFollow->cellReplacedPlus);
-
-		ptrFollow = ptrFollow->previousStep;
-	}
-	printf("\n");
-}
-// A virer à la fin, sert de débug
-/*static void listeAffiche(void)
-{
-	Level *ptrFollow = levelsNode;
-
-	if (NULL == ptrFollow)
-		printf("Liste vide!");
-	else
-		printf("Contenu de la liste : ");
-	while (NULL != ptrFollow) {
-		printf("%d ", ptrFollow->levelNumber);
-
-		ptrFollow = ptrFollow->nextLevel;
-	}
-	printf("\n");
-}*/
 
 /**
  * @brief Affiche toutes les informations sur la file contenant les niveaux en mémoire.
@@ -90,7 +58,7 @@ void testLevelLoadAndSave(void) {
         return;
     }
 
-	initLevel(levelsNode); // initialiser le 1er level
+	initLevel(levelsNode, 0); // Initialiser le 1er level
 	printf("Coordonées x et y du joueur du 1er tableau : %d,%d\n", levelsNode->playerX, levelsNode->playerY);
 
 	printf("Modification du 1er caractère de la 1ère ligne de la map 1 et du score\n");
@@ -102,7 +70,7 @@ void testLevelLoadAndSave(void) {
 	printf("SCORE : %d\n", levelsNode->numberMov);
 
 	freeLevel(levelsNode);
-	initLevel(levelsNode); // réinitialiser le 1er level
+	initLevel(levelsNode, 0); // Réinitialiser le 1er level
 	printf("Niveau réinitialisée\n");
 
 	printf("MAP TEMPORAIRE :\n");
