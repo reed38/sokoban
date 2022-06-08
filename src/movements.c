@@ -5,12 +5,14 @@
 #include "keys.h"
 #include "movements.h"
 
+
 Level *globalCurrent;
 
 static void goRight();
 static void goLeft();
 static void goUp();
 static void goDown();
+static void checkFinished();
 
 /**
  * @brief détecte l'input du joueur, puis modifie les coordonnées du joueur et
@@ -42,7 +44,7 @@ void move(int command)
     default:
         break;
     }
-    isFinished();
+    checkFinished();
 }
 
 // tab[y][x], y ordonnée x abscisse
@@ -106,6 +108,7 @@ static void goRight()
                     currentMap[*y][*x + 2] = BOX;
                     currentMap[*y][*x] = nextCase;
                     *x += 1;
+
                 }
             }
             else if (currentMap[*y][*x + 2] == TARGET)
@@ -265,7 +268,7 @@ static void goDown()
  */
 static void goUp()
 {
-    char **currentMap = globalCurrent->map;
+    char **currentMap =globalCurrent->map;
     unsigned int *y = &globalCurrent->playerX;
     unsigned int *x = &globalCurrent->playerY;
     char nextCase = (currentMap[*y][*x] == OVERTARGET) ? TARGET : NOTHING;
@@ -324,7 +327,7 @@ static void goUp()
     }
 }
 
-void checkFinished()
+static void checkFinished()
 {
     char **currentMap = globalCurrent->map;
     for (int i = 0; i < globalCurrent->numberLines; i++)
