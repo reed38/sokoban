@@ -73,7 +73,7 @@ static void initializeNode(Node **node, unsigned int x, unsigned int y, unsigned
     {
         if (node[y][x].isOpen == 1 && node[y][x].type == TRAVERSABLE)
         {
-            node[y][x].hCost = sqrt((x - xTarget) * (x - xTarget) + (y - yTarget) * (y - yTarget));
+            node[y][x].hCost =(int) sqrt((x - xTarget) * (x - xTarget) + (y - yTarget) * (y - yTarget));
 
             node[y][x].gCost += 1;
 
