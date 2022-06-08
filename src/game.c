@@ -33,7 +33,10 @@ int main(int argc, char *argv[])
 	configureTerminal();
 	
 	globalCurrentLevel=levelsNode;
-	initLevel(globalCurrentLevel);
+	while(isNextReachable(globalCurrentLevel))
+	 globalCurrentLevel = globalCurrentLevel->nextLevel;
+	
+	initLevel(globalCurrentLevel, 0);
 
 	interactionLoop(argv[2]);
 
