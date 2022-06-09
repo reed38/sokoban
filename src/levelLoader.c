@@ -111,13 +111,13 @@ void initLevel(Level *level, char reset)
   		strcpy(level->map[i], level->defaultMap[i]);
 	}
 
-	// Quand on a quitté le jeu sans finir le niveau, on reprend là où on est
 	if (reset)
 	{
 		freeStepsNode(level); // On supprime les déplacements déjà sauvegardés
 	}
 	else if(level->stepsNode != NULL && !level->success)
 	{
+		// Quand on a quitté le jeu sans finir le niveau, on reprend là où on est
 		char *serialisedSteps = stepsSerialiser(level->stepsNode); // On récupère les mouvements pour les rejouer
 		int strLen = strlen(serialisedSteps); 
 		freeStepsNode(level); // On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
