@@ -174,7 +174,6 @@ static void printFooter(char success, char reachablePrevious, char reachableNext
 
 		printf("s : sauvegarder         q : sauvergarder et quitter\n" ANSI_CODE_RESET);
 	}
-
 	else
 	{
 		printf(ANSI_CODE_MAGENTA "Deplacer le joueur avec les fleches du clavier\n");

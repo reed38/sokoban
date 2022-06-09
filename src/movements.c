@@ -368,7 +368,7 @@ static void checkFinished(void)
 	char **currentMap = globalCurrentLevel->map;
 	for (int i = 0; i < globalCurrentLevel->numberLines; i++)
 	{
-		for (int j = 0; j < strlen(currentMap[i]); j++)
+		for (unsigned int j = 0; j < strlen(currentMap[i]); j++)
 		{
 			if (currentMap[i][j] == '$')
 			{
