@@ -20,7 +20,7 @@ CFLAGS   = -std=c99 -Wall -g -fsanitize=address -I. -I$(INCDIR)
 
 LINKER   = gcc
 # Options pour l'édition de liens
-LFLAGS   = -Wall -g -fsanitize=address -I. -I$(INCDIR) -lm
+LFLAGS   = -Wall -g -fsanitize=address `simple2d --libs` -I. -I$(INCDIR) -lm
 
 # Répertoires du projet
 SRCDIR   = src
