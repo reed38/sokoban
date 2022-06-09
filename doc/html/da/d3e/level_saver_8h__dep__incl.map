@@ -1,0 +1,9 @@
+<map id="include/levelSaver.h" name="include/levelSaver.h">
+<area shape="rect" id="node1" title="En tête du programme sauvegardant les niveaux en mémoire." alt="" coords="285,5,420,32"/>
+<area shape="rect" id="node2" href="$d1/dcb/game_8c.html" title="Programme principal du jeu." alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node3" href="$db/de3/keys_8c.html" title="Programme de détection des appuis de touches dans le terminal." alt="" coords="117,80,199,107"/>
+<area shape="rect" id="node4" href="$d7/dad/level_loader_8c.html" title="Programme chargeant les niveaux en mémoire." alt="" coords="224,80,343,107"/>
+<area shape="rect" id="node5" href="$db/df5/level_saver_8c.html" title="Programme sauvegardant les niveaux en mémoire." alt="" coords="367,80,479,107"/>
+<area shape="rect" id="node6" href="$db/d09/steps_8c.html" title="Programme de gestion de l&#39;historique des déplacements." alt="" coords="504,80,591,107"/>
+<area shape="rect" id="node7" href="$d5/d47/test_level_load_and_save_8c.html" title="Programme testant le chargement et la sauvegarde de niveaux en mémoire." alt="" coords="615,80,800,107"/>
+</map>

@@ -103,6 +103,24 @@ $(document).ready(function(){initNavTree('db/d09/steps_8c.html','../../'); initR
 <code>#include &quot;<a class="el" href="../../d2/d01/keys_8h_source.html">keys.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../da/def/movements_8h_source.html">movements.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d7/d04/graphics_8h_source.html">graphics.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de steps.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d8/d81/steps_8c__incl.png" border="0" usemap="#asrc_2steps_8c" alt=""/></div>
+<map name="asrc_2steps_8c" id="asrc_2steps_8c">
+<area shape="rect" title="Programme de gestion de l&#39;historique des déplacements." alt="" coords="385,5,471,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,67,107"/>
+<area shape="rect" title=" " alt="" coords="91,80,155,107"/>
+<area shape="rect" title=" " alt="" coords="179,80,245,107"/>
+<area shape="rect" title=" " alt="" coords="269,80,337,107"/>
+<area shape="rect" href="../../d3/d45/steps_8h.html" title="En&#45;tête du programme de gestion de l&#39;historique des déplacements." alt="" coords="361,80,426,107"/>
+<area shape="rect" href="../../da/d82/level_loader_8h.html" title="En tête du programme chargeant les niveaux en mémoire." alt="" coords="457,155,554,181"/>
+<area shape="rect" href="../../db/d44/level_saver_8h.html" title="En tête du programme sauvegardant les niveaux en mémoire." alt="" coords="501,80,592,107"/>
+<area shape="rect" href="../../d2/d01/keys_8h.html" title="En&#45;tête du programme de détection des appuis de touches sur le terminal." alt="" coords="616,80,677,107"/>
+<area shape="rect" href="../../da/def/movements_8h.html" title="En&#45;tête du programme de gestion des mouvements du joueur." alt="" coords="701,80,800,107"/>
+<area shape="rect" href="../../d7/d04/graphics_8h.html" title="En&#45;tête du programme de gestion de la configuration et l&#39;affichage sur le terminal." alt="" coords="824,80,907,107"/>
+</map>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -116,7 +134,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Fonctions</h2></td></tr>
 <tr class="memitem:a8002137caf4f2045b7e3c502accafdb1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/steps_8c.html#a8002137caf4f2045b7e3c502accafdb1">movePlayer</a> (char *cell)</td></tr>
-<tr class="memdesc:a8002137caf4f2045b7e3c502accafdb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction remplaçant le contenu d'une cellule par le joueur. Permet de gérer le cas où la cellule est un point.  <a href="../../db/d09/steps_8c.html#a8002137caf4f2045b7e3c502accafdb1">Plus de détails...</a><br /></td></tr>
+<tr class="memdesc:a8002137caf4f2045b7e3c502accafdb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction remplaçant le contenu d'une cellule par le joueur. Permet de gérer le cas où la cellule est une cible.  <a href="../../db/d09/steps_8c.html#a8002137caf4f2045b7e3c502accafdb1">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a8002137caf4f2045b7e3c502accafdb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58ba92197eed3aacb99e8e0a2e181624"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/steps_8c.html#a58ba92197eed3aacb99e8e0a2e181624">addStep</a> (<a class="el" href="../../df/deb/struct_step.html">Step</a> **steps, unsigned char direction, unsigned char cellReplaced, unsigned char cellReplacedPlus)</td></tr>
 <tr class="memdesc:a58ba92197eed3aacb99e8e0a2e181624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à ajouter une étape sur la pile des déplacements.  <a href="../../db/d09/steps_8c.html#a58ba92197eed3aacb99e8e0a2e181624">Plus de détails...</a><br /></td></tr>
@@ -133,9 +151,10 @@ Fonctions</h2></td></tr>
 <tr class="memitem:ad4f290d24c63380dd6993aaafb865062"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/steps_8c.html#ad4f290d24c63380dd6993aaafb865062">stepsSerialiser</a> (<a class="el" href="../../df/deb/struct_step.html">Step</a> *steps)</td></tr>
 <tr class="memdesc:ad4f290d24c63380dd6993aaafb865062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à convertir la pile des déplacements en chaîne de caractères. Penser à free la chaîne une fois récupérée !  <a href="../../db/d09/steps_8c.html#ad4f290d24c63380dd6993aaafb865062">Plus de détails...</a><br /></td></tr>
 <tr class="separator:ad4f290d24c63380dd6993aaafb865062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fa885bf66ceb69e1508d1ac20bc8a19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d09/steps_8c.html#a3fa885bf66ceb69e1508d1ac20bc8a19">replaySteps</a> (<a class="el" href="../../df/deb/struct_step.html">Step</a> *steps)</td></tr>
-<tr class="memdesc:a3fa885bf66ceb69e1508d1ac20bc8a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu. Cette fonction est bloquante et rénitialise l'affichage.  <a href="../../db/d09/steps_8c.html#a3fa885bf66ceb69e1508d1ac20bc8a19">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a3fa885bf66ceb69e1508d1ac20bc8a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf08deafbcf75f0d8671c640894f8949"><td class="memItemLeft" align="right" valign="top"><a id="abf08deafbcf75f0d8671c640894f8949" name="abf08deafbcf75f0d8671c640894f8949"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>replaySteps</b> (void)</td></tr>
+<tr class="memdesc:abf08deafbcf75f0d8671c640894f8949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu. Cette fonction est bloquante et rénitialise l'affichage. <br /></td></tr>
+<tr class="separator:abf08deafbcf75f0d8671c640894f8949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p >Programme de gestion de l'historique des déplacements. </p>
@@ -268,36 +287,10 @@ Fonctions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Fonction remplaçant le contenu d'une cellule par le joueur. Permet de gérer le cas où la cellule est un point. </p>
+<p>Fonction remplaçant le contenu d'une cellule par le joueur. Permet de gérer le cas où la cellule est une cible. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramname">cell</td><td>Caractère représentant l'objet de la cellule </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3fa885bf66ceb69e1508d1ac20bc8a19" name="a3fa885bf66ceb69e1508d1ac20bc8a19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fa885bf66ceb69e1508d1ac20bc8a19">&#9670;&nbsp;</a></span>replaySteps()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void replaySteps </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/deb/struct_step.html">Step</a> *&#160;</td>
-          <td class="paramname"><em>steps</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu. Cette fonction est bloquante et rénitialise l'affichage. </p>
-<dl class="params"><dt>Paramètres</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">steps</td><td>Pile des déplacements </td></tr>
   </table>
   </dd>
 </dl>

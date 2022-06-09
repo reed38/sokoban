@@ -95,6 +95,30 @@ $(document).ready(function(){initNavTree('d3/d45/steps_8h.html','../../'); initR
 <p>En-tête du programme de gestion de l'historique des déplacements.  
 <a href="#details">Plus de détails...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../da/d82/level_loader_8h_source.html">levelLoader.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de steps.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/dbe/steps_8h__incl.png" border="0" usemap="#ainclude_2steps_8h" alt=""/></div>
+<map name="ainclude_2steps_8h" id="ainclude_2steps_8h">
+<area shape="rect" title="En&#45;tête du programme de gestion de l&#39;historique des déplacements." alt="" coords="5,5,116,32"/>
+<area shape="rect" href="../../da/d82/level_loader_8h.html" title="En tête du programme chargeant les niveaux en mémoire." alt="" coords="12,80,109,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d7e/steps_8h__dep__incl.png" border="0" usemap="#ainclude_2steps_8hdep" alt=""/></div>
+<map name="ainclude_2steps_8hdep" id="ainclude_2steps_8hdep">
+<area shape="rect" title="En&#45;tête du programme de gestion de l&#39;historique des déplacements." alt="" coords="368,5,479,32"/>
+<area shape="rect" href="../../d1/dcb/game_8c.html" title="Programme principal du jeu." alt="" coords="5,80,92,107"/>
+<area shape="rect" href="../../db/de3/keys_8c.html" title="Programme de détection des appuis de touches dans le terminal." alt="" coords="117,80,199,107"/>
+<area shape="rect" href="../../d7/dad/level_loader_8c.html" title="Programme chargeant les niveaux en mémoire." alt="" coords="224,80,343,107"/>
+<area shape="rect" href="../../db/df5/level_saver_8c.html" title="Programme sauvegardant les niveaux en mémoire." alt="" coords="367,80,479,107"/>
+<area shape="rect" href="../../d4/dd7/movements_8c.html" title="Programme de gestion des mouvements du joueur." alt="" coords="504,80,625,107"/>
+<area shape="rect" href="../../db/d09/steps_8c.html" title="Programme de gestion de l&#39;historique des déplacements." alt="" coords="649,80,736,107"/>
+<area shape="rect" href="../../d5/d47/test_level_load_and_save_8c.html" title="Programme testant le chargement et la sauvegarde de niveaux en mémoire." alt="" coords="760,80,945,107"/>
+</map>
+</div>
 </div>
 <p><a href="../../d3/d45/steps_8h_source.html">Aller au code source de ce fichier.</a></p>
 <table class="memberdecls">
@@ -128,9 +152,10 @@ Fonctions</h2></td></tr>
 <tr class="memitem:ad4f290d24c63380dd6993aaafb865062"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d45/steps_8h.html#ad4f290d24c63380dd6993aaafb865062">stepsSerialiser</a> (<a class="el" href="../../df/deb/struct_step.html">Step</a> *steps)</td></tr>
 <tr class="memdesc:ad4f290d24c63380dd6993aaafb865062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à convertir la pile des déplacements en chaîne de caractères. Penser à free la chaîne une fois récupérée !  <a href="../../d3/d45/steps_8h.html#ad4f290d24c63380dd6993aaafb865062">Plus de détails...</a><br /></td></tr>
 <tr class="separator:ad4f290d24c63380dd6993aaafb865062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fa885bf66ceb69e1508d1ac20bc8a19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d45/steps_8h.html#a3fa885bf66ceb69e1508d1ac20bc8a19">replaySteps</a> (<a class="el" href="../../df/deb/struct_step.html">Step</a> *steps)</td></tr>
-<tr class="memdesc:a3fa885bf66ceb69e1508d1ac20bc8a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu. Cette fonction est bloquante et rénitialise l'affichage.  <a href="../../d3/d45/steps_8h.html#a3fa885bf66ceb69e1508d1ac20bc8a19">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a3fa885bf66ceb69e1508d1ac20bc8a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf08deafbcf75f0d8671c640894f8949"><td class="memItemLeft" align="right" valign="top"><a id="abf08deafbcf75f0d8671c640894f8949" name="abf08deafbcf75f0d8671c640894f8949"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>replaySteps</b> (void)</td></tr>
+<tr class="memdesc:abf08deafbcf75f0d8671c640894f8949"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu. Cette fonction est bloquante et rénitialise l'affichage. <br /></td></tr>
+<tr class="separator:abf08deafbcf75f0d8671c640894f8949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b144dddc81d3f40efc991d3c7c83232"><td class="memItemLeft" align="right" valign="top"><a id="a2b144dddc81d3f40efc991d3c7c83232" name="a2b144dddc81d3f40efc991d3c7c83232"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>testSteps</b> (void)</td></tr>
 <tr class="memdesc:a2b144dddc81d3f40efc991d3c7c83232"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction testant la gestion des déplacements (pile, parser/serializer). <br /></td></tr>
@@ -238,32 +263,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>testSteps</b> (void)<
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramname">level</td><td>Niveau en cours de jeu </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3fa885bf66ceb69e1508d1ac20bc8a19" name="a3fa885bf66ceb69e1508d1ac20bc8a19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fa885bf66ceb69e1508d1ac20bc8a19">&#9670;&nbsp;</a></span>replaySteps()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void replaySteps </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/deb/struct_step.html">Step</a> *&#160;</td>
-          <td class="paramname"><em>steps</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu. Cette fonction est bloquante et rénitialise l'affichage. </p>
-<dl class="params"><dt>Paramètres</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">steps</td><td>Pile des déplacements </td></tr>
   </table>
   </dd>
 </dl>

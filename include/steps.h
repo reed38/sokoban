@@ -75,7 +75,6 @@ extern char *stepsSerialiser(Step *steps);
  * @brief Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu.
  * Cette fonction est bloquante et rénitialise l'affichage.
  *  
- * @param steps Pile des déplacements
  */
 extern void replaySteps(void);
 

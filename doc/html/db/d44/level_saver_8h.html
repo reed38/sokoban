@@ -93,6 +93,29 @@ $(document).ready(function(){initNavTree('db/d44/level_saver_8h.html','../../');
 <p>En tête du programme sauvegardant les niveaux en mémoire.  
 <a href="#details">Plus de détails...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../da/d82/level_loader_8h_source.html">levelLoader.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de levelSaver.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/d37/level_saver_8h__incl.png" border="0" usemap="#ainclude_2level_saver_8h" alt=""/></div>
+<map name="ainclude_2level_saver_8h" id="ainclude_2level_saver_8h">
+<area shape="rect" title="En tête du programme sauvegardant les niveaux en mémoire." alt="" coords="5,5,140,32"/>
+<area shape="rect" href="../../da/d82/level_loader_8h.html" title="En tête du programme chargeant les niveaux en mémoire." alt="" coords="24,80,121,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="../../da/d3e/level_saver_8h__dep__incl.png" border="0" usemap="#ainclude_2level_saver_8hdep" alt=""/></div>
+<map name="ainclude_2level_saver_8hdep" id="ainclude_2level_saver_8hdep">
+<area shape="rect" title="En tête du programme sauvegardant les niveaux en mémoire." alt="" coords="285,5,420,32"/>
+<area shape="rect" href="../../d1/dcb/game_8c.html" title="Programme principal du jeu." alt="" coords="5,80,92,107"/>
+<area shape="rect" href="../../db/de3/keys_8c.html" title="Programme de détection des appuis de touches dans le terminal." alt="" coords="117,80,199,107"/>
+<area shape="rect" href="../../d7/dad/level_loader_8c.html" title="Programme chargeant les niveaux en mémoire." alt="" coords="224,80,343,107"/>
+<area shape="rect" href="../../db/df5/level_saver_8c.html" title="Programme sauvegardant les niveaux en mémoire." alt="" coords="367,80,479,107"/>
+<area shape="rect" href="../../db/d09/steps_8c.html" title="Programme de gestion de l&#39;historique des déplacements." alt="" coords="504,80,591,107"/>
+<area shape="rect" href="../../d5/d47/test_level_load_and_save_8c.html" title="Programme testant le chargement et la sauvegarde de niveaux en mémoire." alt="" coords="615,80,800,107"/>
+</map>
+</div>
 </div>
 <p><a href="../../db/d44/level_saver_8h_source.html">Aller au code source de ce fichier.</a></p>
 <table class="memberdecls">
@@ -108,9 +131,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>freeNode</b> (void)</
 <tr class="memitem:a0c2ff94d872f6e2fb45b19af10f6be0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d44/level_saver_8h.html#a0c2ff94d872f6e2fb45b19af10f6be0f">freeLevel</a> (<a class="el" href="../../d4/dd0/struct_level.html">Level</a> *level)</td></tr>
 <tr class="memdesc:a0c2ff94d872f6e2fb45b19af10f6be0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction supprimant de la mémoire les paramètres temporaires d'un niveau. Attention : cette fonction n'enlève pas le niveau de la file !  <a href="../../db/d44/level_saver_8h.html#a0c2ff94d872f6e2fb45b19af10f6be0f">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a0c2ff94d872f6e2fb45b19af10f6be0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad62e018fee246572908af128a7b871fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d44/level_saver_8h.html#ad62e018fee246572908af128a7b871fa">testLevelLoadAndSave</a> (void)</td></tr>
-<tr class="memdesc:ad62e018fee246572908af128a7b871fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de test du levelSaver et levelLoader.  <a href="../../db/d44/level_saver_8h.html#ad62e018fee246572908af128a7b871fa">Plus de détails...</a><br /></td></tr>
-<tr class="separator:ad62e018fee246572908af128a7b871fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p >En tête du programme sauvegardant les niveaux en mémoire. </p>
@@ -165,27 +185,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>freeNode</b> (void)</
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ad62e018fee246572908af128a7b871fa" name="ad62e018fee246572908af128a7b871fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad62e018fee246572908af128a7b871fa">&#9670;&nbsp;</a></span>testLevelLoadAndSave()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void testLevelLoadAndSave </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fonction de test du levelSaver et levelLoader. </p>
-<p >Fonction de test du levelSaver et levelLoader. </p>
 
 </div>
 </div>

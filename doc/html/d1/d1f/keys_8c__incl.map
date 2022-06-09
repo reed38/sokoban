@@ -1,0 +1,11 @@
+<map id="src/keys.c" name="src/keys.c">
+<area shape="rect" id="node1" title="Programme de détection des appuis de touches dans le terminal." alt="" coords="307,5,390,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,73,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="98,80,159,107"/>
+<area shape="rect" id="node4" href="$d2/d01/keys_8h.html" title="En&#45;tête du programme de détection des appuis de touches sur le terminal." alt="" coords="183,80,245,107"/>
+<area shape="rect" id="node5" href="$d7/d04/graphics_8h.html" title="En&#45;tête du programme de gestion de la configuration et l&#39;affichage sur le terminal." alt="" coords="269,80,351,107"/>
+<area shape="rect" id="node6" href="$da/d82/level_loader_8h.html" title="En tête du programme chargeant les niveaux en mémoire." alt="" coords="381,155,479,181"/>
+<area shape="rect" id="node7" href="$db/d44/level_saver_8h.html" title="En tête du programme sauvegardant les niveaux en mémoire." alt="" coords="426,80,517,107"/>
+<area shape="rect" id="node8" href="$da/def/movements_8h.html" title="En&#45;tête du programme de gestion des mouvements du joueur." alt="" coords="541,80,639,107"/>
+<area shape="rect" id="node9" href="$d3/d45/steps_8h.html" title="En&#45;tête du programme de gestion de l&#39;historique des déplacements." alt="" coords="664,80,729,107"/>
+</map>
