@@ -23,27 +23,28 @@
  */
 int main(int argc, char *argv[])
 {
-	#ifdef TEST_LEVEL_LOADER_SAVER
-		testLevelLoadAndSave();
-		return 0;
-	#endif
-	#ifdef TEST_GRAPHICS
-		testGraphics();
-		return 0;
-	#endif
-	#ifdef TEST_MOVEMENTS
-		testMovements();
-		return 0;
-	#endif
-	#ifdef TEST_STEPS
-		testSteps();
-		return 0;
-	#endif
+#ifdef TEST_LEVEL_LOADER_SAVER
+	testLevelLoadAndSave();
+	return 0;
+#endif
+#ifdef TEST_GRAPHICS
+	testGraphics();
+	return 0;
+#endif
+#ifdef TEST_MOVEMENTS
+	testMovements();
+	return 0;
+#endif
+#ifdef TEST_STEPS
+	testSteps();
+	return 0;
+#endif
 
 
 	if (argc < 3)
 	{
-		fprintf(stderr, "Mauvaise utilisation de la commande... Utilisez : %s [fichier de niveaux] [fichier de sauvegarde]\n", argv[0]);
+		fprintf(stderr,
+			"Mauvaise utilisation de la commande... Utilisez : %s [fichier de niveaux] [fichier de sauvegarde]\n", argv[0]);
 		return 1;
 	}
 	printf("Chargement...\n");
@@ -56,17 +57,17 @@ int main(int argc, char *argv[])
 	}
 
 	configureTerminal();
-	
-	globalCurrentLevel=levelsNode;
-	while(isNextReachable(globalCurrentLevel))
+
+	globalCurrentLevel = levelsNode;
+	while (isNextReachable(globalCurrentLevel))
 		globalCurrentLevel = globalCurrentLevel->nextLevel;
-	
+
 	initLevel(globalCurrentLevel, 0);
 
 	interactionLoop(argv[2]);
 
-    freeLevel(globalCurrentLevel);
-    freeNode();
+	freeLevel(globalCurrentLevel);
+	freeNode();
 
 	resetTerminal();
 

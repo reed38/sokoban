@@ -82,10 +82,13 @@ static void goRight(unsigned int *x, unsigned int *y)
 		currentMap[*y][*x] = nextCase;
 		mvt = 1;
 	}
-	else if (currentMap[*y][*x + 1] == BOX || currentMap[*y][*x + 1] == FULLBOX)
+	else if (currentMap[*y][*x + 1] == BOX
+		 || currentMap[*y][*x + 1] == FULLBOX)
 	{
 		cellReplacedPlus = currentMap[*y][*x + 2];
-		if (currentMap[*y][*x + 2] != WALL && currentMap[*y][*x + 2] != BOX && currentMap[*y][*x + 2] != FULLBOX)
+		if (currentMap[*y][*x + 2] != WALL
+		    && currentMap[*y][*x + 2] != BOX
+		    && currentMap[*y][*x + 2] != FULLBOX)
 		{
 			if (currentMap[*y][*x + 2] == NOTHING)
 			{
@@ -125,7 +128,7 @@ static void goRight(unsigned int *x, unsigned int *y)
 		}
 	}
 
-	if(mvt)
+	if (mvt)
 	{
 		*x += 1;
 		globalCurrentLevel->numberMov += 1;
@@ -158,10 +161,13 @@ static void goLeft(unsigned int *x, unsigned int *y)
 		currentMap[*y][*x] = nextCase;
 		mvt = 1;
 	}
-	else if (currentMap[*y][*x - 1] == BOX || currentMap[*y][*x - 1] == FULLBOX)
+	else if (currentMap[*y][*x - 1] == BOX
+		 || currentMap[*y][*x - 1] == FULLBOX)
 	{
 		cellReplacedPlus = currentMap[*y][*x - 2];
-		if (currentMap[*y][*x - 2] != WALL && currentMap[*y][*x - 2] != BOX && currentMap[*y][*x - 2] != FULLBOX)
+		if (currentMap[*y][*x - 2] != WALL
+		    && currentMap[*y][*x - 2] != BOX
+		    && currentMap[*y][*x - 2] != FULLBOX)
 		{
 			if (currentMap[*y][*x - 2] == NOTHING)
 			{
@@ -201,7 +207,7 @@ static void goLeft(unsigned int *x, unsigned int *y)
 		}
 	}
 
-	if(mvt)
+	if (mvt)
 	{
 		*x -= 1;
 		globalCurrentLevel->numberMov += 1;
@@ -234,10 +240,13 @@ static void goDown(unsigned int *x, unsigned int *y)
 		currentMap[*y][*x] = nextCase;
 		mvt = 1;
 	}
-	else if (currentMap[*y + 1][*x] == BOX || currentMap[*y + 1][*x] == FULLBOX)
+	else if (currentMap[*y + 1][*x] == BOX
+		 || currentMap[*y + 1][*x] == FULLBOX)
 	{
 		cellReplacedPlus = currentMap[*y + 2][*x];
-		if (currentMap[*y + 2][*x] != WALL && currentMap[*y + 2][*x] != BOX && currentMap[*y + 2][*x] != FULLBOX)
+		if (currentMap[*y + 2][*x] != WALL
+		    && currentMap[*y + 2][*x] != BOX
+		    && currentMap[*y + 2][*x] != FULLBOX)
 		{
 			if (currentMap[*y + 2][*x] == NOTHING)
 			{
@@ -277,7 +286,7 @@ static void goDown(unsigned int *x, unsigned int *y)
 		}
 	}
 
-	if(mvt)
+	if (mvt)
 	{
 		*y += 1;
 		globalCurrentLevel->numberMov += 1;
@@ -310,10 +319,13 @@ static void goUp(unsigned int *x, unsigned int *y)
 		currentMap[*y][*x] = nextCase;
 		mvt = 1;
 	}
-	else if (currentMap[*y - 1][*x] == BOX || currentMap[*y - 1][*x] == FULLBOX)
+	else if (currentMap[*y - 1][*x] == BOX
+		 || currentMap[*y - 1][*x] == FULLBOX)
 	{
 		cellReplacedPlus = currentMap[*y - 2][*x];
-		if (currentMap[*y - 2][*x] != WALL && currentMap[*y - 2][*x] != BOX && currentMap[*y - 2][*x] != FULLBOX)
+		if (currentMap[*y - 2][*x] != WALL
+		    && currentMap[*y - 2][*x] != BOX
+		    && currentMap[*y - 2][*x] != FULLBOX)
 		{
 			if (currentMap[*y - 2][*x] == NOTHING)
 			{
@@ -351,7 +363,7 @@ static void goUp(unsigned int *x, unsigned int *y)
 		}
 	}
 
-	if(mvt)
+	if (mvt)
 	{
 		*y -= 1;
 		globalCurrentLevel->numberMov += 1;

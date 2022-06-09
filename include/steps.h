@@ -17,7 +17,8 @@
  * @brief Structure représentant un déplacement.
  * 
  */
-typedef struct Step { 
+typedef struct Step
+{
 	unsigned char direction; /**< Direction du déplacement */
 	unsigned char cellReplaced; /**< Cellule que le joueur a remplacée */
 	unsigned char cellReplacedPlus; /**< Cellule se trouvant après la cellule que le joueur a remplacée (dans la même direction) */

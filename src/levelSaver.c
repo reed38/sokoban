@@ -17,7 +17,7 @@
 
 void saveLevels(char *destination)
 {
-    FILE *saveFile = NULL;
+	FILE *saveFile = NULL;
 
 	saveFile = fopen(destination, "w");
 	if (saveFile == NULL)
@@ -27,19 +27,19 @@ void saveLevels(char *destination)
 		exit(1);
 	}
 
-    Level *ptr = levelsNode;
-    
-    while (ptr != NULL)
-    {
-        fprintf(saveFile, ";LEVEL %d\n", ptr->levelNumber);
+	Level *ptr = levelsNode;
 
-        if (ptr->comment != NULL)
-            fprintf(saveFile, ";COMMENT %s\n", ptr->comment); 
-    
-        if (ptr->author != NULL)
-            fprintf(saveFile, ";AUTHOR %s\n", ptr->author); 
+	while (ptr != NULL)
+	{
+		fprintf(saveFile, ";LEVEL %d\n", ptr->levelNumber);
 
-        fprintf(saveFile, ";SUCCESS %d\n", ptr->success);
+		if (ptr->comment != NULL)
+			fprintf(saveFile, ";COMMENT %s\n", ptr->comment);
+
+		if (ptr->author != NULL)
+			fprintf(saveFile, ";AUTHOR %s\n", ptr->author);
+
+		fprintf(saveFile, ";SUCCESS %d\n", ptr->success);
 
 		if (ptr->stepsNode != NULL)
 		{
@@ -48,26 +48,26 @@ void saveLevels(char *destination)
 			free(strStep);
 		}
 
-        for (int i=0; i<(ptr->numberLines); i++)
-           fprintf(saveFile, "%s\n", ptr->defaultMap[i]); 
-        
+		for (int i = 0; i < (ptr->numberLines); i++)
+			fprintf(saveFile, "%s\n", ptr->defaultMap[i]);
+
 		ptr = ptr->nextLevel;
 	}
 
-    fclose(saveFile);
+	fclose(saveFile);
 }
 
-void freeNode(void) 
+void freeNode(void)
 {
 	Level *ptrFollow = levelsNode;
 	Level *precPtdr = NULL;
 
-	while (ptrFollow != NULL) 
-	{        
-		for(int i = 0; i != ptrFollow->numberLines; i++) 
+	while (ptrFollow != NULL)
+	{
+		for (int i = 0; i != ptrFollow->numberLines; i++)
 			free(ptrFollow->defaultMap[i]);
 		free(ptrFollow->defaultMap);
-		
+
 		freeStepsNode(ptrFollow);
 		free(ptrFollow->author);
 		free(ptrFollow->comment);
@@ -77,9 +77,9 @@ void freeNode(void)
 	}
 }
 
-void freeLevel(Level *level) 
+void freeLevel(Level *level)
 {
-	for(int i = 0; i < level->numberLines; i++) 
+	for (int i = 0; i < level->numberLines; i++)
 		free(level->map[i]);
 	free(level->map);
 }

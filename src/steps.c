@@ -4,8 +4,8 @@
  * @brief Programme de gestion de l'historique des déplacements.
  * 
  */
-#define _XOPEN_SOURCE   600 // Pour utiliser usleep()
-#define _POSIX_C_SOURCE 200112L // Pour utiliser usleep()
+#define _XOPEN_SOURCE   600	// Pour utiliser usleep()
+#define _POSIX_C_SOURCE 200112L	// Pour utiliser usleep()
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +33,8 @@ static inline void movePlayer(char *cell);
 void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, unsigned char cellReplacedPlus)
 {
 	Step *step = (Step *) malloc(sizeof(Step));
-	if(step == NULL) {
+	if (step == NULL)
+	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
 	}
@@ -49,8 +50,8 @@ void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, 
 void backStep(Level *level)
 {
 	Step *lastStep = level->stepsNode;
-	
-	if(lastStep == NULL || (lastStep->cellReplaced == 0 && lastStep->cellReplacedPlus == 0))
+
+	if (lastStep == NULL || (lastStep->cellReplaced == 0 && lastStep->cellReplacedPlus == 0))
 		return;
 
 	unsigned int x = level->playerX;
@@ -59,36 +60,40 @@ void backStep(Level *level)
 	switch (level->stepsNode->direction)
 	{
 	case UP:
-		movePlayer(&level->map[y+1][x]);
+		movePlayer(&level->map[y + 1][x]);
 		level->map[y][x] = lastStep->cellReplaced;
-		if(lastStep->cellReplacedPlus) level->map[y-1][x] = lastStep->cellReplacedPlus;
+		if (lastStep->cellReplacedPlus)
+			level->map[y - 1][x] = lastStep->cellReplacedPlus;
 		level->playerY += 1;
 		break;
 	case DOWN:
-		movePlayer(&level->map[y-1][x]);
+		movePlayer(&level->map[y - 1][x]);
 		level->map[y][x] = lastStep->cellReplaced;
-		if(lastStep->cellReplacedPlus) level->map[y+1][x] = lastStep->cellReplacedPlus;
+		if (lastStep->cellReplacedPlus)
+			level->map[y + 1][x] = lastStep->cellReplacedPlus;
 		level->playerY -= 1;
 		break;
 	case RIGHT:
-		movePlayer(&level->map[y][x-1]);
+		movePlayer(&level->map[y][x - 1]);
 		level->map[y][x] = lastStep->cellReplaced;
-		if(lastStep->cellReplacedPlus) level->map[y][x+1] = lastStep->cellReplacedPlus;
+		if (lastStep->cellReplacedPlus)
+			level->map[y][x + 1] = lastStep->cellReplacedPlus;
 		level->playerX -= 1;
 		break;
 	case LEFT:
-		movePlayer(&level->map[y][x+1]);
+		movePlayer(&level->map[y][x + 1]);
 		level->map[y][x] = lastStep->cellReplaced;
-		if(lastStep->cellReplacedPlus) level->map[y][x-1] = lastStep->cellReplacedPlus;
+		if (lastStep->cellReplacedPlus)
+			level->map[y][x - 1] = lastStep->cellReplacedPlus;
 		level->playerX += 1;
 		break;
 	default:
 		break;
 	}
-	
-	level->numberMov -=1;
+
+	level->numberMov -= 1;
 	if (lastStep->cellReplaced == BOX)
-		level->numberPush -=1;
+		level->numberPush -= 1;
 
 	level->stepsNode = lastStep->previousStep;
 	free(lastStep);
@@ -98,7 +103,7 @@ void freeStepsNode(Level *level)
 {
 	Step *ptrFollow = level->stepsNode;
 
-	while(level->stepsNode != NULL)
+	while (level->stepsNode != NULL)
 	{
 		level->stepsNode = level->stepsNode->previousStep;
 		free(ptrFollow);
@@ -111,7 +116,7 @@ void stepsParser(Step **steps, char *str)
 {
 	unsigned int stringLen = strlen(str);
 
-	for (int i=0; i<stringLen; i++)
+	for (int i = 0; i < stringLen; i++)
 	{
 		switch (str[i] - '0')
 		{
@@ -126,7 +131,7 @@ void stepsParser(Step **steps, char *str)
 		case LEFT:
 			addStep(steps, LEFT, 0, 0);
 			break;
-		
+
 		case RIGHT:
 			addStep(steps, RIGHT, 0, 0);
 			break;
@@ -140,11 +145,11 @@ void stepsParser(Step **steps, char *str)
 
 char *stepsSerialiser(Step *steps)
 {
-	if(steps == NULL)
+	if (steps == NULL)
 		return "";
 
 	unsigned int strLen = 1;
-	
+
 	Step *ptrFollow = steps;
 	while (ptrFollow->previousStep != NULL)
 	{
@@ -152,7 +157,7 @@ char *stepsSerialiser(Step *steps)
 		ptrFollow = ptrFollow->previousStep;
 	}
 
-	char *serialisedStr = (char *) malloc((strLen+1)*sizeof(char));
+	char *serialisedStr = (char *) malloc((strLen + 1) * sizeof(char));
 	if (serialisedStr == NULL)
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
@@ -160,7 +165,7 @@ char *stepsSerialiser(Step *steps)
 	}
 
 	serialisedStr[strLen] = '\0';
-	for (int i=strLen-1; i >= 0; i--)
+	for (int i = strLen - 1; i >= 0; i--)
 	{
 		serialisedStr[i] = steps->direction + '0';
 		steps = steps->previousStep;
@@ -171,28 +176,27 @@ char *stepsSerialiser(Step *steps)
 
 void replaySteps(void)
 {
-	if(globalCurrentLevel->stepsNode == NULL) // Si les étapes ont été effacé manuellement du fichier alors que le niveau était résolu
+	if (globalCurrentLevel->stepsNode == NULL)	// Si les étapes ont été effacé manuellement du fichier alors que le niveau était résolu
 	{
 		globalCurrentLevel->success = 0;
 		return;
 	}
-	
+
 	char *serialisedSteps = stepsSerialiser(globalCurrentLevel->stepsNode);
-	unsigned int strLen = strlen(serialisedSteps); 
-	freeStepsNode(globalCurrentLevel); // On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
+	unsigned int strLen = strlen(serialisedSteps);
+	freeStepsNode(globalCurrentLevel);	// On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
 
 	freeLevel(globalCurrentLevel);
-    initLevel(globalCurrentLevel, 0);
+	initLevel(globalCurrentLevel, 0);
 
-	for (unsigned int i=0; i<strLen; i++)
+	for (unsigned int i = 0; i < strLen; i++)
 	{
 		printLevel(globalCurrentLevel);
 		printf("\nRelecture du trajet en cours...\n");
 		move(serialisedSteps[i] - '0');
-		usleep(100 * 1000); // Met le jeu en pause 100 ms
+		usleep(100 * 1000);	// Met le jeu en pause 100 ms
 	}
 	free(serialisedSteps);
-	
 }
 
 /**
