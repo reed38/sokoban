@@ -178,13 +178,13 @@ void replaySteps(void)
 	}
 	
 	char *serialisedSteps = stepsSerialiser(globalCurrentLevel->stepsNode);
-	int strLen = strlen(serialisedSteps); 
+	unsigned int strLen = strlen(serialisedSteps); 
 	freeStepsNode(globalCurrentLevel); // On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
 
 	freeLevel(globalCurrentLevel);
     initLevel(globalCurrentLevel, 0);
 
-	for (int i=0; i<strLen; i++)
+	for (unsigned int i=0; i<strLen; i++)
 	{
 		printLevel(globalCurrentLevel);
 		printf("\nRelecture du trajet en cours...\n");
