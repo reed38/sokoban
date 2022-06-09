@@ -244,7 +244,7 @@ static Level* insertLevel(unsigned int levelNumber)
 		exit(1);	
 	}
 
-	ptrFollow->nextLevel = lv; // On fait pointer le dernier élément de la liste à notre nouveau élément
+	ptrFollow->nextLevel = lv; // On fait pointer le dernier élément de la liste à notre nouvel élément
 
 	return lv;
 }
@@ -269,7 +269,7 @@ static void insertInfo(char **member, char *args)
 
 /**
  * @brief Fonction permetant de générer un tableau 2D (map) à partir de lignes d'un tableau. 
- * La fonction va rajouter la ligne du tableau passée en paramètre à la fin de le map.
+ * La fonction va rajouter la ligne du tableau passée en paramètre à la fin de la map.
  * Chaque ligne du tableau se termine par \0 (chaîne de caractères). 
  * 
  * @param defaultMap Pointeur vers la map a qui on veut rajouter une ligne, **defaultMap peut être NULL
