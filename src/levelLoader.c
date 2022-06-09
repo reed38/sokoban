@@ -98,7 +98,7 @@ void initLevel(Level *level, char reset)
 	}
 
 	// Copie de defaultMap dans map pour la modification
-	level->map = malloc((level->numberLines) * sizeof(char*));
+	level->map = (char **) malloc((level->numberLines) * sizeof(char*));
 	if(level->map == NULL) 
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
@@ -107,7 +107,12 @@ void initLevel(Level *level, char reset)
 	
 	for(int i = 0; i < level->numberLines; i++)
 	{
-  		level->map[i] = malloc(strlen(level->defaultMap[i]) + 1);
+  		level->map[i] = (char *) malloc((strlen(level->defaultMap[i]) + 1) * sizeof(char));
+		if(level->map[i] == NULL) 
+		{
+			fprintf(stderr, "Mémoire insuffisante !\n");
+			exit(1);
+		}
   		strcpy(level->map[i], level->defaultMap[i]);
 	}
 
@@ -149,13 +154,13 @@ void loadNextLevel(void)
 void loadPreviousLevel(void)
 {
 	unsigned int levelToReach = globalCurrentLevel->levelNumber - 1;
-	Level *ptr = levelsNode;
+	Level *ptrFollow = levelsNode;
 
-	while(ptr->levelNumber != levelToReach)
-		ptr = ptr->nextLevel;
+	while(ptrFollow->levelNumber != levelToReach)
+		ptrFollow = ptrFollow->nextLevel;
 
 	freeLevel(globalCurrentLevel);
-	globalCurrentLevel = ptr;
+	globalCurrentLevel = ptrFollow;
 	initLevel(globalCurrentLevel, 0);
 }
 
@@ -194,7 +199,7 @@ static void parseLine(char *line)
 
 	else // Pas de mot clef : c'est une ligne d'un tableau
 	{
-		if(levelsNode == NULL)
+		if(levelsNode == NULL) // On n'interprète pas les lignes avant le premier ;LEVEL X
 			return;
 		
 		generateMap(&(currentLevel->defaultMap), &(currentLevel->numberLines), line);
@@ -209,7 +214,7 @@ static void parseLine(char *line)
  */
 static Level* insertLevel(unsigned int levelNumber)
 {
-	Level *lv = malloc(sizeof(Level));
+	Level *lv = (Level *) malloc(sizeof(Level));
 	if(lv == NULL) {
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);

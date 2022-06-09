@@ -32,7 +32,7 @@ static inline void movePlayer(char *cell);
 
 void addStep(Step **steps, unsigned char direction, unsigned char cellReplaced, unsigned char cellReplacedPlus)
 {
-	Step *step = malloc(sizeof(Step));
+	Step *step = (Step *) malloc(sizeof(Step));
 	if(step == NULL) {
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
@@ -152,7 +152,7 @@ char *stepsSerialiser(Step *steps)
 		ptrFollow = ptrFollow->previousStep;
 	}
 
-	char *serialisedStr = malloc((strLen+1)*sizeof(char));
+	char *serialisedStr = (char *) malloc((strLen+1)*sizeof(char));
 	if (serialisedStr == NULL)
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
@@ -197,14 +197,11 @@ void replaySteps(void)
 
 /**
  * @brief Fonction remplaçant le contenu d'une cellule par le joueur.
- * Permet de gérer le cas où la cellule est un point.
+ * Permet de gérer le cas où la cellule est une cible.
  *
  * @param cell Caractère représentant l'objet de la cellule
  */
 static inline void movePlayer(char *cell)
 {
-	if(*cell == TARGET)
-		*cell = OVERTARGET;
-	else
-		*cell = PLAYER;
+	*cell = (*cell == TARGET) ? OVERTARGET : PLAYER;
 }

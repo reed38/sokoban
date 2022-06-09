@@ -24,7 +24,7 @@ void testGraphics(void)
     }
 
 	Level *currentLevel = levelsNode;
-    for (int i=0; i<6; i++)
+    for (int i=0; i<6 && currentLevel != NULL; i++)
 	{
 		initLevel(currentLevel, 0);
 		printLevel(currentLevel);

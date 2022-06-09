@@ -38,18 +38,11 @@ static void printScore(unsigned int numberMov, unsigned int numberPush);
 
 void printLevel(Level *level)
 {
-	char reachablePrevious = 0; // 1 si le niveau précédent est atteingnable (ie si on n'est pas au niveau 1) ; 0 sinon
-	char reachableNext = 0; // 1 si le niveau suivant est atteignable (s'il y a un niveau après ET si le niveau actuel est résolu) ; 0 sinon
-
 	refreshTerminal();
 	printHeader(level->levelNumber, level->author, level->comment);
 	printMap(level->map, level->numberLines);
 	printScore(level->numberMov, level->numberPush);
-
-	reachablePrevious = isPreviousReachable(level);
-	reachableNext = isNextReachable(level);
-	
-	printFooter(level->success, reachablePrevious, reachableNext);
+	printFooter(level->success, isPreviousReachable(level), isNextReachable(level));
 }
 
 void configureTerminal(void)
@@ -73,8 +66,8 @@ void configureTerminal(void)
 void resetTerminal(void)
 {
 	terminalSetup.c_lflag |= (ICANON); // Met le terminal en mode canonique (attend un appui sur entrée pour interpréter)
-	terminalSetup.c_lflag |= (ECHO);	// Les touches tapées ne s'inscriront plus dans le terminal
-	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) // tcsetattr() indique une réussite si une des modifications peut être réalisée
+	terminalSetup.c_lflag |= (ECHO);	// Les touches tapées s'inscriront dans le terminal
+	if (tcsetattr(0, TCSANOW, &terminalSetup) == -1) 
 	{ 
 		perror("tcsetattr");
 		exit(1);
