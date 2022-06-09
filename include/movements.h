@@ -18,7 +18,7 @@
 #define PLAYER '@'
 #define TARGET '.'
 #define NOTHING ' '
-#define FULLBOX 'Q'
+#define FULLBOX 'X'
 #define OVERTARGET 'O'
 
 
