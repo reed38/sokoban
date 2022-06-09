@@ -5,6 +5,8 @@
 
 typedef struct Node
 {
+    unsigned int x;
+    unsigned int y;
     unsigned int gCost; // distance depuis le point de départ
     unsigned int hCost;
     unsigned int total_cost;

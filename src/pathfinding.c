@@ -9,9 +9,9 @@
 #include "pathfinding.h"
 #define TRAVERSABLE 1
 #define NOTTRAVERSABLE 0
-static void initializeSurrounding(Node **node, Level *level, unsigned int x, unsigned int y, int xTarget, int yTarget);
-static void initializeNode(Node **node, unsigned int x, unsigned int y, unsigned int lastValue, int xTarget, int yTarget);
-unsigned int *findMin(unsigned int *ptr, Node **node);
+static void initializeSurrounding(Node **tab, Node *node, int xTarget, int yTarget);
+static void initializeNode(Node **tab, Node *node ,unsigned int lastValue, unsigned int xTarget, unsigned int yTarget);
+Node *findMin( Node **node);
 static char doesExist(unsigned int x, unsigned int y);
 
 Node **convertToNode(Level *level)
@@ -26,6 +26,8 @@ Node **convertToNode(Level *level)
     {
         for (unsigned int j = 0; j < strlen(level->map[i]); j++)
         {
+            tabNode[i][j].x=j;
+            tabNode[i][j].y=i;
             if (map[i][j] == BOX || map[i][j] == WALL || map[i][j] == FULLBOX)
             {
                 tabNode[i][j].type = NOTTRAVERSABLE;
@@ -67,33 +69,34 @@ static char doesExist(unsigned int x, unsigned int y)
         return 0;
 }
 
-static void initializeNode(Node **node, unsigned int x, unsigned int y, unsigned int lastValue, int xTarget, int yTarget) // position 0 pour diagonale 1 autrement
+static void initializeNode(Node **tab,Node* node, unsigned int lastValue, unsigned int xTarget, unsigned int yTarget) // position 0 pour diagonale 1 autrement
 {
-    if (doesExist(x, y))
+    if (doesExist(node->x, node->y))
     {
-        if (node[y][x].isOpen == 1 && node[y][x].type == TRAVERSABLE)
+        if (node->isOpen == 1 && node->type == TRAVERSABLE)
         {
-            node[y][x].hCost =(int) sqrt((x - xTarget) * (x - xTarget) + (y - yTarget) * (y - yTarget));
+            node->hCost =(int) sqrt((node->x - xTarget) * (node->x - xTarget) + (node->y - yTarget) * (node->y - yTarget));
 
-            node[y][x].gCost += 1;
+            node->gCost=lastValue+1;
 
-            node[y][x].total_cost = node[y][x].hCost + node[y][x].gCost;
+            node->total_cost = node->hCost + node->gCost;
         }
     }
 }
 
-static void initializeSurrounding(Node **node, Level *level, unsigned int x, unsigned int y, int xTarget, int yTarget)
+static void initializeSurrounding(Node **tab, Node *node, int xTarget, int yTarget)
 {
 
-    initializeNode(node, x, y + 1, node[y][x].gCost, xTarget, yTarget);
-    initializeNode(node, x, y - 1, node[y][x].gCost, xTarget, yTarget);
-    initializeNode(node, x - 1, y, node[y][x].gCost, xTarget, yTarget);
-    initializeNode(node, x + 1, y, node[y][x].gCost, xTarget, yTarget);
+    initializeNode(tab, node, node->gCost, xTarget, yTarget);
+    initializeNode(tab, node ,node->gCost, xTarget, yTarget);
+    initializeNode(tab,node, node->gCost, xTarget, yTarget);
+    initializeNode(tab, node, node->gCost, xTarget, yTarget);
 }
 
-unsigned int *findMin(unsigned int *result, Node **node)
+Node *findMin( Node **node)
 {
     unsigned int currentMin = MAXUNSIGNED;
+    Node *result;
     
     for (unsigned int i = 0; i < globalCurrent->numberLines; i++)
     {
@@ -102,12 +105,11 @@ unsigned int *findMin(unsigned int *result, Node **node)
             if ((node[i][j].total_cost < currentMin) && (node[i][j].total_cost > 0) && (node[i][j].isOpen == 1) && (node[i][j].type == TRAVERSABLE))
             {
                 currentMin = node[i][j].total_cost;
-                result[0] = i;
-                result[1] = j;
+                result=&node[i][j];
             }
         }
     }
-    node[result[1]][result[0]].isOpen = 0;
+        result->isOpen = 0;
 
     return result;
 }
@@ -117,17 +119,17 @@ void pathfinding(Node **graph, unsigned int xStart, unsigned int yStart, unsigne
 
     Node *currentNode = &graph[yStart][xStart];
 
-    unsigned int *nodeCoordinates = malloc(sizeof(unsigned int) * 2);
-    nodeCoordinates[1] = xStart;
-    nodeCoordinates[0] = yStart;
+   
     currentNode->hCost = sqrt((xStart - xTarget) * (xStart - xTarget) + (yStart - yTarget) * (yStart - yTarget));
     currentNode->isOpen = 0;
     currentNode->total_cost = 2;
+    Node *nextMin=& graph[xStart][yStart];
     // while (currentNode != &graph[xTarget][yTarget])
     for (int i = 0; i < 50; i++)
-    {
-        initializeSurrounding(graph, globalCurrent, nodeCoordinates[0], nodeCoordinates[1], xTarget, yTarget);
-        nodeCoordinates = findMin(nodeCoordinates, graph);
+    {           
+        initializeSurrounding(graph,nextMin,xTarget,yTarget);
+        nextMin = findMin( graph);
+
+        
     }
-    free(nodeCoordinates);
 }
