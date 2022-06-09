@@ -43,7 +43,7 @@ void readLevelsFile(char *location)
 {
 	FILE *levelsFile = NULL;
 
-	int lineLen = 0;
+	unsigned int lineLen = 0;
 	long unsigned int lineSize = 0;
 	char *lineBuffer = NULL; 
 
