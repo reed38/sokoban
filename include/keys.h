@@ -11,12 +11,12 @@
 	MACROS
 ------------------------------------------------------------------------------*/
 
-#define MAXSIZE 10
+#define MAXSIZE    10
 
-#define UP			1
-#define DOWN 		2
-#define RIGHT		3
-#define LEFT		4
+#define UP         1
+#define DOWN       2
+#define RIGHT      3
+#define LEFT       4
 
 
 /*------------------------------------------------------------------------------

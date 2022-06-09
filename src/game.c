@@ -40,11 +40,9 @@ int main(int argc, char *argv[])
 	return 0;
 #endif
 
-
 	if (argc < 3)
 	{
-		fprintf(stderr,
-			"Mauvaise utilisation de la commande... Utilisez : %s [fichier de niveaux] [fichier de sauvegarde]\n", argv[0]);
+		fprintf(stderr, "Mauvaise utilisation de la commande... Utilisez : %s [fichier de niveaux] [fichier de sauvegarde]\n", argv[0]);
 		return 1;
 	}
 	printf("Chargement...\n");

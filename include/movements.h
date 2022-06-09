@@ -11,12 +11,12 @@
 	MACROS
 ------------------------------------------------------------------------------*/
 
-#define BOX '$'
-#define WALL '#'
-#define PLAYER '@'
-#define TARGET '.'
-#define NOTHING ' '
-#define FULLBOX 'X'
+#define BOX        '$'
+#define WALL       '#'
+#define PLAYER     '@'
+#define TARGET     '.'
+#define NOTHING    ' '
+#define FULLBOX    'X'
 #define OVERTARGET 'O'
 
 
