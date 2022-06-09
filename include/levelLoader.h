@@ -15,7 +15,8 @@
  * @brief Structure représentant un niveau.
  * 
  */
-typedef struct Level { 
+typedef struct Level
+{
 	unsigned int levelNumber; /**< Numéro du niveau */
 	char *comment; /**< Commentaire */
 	char *author; /**< Auteur du tableau */

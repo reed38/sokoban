@@ -17,7 +17,8 @@
  * @brief Structure représentant un déplacement.
  * 
  */
-typedef struct Step { 
+typedef struct Step
+{
 	unsigned char direction; /**< Direction du déplacement */
 	unsigned char cellReplaced; /**< Cellule que le joueur a remplacée */
 	unsigned char cellReplacedPlus; /**< Cellule se trouvant après la cellule que le joueur a remplacée (dans la même direction) */
@@ -74,7 +75,6 @@ extern char *stepsSerialiser(Step *steps);
  * @brief Fonction servant à revoir les déplacements effectués au cours du niveau lorsque ce dernier est résolu.
  * Cette fonction est bloquante et rénitialise l'affichage.
  *  
- * @param steps Pile des déplacements
  */
 extern void replaySteps(void);
 

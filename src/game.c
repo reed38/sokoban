@@ -23,23 +23,22 @@
  */
 int main(int argc, char *argv[])
 {
-	#ifdef TEST_LEVEL_LOADER_SAVER
-		testLevelLoadAndSave();
-		return 0;
-	#endif
-	#ifdef TEST_GRAPHICS
-		testGraphics();
-		return 0;
-	#endif
-	#ifdef TEST_MOVEMENTS
-		testMovements();
-		return 0;
-	#endif
-	#ifdef TEST_STEPS
-		testSteps();
-		return 0;
-	#endif
-
+#ifdef TEST_LEVEL_LOADER_SAVER
+	testLevelLoadAndSave();
+	return 0;
+#endif
+#ifdef TEST_GRAPHICS
+	testGraphics();
+	return 0;
+#endif
+#ifdef TEST_MOVEMENTS
+	testMovements();
+	return 0;
+#endif
+#ifdef TEST_STEPS
+	testSteps();
+	return 0;
+#endif
 
 	if (argc < 3)
 	{
@@ -56,17 +55,17 @@ int main(int argc, char *argv[])
 	}
 
 	configureTerminal();
-	
-	globalCurrentLevel=levelsNode;
-	while(isNextReachable(globalCurrentLevel))
+
+	globalCurrentLevel = levelsNode;
+	while (isNextReachable(globalCurrentLevel))
 		globalCurrentLevel = globalCurrentLevel->nextLevel;
-	
+
 	initLevel(globalCurrentLevel, 0);
 
 	interactionLoop(argv[2]);
 
-    freeLevel(globalCurrentLevel);
-    freeNode();
+	freeLevel(globalCurrentLevel);
+	freeNode();
 
 	resetTerminal();
 

@@ -4,7 +4,7 @@
  * @brief Programme chargeant les niveaux en mémoire.
  * 
  */
-#define _GNU_SOURCE // Pour utiliser getline()
+#define _GNU_SOURCE		// Pour utiliser getline()
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,24 +28,24 @@ Level *globalCurrentLevel = NULL;
 ------------------------------------------------------------------------------*/
 
 static inline char startWith(char *keyword, char *command);
-static inline char* removeKeyword(char *command);
+static inline char *removeKeyword(char *command);
 static void parseLine(char *line);
-static Level* insertLevel(unsigned int levelNumber); 
+static Level *insertLevel(unsigned int levelNumber);
 static void insertInfo(char **member, char *args);
-static void generateMap(char ***defaultMap, unsigned int *numberLines,  char *line);
+static void generateMap(char ***defaultMap, unsigned int *numberLines, char *line);
 
 
 /*------------------------------------------------------------------------------
 	FONCTIONS
 ------------------------------------------------------------------------------*/
 
-void readLevelsFile(char *location) 
+void readLevelsFile(char *location)
 {
 	FILE *levelsFile = NULL;
 
 	unsigned int lineLen = 0;
 	long unsigned int lineSize = 0;
-	char *lineBuffer = NULL; 
+	char *lineBuffer = NULL;
 
 	levelsFile = fopen(location, "r");
 	if (levelsFile == NULL)
@@ -54,14 +54,14 @@ void readLevelsFile(char *location)
 		perror("");
 		exit(1);
 	}
-	
-	while ((lineLen = getline(&lineBuffer, &lineSize, levelsFile)) != -1) // getline alloue dynamiquement un buffer pour la ligne
+
+	while ((lineLen = getline(&lineBuffer, &lineSize, levelsFile)) != -1)	// getline alloue dynamiquement un buffer pour la ligne
 		parseLine(lineBuffer);
 
-	if(lineBuffer != NULL)
+	if (lineBuffer != NULL)
 	{
 		free(lineBuffer);
-  		lineBuffer=NULL;
+		lineBuffer = NULL;
 	}
 
 	fclose(levelsFile);
@@ -76,13 +76,13 @@ void initLevel(Level *level, char reset)
 	level->numberPush = 0;
 
 	// Détermination de la position du joueur
-	for(int y = 0; y < level->numberLines && !playerFound; y++) 
+	for (int y = 0; y < level->numberLines && !playerFound; y++)
 	{
-		char element = ' '; 
-		for(int x = 0; element != '\0' && !playerFound; x++)
+		char element = ' ';
+		for (int x = 0; element != '\0' && !playerFound; x++)
 		{
 			element = level->defaultMap[y][x];
-			if(element == PLAYER)
+			if (element == PLAYER)
 			{
 				level->playerX = x;
 				level->playerY = y;
@@ -91,38 +91,43 @@ void initLevel(Level *level, char reset)
 		}
 	}
 
-	if(!playerFound) 
+	if (!playerFound)
 	{
 		fprintf(stderr, "Joueur introuvable !\n");
 		exit(1);
 	}
 
 	// Copie de defaultMap dans map pour la modification
-	level->map = malloc((level->numberLines) * sizeof(char*));
-	if(level->map == NULL) 
+	level->map = (char **) malloc((level->numberLines) * sizeof(char *));
+	if (level->map == NULL)
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
 	}
-	
-	for(int i = 0; i < level->numberLines; i++)
+
+	for (int i = 0; i < level->numberLines; i++)
 	{
-  		level->map[i] = malloc(strlen(level->defaultMap[i]) + 1);
-  		strcpy(level->map[i], level->defaultMap[i]);
+		level->map[i] = (char *) malloc((strlen(level->defaultMap[i]) + 1) * sizeof(char));
+		if (level->map[i] == NULL)
+		{
+			fprintf(stderr, "Mémoire insuffisante !\n");
+			exit(1);
+		}
+		strcpy(level->map[i], level->defaultMap[i]);
 	}
 
 	if (reset)
 	{
-		freeStepsNode(level); // On supprime les déplacements déjà sauvegardés
+		freeStepsNode(level);	// On supprime les déplacements déjà sauvegardés
 	}
-	else if(level->stepsNode != NULL && !level->success)
+	else if (level->stepsNode != NULL && !level->success)
 	{
 		// Quand on a quitté le jeu sans finir le niveau, on reprend là où on est
-		char *serialisedSteps = stepsSerialiser(level->stepsNode); // On récupère les mouvements pour les rejouer
-		unsigned int strLen = strlen(serialisedSteps); 
-		freeStepsNode(level); // On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
+		char *serialisedSteps = stepsSerialiser(level->stepsNode);	// On récupère les mouvements pour les rejouer
+		unsigned int strLen = strlen(serialisedSteps);
+		freeStepsNode(level);	// On supprime les déplacements déjà sauvegardés : on va les regénérer avec move
 
-		for (unsigned int i=0; i<strLen; i++)
+		for (unsigned int i = 0; i < strLen; i++)
 			move(serialisedSteps[i] - '0');
 
 		free(serialisedSteps);
@@ -149,13 +154,13 @@ void loadNextLevel(void)
 void loadPreviousLevel(void)
 {
 	unsigned int levelToReach = globalCurrentLevel->levelNumber - 1;
-	Level *ptr = levelsNode;
+	Level *ptrFollow = levelsNode;
 
-	while(ptr->levelNumber != levelToReach)
-		ptr = ptr->nextLevel;
+	while (ptrFollow->levelNumber != levelToReach)
+		ptrFollow = ptrFollow->nextLevel;
 
 	freeLevel(globalCurrentLevel);
-	globalCurrentLevel = ptr;
+	globalCurrentLevel = ptrFollow;
 	initLevel(globalCurrentLevel, 0);
 }
 
@@ -167,36 +172,36 @@ void loadPreviousLevel(void)
  *   
  * @param line Chaîne de caractères a interpéter (peut être une commande ou un bout de tableau)
  */
-static void parseLine(char *line) 
+static void parseLine(char *line)
 {
 	static Level *currentLevel = NULL;
 
 	// On supprime les fins de ligne (CR et/ou LF) (évite de nombreux problèmes)
-	if(strchr(line, '\r') != NULL)
+	if (strchr(line, '\r') != NULL)
 		line[strcspn(line, "\r")] = '\0';
-	if(strchr(line, '\n') != NULL)
-		line[strcspn(line, "\n")] = '\0'; 
+	if (strchr(line, '\n') != NULL)
+		line[strcspn(line, "\n")] = '\0';
 
-	if(startWith(";LEVEL", line)) // Mot clef LEVEL
+	if (startWith(";LEVEL", line))	// Mot clef LEVEL
 		currentLevel = insertLevel(atoi(removeKeyword(line)));
 
-	else if(startWith(";COMMENT", line)) // Mot clef COMMENT
+	else if (startWith(";COMMENT", line))	// Mot clef COMMENT
 		insertInfo(&(currentLevel->comment), removeKeyword(line));
 
-	else if(startWith(";AUTHOR", line)) // Mot clef AUTHOR
+	else if (startWith(";AUTHOR", line))	// Mot clef AUTHOR
 		insertInfo(&(currentLevel->author), removeKeyword(line));
 
-	else if(startWith(";SUCCESS", line)) // Mot clef SUCCESS
+	else if (startWith(";SUCCESS", line))	// Mot clef SUCCESS
 		currentLevel->success = atoi(removeKeyword(line));
 
-	else if(startWith(";STEPS", line)) // Mot clef STEPS
+	else if (startWith(";STEPS", line))	// Mot clef STEPS
 		stepsParser(&currentLevel->stepsNode, removeKeyword(line));
 
-	else // Pas de mot clef : c'est une ligne d'un tableau
+	else	// Pas de mot clef : c'est une ligne d'un tableau
 	{
-		if(levelsNode == NULL)
+		if (levelsNode == NULL)	// On n'interprète pas les lignes avant le premier ;LEVEL X
 			return;
-		
+
 		generateMap(&(currentLevel->defaultMap), &(currentLevel->numberLines), line);
 	}
 }
@@ -207,10 +212,11 @@ static void parseLine(char *line)
  * @param levelNumber Numéro du niveau à insérer
  * @return lv : Pointeur vers le dernier élement de file
  */
-static Level* insertLevel(unsigned int levelNumber)
+static Level *insertLevel(unsigned int levelNumber)
 {
-	Level *lv = malloc(sizeof(Level));
-	if(lv == NULL) {
+	Level *lv = (Level *) malloc(sizeof(Level));
+	if (lv == NULL)
+	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
 	}
@@ -227,24 +233,24 @@ static Level* insertLevel(unsigned int levelNumber)
 	lv->stepsNode = NULL;
 	lv->nextLevel = NULL;
 
-	if (levelsNode == NULL) // Dans le cas où la liste est vide
-	{ 
+	if (levelsNode == NULL)	// Dans le cas où la liste est vide
+	{
 		levelsNode = lv;
 		return lv;
 	}
 
 	Level *ptrFollow = levelsNode;
 
-	while (ptrFollow->nextLevel != NULL) // On cherche la liste qui a le lien vide
+	while (ptrFollow->nextLevel != NULL)	// On cherche la liste qui a le lien vide
 		ptrFollow = ptrFollow->nextLevel;
 
-	if(levelNumber != ptrFollow->levelNumber + 1)
+	if (levelNumber != ptrFollow->levelNumber + 1)
 	{
 		fprintf(stderr, "Les numéros de niveaux ne se jouxtent pas =(\n");
-		exit(1);	
+		exit(1);
 	}
 
-	ptrFollow->nextLevel = lv; // On fait pointer le dernier élément de la liste à notre nouveau élément
+	ptrFollow->nextLevel = lv;	// On fait pointer le dernier élément de la liste à notre nouvel élément
 
 	return lv;
 }
@@ -256,10 +262,10 @@ static Level* insertLevel(unsigned int levelNumber)
  * @param member Pointeur vers un emplacement de la mémoire (peut être NULL)
  * @param args Information à placer dans la mémoire
  */
-static void insertInfo(char **member, char *args) 
+static void insertInfo(char **member, char *args)
 {
 	*member = (char *) malloc((strlen(args) + 1) * sizeof(char));
-	if(*member == NULL) 
+	if (*member == NULL)
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
@@ -269,7 +275,7 @@ static void insertInfo(char **member, char *args)
 
 /**
  * @brief Fonction permetant de générer un tableau 2D (map) à partir de lignes d'un tableau. 
- * La fonction va rajouter la ligne du tableau passée en paramètre à la fin de le map.
+ * La fonction va rajouter la ligne du tableau passée en paramètre à la fin de la map.
  * Chaque ligne du tableau se termine par \0 (chaîne de caractères). 
  * 
  * @param defaultMap Pointeur vers la map a qui on veut rajouter une ligne, **defaultMap peut être NULL
@@ -285,15 +291,15 @@ static void generateMap(char ***defaultMap, unsigned int *numberLines, char *lin
 	 * notre ancienne map sur notre nouvelle 
 	 */
 
-	char **newMap = (char **) realloc(*defaultMap, (*numberLines + 1) * sizeof(char*));
-	if(newMap == NULL) 
+	char **newMap = (char **) realloc(*defaultMap, (*numberLines + 1) * sizeof(char *));
+	if (newMap == NULL)
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
 	}
 
 	newMap[*numberLines] = (char *) malloc((strlen(line) + 1) * sizeof(char));
-	if(newMap[*numberLines] == NULL) 
+	if (newMap[*numberLines] == NULL)
 	{
 		fprintf(stderr, "Mémoire insuffisante !\n");
 		exit(1);
@@ -312,7 +318,7 @@ static void generateMap(char ***defaultMap, unsigned int *numberLines, char *lin
  * @param command Commande
  * @return Booléen : 0 si le mot clef est trouvé, 1 sinon
  */
-static inline char startWith(char *keyword, char *command) 
+static inline char startWith(char *keyword, char *command)
 {
 	return strncmp(keyword, command, strlen(keyword)) == 0;
 }
@@ -325,11 +331,11 @@ static inline char startWith(char *keyword, char *command)
  * @param command Commande
  * @return args : Pointeur vers le caractère suivant l'espace
  */
-static inline char* removeKeyword(char *command) 
+static inline char *removeKeyword(char *command)
 {
 	char *args = command;
-	while(*args && *args != ' ') 
+	while (*args && *args != ' ')
 		args++;
-	
+
 	return ++args;
-} 
+}

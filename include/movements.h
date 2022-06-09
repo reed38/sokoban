@@ -7,18 +7,16 @@
 #ifndef __MOVEMENTS_H__
 #define __MOVEMENTS_H__
 
-#include "levelLoader.h"
-
 /*------------------------------------------------------------------------------
 	MACROS
 ------------------------------------------------------------------------------*/
 
-#define BOX '$'
-#define WALL '#'
-#define PLAYER '@'
-#define TARGET '.'
-#define NOTHING ' '
-#define FULLBOX 'X'
+#define BOX        '$'
+#define WALL       '#'
+#define PLAYER     '@'
+#define TARGET     '.'
+#define NOTHING    ' '
+#define FULLBOX    'X'
 #define OVERTARGET 'O'
 
 

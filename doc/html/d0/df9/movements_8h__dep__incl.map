@@ -1,0 +1,10 @@
+<map id="include/movements.h" name="include/movements.h">
+<area shape="rect" id="node1" title="En&#45;tête du programme de gestion des mouvements du joueur." alt="" coords="339,5,483,32"/>
+<area shape="rect" id="node2" href="$d1/dcb/game_8c.html" title="Programme principal du jeu." alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node3" href="$d5/d95/graphics_8c.html" title="Programme de gestion de la configuration et de l&#39;affichage sur le terminal." alt="" coords="117,80,221,107"/>
+<area shape="rect" id="node4" href="$db/de3/keys_8c.html" title="Programme de détection des appuis de touches dans le terminal." alt="" coords="245,80,327,107"/>
+<area shape="rect" id="node5" href="$d7/dad/level_loader_8c.html" title="Programme chargeant les niveaux en mémoire." alt="" coords="352,80,471,107"/>
+<area shape="rect" id="node6" href="$d4/dd7/movements_8c.html" title="Programme de gestion des mouvements du joueur." alt="" coords="495,80,616,107"/>
+<area shape="rect" id="node7" href="$db/d09/steps_8c.html" title="Programme de gestion de l&#39;historique des déplacements." alt="" coords="640,80,727,107"/>
+<area shape="rect" id="node8" href="$d0/d3e/test_movements_8c.html" title="Programme de test de la gestion des mouvements du joueur." alt="" coords="751,80,893,107"/>
+</map>

@@ -15,12 +15,12 @@
 
 void testMovements(void)
 {
-    char *levelFile = "data/level/levels.lvl";
-    char *saveFile = "data/save/save.lvl";
-    readLevelsFile(levelFile);
-    globalCurrentLevel=levelsNode;
-    initLevel(globalCurrentLevel, 0);
-    
-    configureTerminal();
-    interactionLoop(saveFile);
+	char *levelFile = "data/level/levels.lvl";
+	char *saveFile = "data/save/save.lvl";
+	readLevelsFile(levelFile);
+	globalCurrentLevel = levelsNode;
+	initLevel(globalCurrentLevel, 0);
+
+	configureTerminal();
+	interactionLoop(saveFile);
 }

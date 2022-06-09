@@ -1,0 +1,4 @@
+<map id="Level" name="Level">
+<area shape="rect" id="node1" title="Structure représentant un niveau." alt="" coords="5,95,56,121"/>
+<area shape="rect" id="node2" href="$df/deb/struct_step.html" title="Structure représentant un déplacement." alt="" coords="6,5,55,32"/>
+</map>
