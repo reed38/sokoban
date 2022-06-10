@@ -17,7 +17,7 @@ void testGraphics(void)
 	readLevelsFile("data/level/levels2.lvl");
 
 	configureTerminal();
-	if (levelsNode == NULL || levelsNode->nextLevel == NULL)
+	if (levelsNode == NULL && levelsNode->nextLevel == NULL)
 	{
 		fprintf(stderr, "Besoin d'au moins 2 niveaux pour effectuer le test graphique...\n");
 		return;
