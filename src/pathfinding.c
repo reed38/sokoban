@@ -72,7 +72,7 @@ int manathanDistance(int x1, int y1, int x2, int y2)
     return (abs(x1 - x2) + abs(y1 - y2));
 }
 
-static void initializeNode(Node **tab, int x, int y, int lastGvalue, int xTarget, int yTarget) // position 0 pour diagonale 1 autrement
+static void initializeNode(Node **tab, int x, int y, int lastGvalue, int xTarget, int yTarget) 
 {
     if (tab[y][x].isOpen != 3)
     {
@@ -86,14 +86,14 @@ static void initializeNode(Node **tab, int x, int y, int lastGvalue, int xTarget
             tab[y][x].fCost = newfCost;
             tab[y][x].isOpen = 1;
         }
-        else if (tab[y][x].isOpen == 1 && tab[y][x].fCost > newhCost)
+        else if (tab[y][x].isOpen == 1 && tab[y][x].fCost > newfCost)
         {
 
             tab[y][x].hCost = newhCost;
             tab[y][x].gCost = newgCost;
             tab[y][x].fCost = newfCost;
         }
-        else if (tab[y][x].isOpen == 2 && tab[y][x].fCost > newhCost)
+        else if (tab[y][x].isOpen == 2 && tab[y][x].fCost > newfCost)
         {
             tab[y][x].isOpen = 1;
         }
@@ -122,10 +122,11 @@ Node *findMin(Node **node)
             {
                 currentMin = node[i][j].fCost;
                 result = &node[i][j];
+                    result->isOpen = 2;
+
             }
         }
     }
-    result->isOpen = 2;
     return result;
 }
 
