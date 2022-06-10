@@ -65,7 +65,7 @@ Node **convertToNode(Level *level)
 			tabNode[i][j].x = j;
 			tabNode[i][j].y = i;
 			if (map[i][j] == BOX 
-                || map[i][j] == WALL
+			    || map[i][j] == WALL
 			    || map[i][j] == FULLBOX)
 			{
 				tabNode[i][j].isOpen = 3;
