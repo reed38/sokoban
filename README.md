@@ -53,3 +53,6 @@ Lancer le jeu avec la syntaxe ``./bin/sokoban [chemin d'accès du fichier à cha
 # Problèmes
 
 Aucune erreur de compilation, ou de fuite de mémoire signalée par Valgrind.
+
+
+L’implémentation de l'algorithme A* (pathfinding) n'a pas aboutie... Les fichiers relatifs à la détermination du chemin le plus court ont tout de même été inclus au projet à titre indicatif (pathfinding.c, pathfinding.h, testPathfinding.c).

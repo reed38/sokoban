@@ -1,35 +1,43 @@
+;WALLS
+            12     f     f   ff      0   standard floor
+.           13     f     f   ff      4   target field
+#            0     0     0    0      0   walls
+
+;OBJECTS
+@            0       f       0    101   201    1     0 player
+$            1       f       0    100     0    2  1000 heavy box
+
+;MAXLEVEL 88
+;ATOP *$.
 ;LEVEL 1
-;COMMENT bla bla bla
-;AUTHOR Michu
 ;SUCCESS 0
-;STEPS 1442244
     #####
     #   #
-    #   #
-  ###   ##
-  #      #
+    #$  #
+  ###  $##
+  #  $ $ #
 ### # ## #   ######
-#   # ## #####    #
-#            $   .#
-##### ### #@##    #
+#   # ## #####  ..#
+# $ $@          ..#
+##### ### # ##  ..#
     #     #########
     #######
 ;LEVEL 2
-;COMMENT Les jumelles, le 2
+;SUCCESS 1
 ;AUTHOR Jean-François Copé
-;SUCCESS 0
+;COMMENT Les jumelles, le 2
 ############
 #..  #     ###
 #..  # $  $  #
 #..  #$####  #
-#..    @ ##  #
-#..  # #  $ ##
+#..     @##  #
+#..$ # #  $ ##
 ###### ##$ $ #
   # $  $ $ $ #
   #    #     #
   ############
 ;LEVEL 3
-;SUCCESS 0
+;SUCCESS 1
         ########
         #     @#
         # $#$ ##
@@ -41,7 +49,7 @@
 #....  ##########
 ########
 ;LEVEL 4
-;SUCCESS 0
+;SUCCESS 1
            ########
            #  ....#
 ############  ....#
@@ -72,7 +80,7 @@
           #    #
           ######
 ;LEVEL 6
-;SUCCESS 0
+;SUCCESS 1
 ######  ###
 #..  # ##@##
 #..  ###   #
